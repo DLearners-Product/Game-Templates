@@ -37,7 +37,14 @@ public class Wordle_Main : MonoBehaviour
     public string STR_Word;
     int I_Ccount;
     public List<GameObject> GL_Words;
-    public Sprite SPR_Correct, SPR_Selected, SPR_Normal; 
+    public Sprite SPR_Correct, SPR_Selected, SPR_Normal;
+
+    //*****************************************************************************************************************************
+    public GameObject G_LeftPanelQuestions;
+    public GameObject G_Grid;
+    public GameObject G_TilePrefab;
+    public GameObject G_DummyTilePrefab;
+
 
 
     [Header("Values")]
@@ -47,6 +54,10 @@ public class Wordle_Main : MonoBehaviour
     public string STR_currentQuestionID;
     public int I_Points;
     public int I_wrongAnsCount;
+
+    //*****************************************************************************************************************************
+    public int rows, cols;
+
 
 
 
@@ -109,8 +120,8 @@ public class Wordle_Main : MonoBehaviour
         }
         else
         {
-           // URL = "http://103.117.180.121:8000/test/Game_template_api-s/game_template_1.php"; // UAT FETCH DATA
-           // SendValueURL = "http://103.117.180.121:8000/test/Game_template_api-s/save_child_questions.php"; // UAT SEND DATA
+            // URL = "http://103.117.180.121:8000/test/Game_template_api-s/game_template_1.php"; // UAT FETCH DATA
+            // SendValueURL = "http://103.117.180.121:8000/test/Game_template_api-s/save_child_questions.php"; // UAT SEND DATA
 
             URL = "http://20.120.84.12/Test/template_and_games/Game_template_api-s/game_template_1.php"; // UAT FETCH DATA
             SendValueURL = "http://20.120.84.12/Test/template_and_games/Game_template_api-s/save_child_questions.php"; // UAT SEND DATA
@@ -119,6 +130,8 @@ public class Wordle_Main : MonoBehaviour
     }
     void Start()
     {
+        //grid generation
+        GenerateGrid();
 
         G_Game.SetActive(false);
         B_CloseDemo = true;
@@ -135,6 +148,7 @@ public class Wordle_Main : MonoBehaviour
         Invoke("THI_gameData", 1f);
 
         I_currentQuestionCount = -1;
+
     }
     private void Update()
     {
@@ -148,11 +162,11 @@ public class Wordle_Main : MonoBehaviour
         {
             Vector2 worldpoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D Hit = Physics2D.Raycast(worldpoint, Vector2.zero);
-           
+
             if (Hit.collider != null)
             {
                 G_Selected = Hit.collider.gameObject;
-              
+
                 THI_Words();
                 G_Selected.GetComponent<Collider2D>().enabled = false;
             }
@@ -168,11 +182,11 @@ public class Wordle_Main : MonoBehaviour
     }
     public void THI_Words()
     {
-       
+
         G_Selected.GetComponent<Image>().sprite = SPR_Selected;
         string currentletter = G_Selected.name;
         STR_Word = STR_Word + currentletter;
-       // Debug.Log("Word = " + STR_Word);
+        // Debug.Log("Word = " + STR_Word);
         GL_Words.Add(G_Selected);
         if (STR_Word.Length == 1)
         {
@@ -194,10 +208,10 @@ public class Wordle_Main : MonoBehaviour
         {
             B_Wrong = true;
             STR_currentSelectedAnswer = STR_Word;
-            
+
             STR_Word = "";
             B_End = false;
-           
+
             for (int i = 0; i < STRL_questions.Count; i++)
             {
                 if (STRL_questions[i].Contains(STR_currentSelectedAnswer))
@@ -214,24 +228,24 @@ public class Wordle_Main : MonoBehaviour
                 {
                     B_CanClick = false;
                     B_Wrong = false;
-                   
+
                     THI_TrackGameData("1");
 
                     G_Rocket.GetComponent<Animator>().Play("RocketCorrect");
-                   
+
                     BG_Move = true;
 
                     G_QuestionParent.transform.GetChild(i).GetComponent<TextMeshProUGUI>().color = Color.white;
                     for (int k = 0; k < GL_Words.Count; k++)
                     {
-                        GL_Words[k].GetComponent<Image>().sprite = SPR_Correct;                       
+                        GL_Words[k].GetComponent<Image>().sprite = SPR_Correct;
                     }
-                  //  if (I_Ccount < 9) { I_Ccount++; } else { I_Ccount = 0; }
+                    //  if (I_Ccount < 9) { I_Ccount++; } else { I_Ccount = 0; }
                     I_currentQuestionCount++;
-                  
+
                     TEX_questionCount.text = "" + I_currentQuestionCount + "/" + (STRL_questions.Count);
 
-                    if(I_currentQuestionCount==STRL_questions.Count)
+                    if (I_currentQuestionCount == STRL_questions.Count)
                     {
                         Invoke(nameof(THI_Last), 5f);
                     }
@@ -293,7 +307,7 @@ public class Wordle_Main : MonoBehaviour
 
     void THI_gameData()
     {
-         // THI_getPreviewData();
+        // THI_getPreviewData();
         if (MainController.instance.mode == "live")
         {
             StartCoroutine(EN_getValues()); // live game in portal
@@ -315,20 +329,20 @@ public class Wordle_Main : MonoBehaviour
     void THI_Transition()
     {
 
-       // G_Question.SetActive(false);
+        // G_Question.SetActive(false);
         G_Transition.SetActive(true);
-        
+
 
         Invoke(nameof(THI_NextQuestion), 2f);
     }
 
-  
+
 
 
     public void THI_NextQuestion()
     {
 
-        
+
         G_Transition.SetActive(false);
         if (I_currentQuestionCount < STRL_questions.Count - 1)
         {
@@ -336,22 +350,22 @@ public class Wordle_Main : MonoBehaviour
             I_currentQuestionCount++;
 
 
-            
-           // STR_currentQuestionID = STRL_questionID[I_currentQuestionCount];
+
+            // STR_currentQuestionID = STRL_questionID[I_currentQuestionCount];
             int currentquesCount = I_currentQuestionCount + 1;
             TEX_questionCount.text = currentquesCount + "/" + STRL_questions.Count;
             // STR_currentQuestionAnswer = STRL_answers[I_currentQuestionCount];
             //  G_Question.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = STRL_questions[I_currentQuestionCount];
             //  G_Question.transform.GetChild(0).GetComponent<AudioSource>().clip = ACA__questionClips[I_currentQuestionCount];
 
-            for(int i=0;i<STRL_questions.Count;i++)
+            for (int i = 0; i < STRL_questions.Count; i++)
             {
                 GameObject Q_Dummy = Instantiate(G_QuestionPrefab);
                 Q_Dummy.GetComponent<TextMeshProUGUI>().text = STRL_questions[i];
                 Q_Dummy.GetComponent<AudioSource>().clip = ACA__questionClips[i];
                 Q_Dummy.transform.SetParent(G_QuestionParent.transform, false);
             }
-            
+
 
             if (IL_numbers[3] == 1)
             {
@@ -401,9 +415,9 @@ public class Wordle_Main : MonoBehaviour
     }
 
 
-   
 
-   
+
+
 
     void THI_WrongEffect()
     {
@@ -412,13 +426,13 @@ public class Wordle_Main : MonoBehaviour
 
             if (STR_difficulty == "assistive")
             {
-              
+
 
                 //Show answer and move to next question
             }
             if (STR_difficulty == "intuitive")
             {
-               
+
                 //Show answer and after click next question
             }
 
@@ -428,7 +442,7 @@ public class Wordle_Main : MonoBehaviour
         {
             if (STR_difficulty == "independent")
             {
-               
+
             }
             //next question
         }
@@ -582,7 +596,7 @@ public class Wordle_Main : MonoBehaviour
             I_wrongPoints = IL_numbers[2];
             MainController.instance.I_TotalQuestions = STRL_questions.Count;
 
-           
+
 
             StartCoroutine(EN_getAudioClips());
             StartCoroutine(IN_CoverImage());
@@ -676,8 +690,8 @@ public class Wordle_Main : MonoBehaviour
         I_wrongPoints = IL_numbers[2];
         MainController.instance.I_TotalQuestions = STRL_questions.Count;
 
-        
-        
+
+
         StartCoroutine(EN_getAudioClips());
         StartCoroutine(IN_CoverImage());
 
@@ -739,7 +753,59 @@ public class Wordle_Main : MonoBehaviour
     {
         Time.timeScale = 1;
         G_instructionPage.SetActive(false);
-      
-    }
-}
 
+    }
+
+    public int GetWordsCharacterCount()
+    {
+        int totalCharCount = 0;
+        int eachWordCount = 0;
+
+        for (int i = 0; i < G_LeftPanelQuestions.transform.childCount; i++)
+        {
+            foreach (char c in G_LeftPanelQuestions.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text)
+            {
+                eachWordCount++;
+            }
+            totalCharCount += eachWordCount;
+        }
+
+        return totalCharCount;
+    }
+
+
+
+    public void GenerateGrid()
+    {
+        int totalCharCount = GetWordsCharacterCount();
+        Debug.Log(totalCharCount);
+
+        for (int i = 0; i < cols; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                GameObject tile = Instantiate(G_TilePrefab) as GameObject;
+                tile.transform.position = new Vector3(i * 1f, j * 1f, 25f);
+
+                //calculate required dummy tiles needed and insert it
+                GameObject dummyTile = Instantiate(G_DummyTilePrefab) as GameObject;
+
+                /*if ()
+                {
+
+                }
+                else
+                {
+
+                }*/
+
+                tile.transform.SetParent(G_Grid.transform);
+                tile.transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+    }
+
+
+
+
+}
