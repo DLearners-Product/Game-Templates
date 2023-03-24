@@ -6,9 +6,10 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
-public class Wordle_Main : MonoBehaviour
+
+public class Snail_Word_Game_Main : MonoBehaviour
 {
-    public static Wordle_Main Instance;
+    public static Snail_Word_Game_Main Instance;
     public bool B_production;
 
     [Header("Screens and UI elements")]
@@ -39,6 +40,15 @@ public class Wordle_Main : MonoBehaviour
     public List<GameObject> GL_Words;
     public Sprite SPR_Correct, SPR_Selected, SPR_Normal;
 
+
+    //*****************************************************************************************************************************
+    public GameObject G_LeftPanelQuestions;
+    public GameObject G_Grid;
+    public GameObject G_TilePrefab;
+    public GameObject G_DummyTilePrefab;
+    public TextMeshProUGUI G_CurrWord;
+
+
     [Header("Values")]
     public string STR_currentQuestionAnswer;
     public string STR_currentSelectedAnswer;
@@ -46,6 +56,14 @@ public class Wordle_Main : MonoBehaviour
     public string STR_currentQuestionID;
     public int I_Points;
     public int I_wrongAnsCount;
+
+
+    //*****************************************************************************************************************************
+    public int rows, cols = 6;
+    public List<char> charList;
+    public Stack<string> currWordStack;
+    public string currWord;
+
 
     [Header("URL")]
     public string URL;
@@ -116,6 +134,14 @@ public class Wordle_Main : MonoBehaviour
     }
     void Start()
     {
+        //grid generation
+        GenerateGrid();
+        charList = new List<char>();
+        currWordStack = new Stack<string>();
+
+
+
+
         G_Game.SetActive(false);
         B_CloseDemo = true;
 
@@ -737,6 +763,59 @@ public class Wordle_Main : MonoBehaviour
         Time.timeScale = 1;
         G_instructionPage.SetActive(false);
 
+    }
+
+    public int GetWordsCharacterCount()
+    {
+        int charCount = 0;
+
+        for (int i = 0; i < G_LeftPanelQuestions.transform.childCount; i++)
+        {
+            foreach (char c in G_LeftPanelQuestions.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text)
+            {
+                charCount++;
+                //string temp = c.ToString();
+                //charList.Add(c);
+            }
+        }
+
+        return charCount;
+    }
+
+    public void GenerateGrid()
+    {
+        int totalCharCount = GetWordsCharacterCount();
+
+        int count = 0;
+        for (int i = 0; i < cols; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                GameObject tile = Instantiate(G_TilePrefab);
+                tile.transform.SetParent(G_Grid.transform, false);
+                tile.transform.position = new Vector3(i * 1.4f, j * 1.4f, 0f);
+                //tile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = charList[count];
+                count++;
+            }
+
+        }
+
+    }
+
+    public void OnClickTile(bool isPressed, string letter)
+    {
+        if (isPressed)
+        {
+            currWordStack.Push(letter);
+            currWord += letter;
+        }
+        else
+        {
+            currWordStack.Pop();
+            currWord = currWord + "\b";
+        }
+
+        G_CurrWord.text = currWord;
     }
 
 
