@@ -56,8 +56,8 @@ public class Wordle_Main : MonoBehaviour
     public int I_wrongAnsCount;
 
     //*****************************************************************************************************************************
-    public int rows, cols;
-
+    public int rows, cols = 6;
+    List<string> charList;
 
 
 
@@ -132,6 +132,12 @@ public class Wordle_Main : MonoBehaviour
     {
         //grid generation
         GenerateGrid();
+        charList = new List<string>();
+
+
+
+
+
 
         G_Game.SetActive(false);
         B_CloseDemo = true;
@@ -755,57 +761,6 @@ public class Wordle_Main : MonoBehaviour
         G_instructionPage.SetActive(false);
 
     }
-
-    public int GetWordsCharacterCount()
-    {
-        int totalCharCount = 0;
-        int eachWordCount = 0;
-
-        for (int i = 0; i < G_LeftPanelQuestions.transform.childCount; i++)
-        {
-            foreach (char c in G_LeftPanelQuestions.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text)
-            {
-                eachWordCount++;
-            }
-            totalCharCount += eachWordCount;
-        }
-
-        return totalCharCount;
-    }
-
-
-
-    public void GenerateGrid()
-    {
-        int totalCharCount = GetWordsCharacterCount();
-        Debug.Log(totalCharCount);
-
-        for (int i = 0; i < cols; i++)
-        {
-            for (int j = 0; j < rows; j++)
-            {
-                GameObject tile = Instantiate(G_TilePrefab) as GameObject;
-                tile.transform.position = new Vector3(i * 1f, j * 1f, 25f);
-
-                //calculate required dummy tiles needed and insert it
-                GameObject dummyTile = Instantiate(G_DummyTilePrefab) as GameObject;
-
-                /*if ()
-                {
-
-                }
-                else
-                {
-
-                }*/
-
-                tile.transform.SetParent(G_Grid.transform);
-                tile.transform.localScale = new Vector3(1, 1, 1);
-            }
-        }
-    }
-
-
 
 
 }
