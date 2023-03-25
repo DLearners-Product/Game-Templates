@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,15 +17,11 @@ public class Word_Tile : MonoBehaviour
 
     public void OnClickTile()
     {
-        if (isPressed)
-        {
-            isPressed = false;
-        }
-        else
-        {
-            isPressed = true;
-        }
+        Snail_Word_Game_Main.Instance.OnClickTile(gameObject);
+    }
 
-        Snail_Word_Game_Main.Instance.OnClickTile(isPressed, letter);
+    public static implicit operator Word_Tile(GameObject v)
+    {
+        return v.GetComponent<Word_Tile>();
     }
 }
