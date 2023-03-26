@@ -61,7 +61,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
     //*****************************************************************************************************************************
     public int rows, cols = 6;
     public List<string> charList;
-    public Stack<string> currWordStack;
+    public Stack<Word_Tile> currWordStack;
     public string currWord;
 
 
@@ -134,10 +134,14 @@ public class Snail_Word_Game_Main : MonoBehaviour
     }
     void Start()
     {
+
+
+
+
         //grid generation
-        GenerateGrid();
+        //GenerateGrid();
         charList = new List<string>();
-        currWordStack = new Stack<string>();
+        currWordStack = new Stack<Word_Tile>();
 
 
 
@@ -786,10 +790,10 @@ public class Snail_Word_Game_Main : MonoBehaviour
     {
         int totalCharCount = GetWordsCharacterCount();
 
-        if (totalCharCount < 35)
-        {
-            cols = 
-        }
+        //if (totalCharCount < 35)
+        //{
+        //    cols = 5;
+        //}
 
         int count = 0;
         for (int i = 0; i < cols; i++)
@@ -800,18 +804,18 @@ public class Snail_Word_Game_Main : MonoBehaviour
                 //Debug.Log(" i = " + i + " | j = " + j + " | count = " + count + " | charList(" + count + ") = " + charList[count]);
                 if (count > totalCharCount - 1)
                 {
-                    Debug.Log("dummy prefab created");
                     tile = Instantiate(G_DummyTilePrefab);
                 }
                 else
                 {
                     tile = Instantiate(G_TilePrefab);
                     tile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = charList[count];
+                    count++;
                 }
 
                 tile.transform.SetParent(G_Grid.transform, false);
-                tile.transform.position = new Vector3(i * 1.25f, j * 1.25f, 0f);
-                count++;
+                tile.transform.position = new Vector3(i * 1.25f, -j * 1.25f, 0f);
+
             }
 
         }
@@ -836,22 +840,61 @@ public class Snail_Word_Game_Main : MonoBehaviour
 
 
 
-        Word_Tile go = gameObject;
-        if (go.isPressed == false)
-        {
-            currWordStack.Push(go.letter);
-            go.isPressed = true;
-            currWord += go.letter;
-        }
-        else if (currWordStack.Peek() == go.letter)
-        {
-            currWordStack.Pop();
-            go.isPressed = false;
-            currWord = currWord.Remove(currWord.Length - 1, 1);
-        }
+        //Word_Tile go = gameObject;
+        //if (go.isPressed == false)
+        //{
+        //    currWordStack.Push(go.letter);
+        //    go.isPressed = true;
+        //    currWord += go.letter;
+        //}
+        //else if (currWordStack.Peek() == go.letter)
+        //{
+        //    currWordStack.Pop();
+        //    go.isPressed = false;
+        //    currWord = currWord.Remove(currWord.Length - 1, 1);
+        //}
 
 
     }
 
+    public void AddToStack(Word_Tile tile)
+    {
+        currWordStack.Push(tile);
+
+        //form the word
+        currWord += tile.letter;
+        UpdateWord();
+    }
+
+    public void RemoveFromStack()
+    {
+        currWordStack.Pop();
+        currWord = currWord.Remove(currWord.Length - 1, 1);
+        UpdateWord();
+    }
+
+    public void UpdateWord()
+    {
+        G_CurrWord.text = currWord;
+        WordFormationCheck();
+    }
+
+    public void WordFormationCheck()
+    {
+        Debug.Log(currWord);
+        if (currWord == "then")      //STRL_questions.Contains(currWord)
+        {
+            while (currWordStack.Count > 0)
+            {
+                Word_Tile tile = currWordStack.Pop();
+                tile.gameObject.SetActive(false);
+            }
+
+            currWord = "";
+            G_CurrWord.text = currWord;
+
+        }
+
+    }
 
 }
