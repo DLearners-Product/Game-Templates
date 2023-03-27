@@ -193,10 +193,11 @@ public class Snail_Word_Game_Main : MonoBehaviour
             G_BG.transform.Translate(Vector3.down * 2f * Time.deltaTime);
         }
     }
+
     public void THI_Words()
     {
 
-        G_Selected.GetComponent<Image>().sprite = SPR_Selected;
+        /*G_Selected.GetComponent<Image>().sprite = SPR_Selected;
         string currentletter = G_Selected.name;
         STR_Word = STR_Word + currentletter;
         // Debug.Log("Word = " + STR_Word);
@@ -207,7 +208,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
             {
                 THI_Start();
             }
-        }
+        }*/
 
     }
     public void THI_Start()
@@ -881,13 +882,14 @@ public class Snail_Word_Game_Main : MonoBehaviour
 
     public void WordFormationCheck()
     {
-        Debug.Log(currWord);
-        if (currWord == "then")      //STRL_questions.Contains(currWord)
+        //Debug.Log(currWord);
+        if (currWord == "them" || currWord == "stop")      //STRL_questions.Contains(currWord)
         {
             while (currWordStack.Count > 0)
             {
                 Word_Tile tile = currWordStack.Pop();
                 tile.gameObject.SetActive(false);
+
             }
 
             currWord = "";

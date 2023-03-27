@@ -10,21 +10,25 @@ public class Word_Tile : MonoBehaviour
     public bool isPressed;
     public string letter;
 
+    private Color defaultColor;
+
 
     private void Start()
     {
         isPressed = false;
         letter = transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        defaultColor = gameObject.GetComponent<Image>().color;
     }
 
     public void OnClickTile()
     {
+
         if (isPressed)
         {
             if (Snail_Word_Game_Main.Instance.currWordStack.Peek() == this)
             {
                 isPressed = false;
-                gameObject.GetComponent<Image>().color = Color.white;
+                gameObject.GetComponent<Image>().color = defaultColor;
                 Snail_Word_Game_Main.Instance.RemoveFromStack();
             }
         }
@@ -36,9 +40,5 @@ public class Word_Tile : MonoBehaviour
         }
     }
 
-    public static implicit operator Word_Tile(GameObject v)
-    {
-        return v.GetComponent<Word_Tile>();
-    }
 
 }

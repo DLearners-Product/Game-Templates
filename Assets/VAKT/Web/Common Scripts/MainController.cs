@@ -82,11 +82,11 @@ public class MainController : MonoBehaviour
 
 
             // testing
-              //STR_childID = "336";
-               //mode = "live";
+            //STR_childID = "336";
+            //mode = "live";
 
             // Live ID's
-             // STR_GameID = "537"; //train sorting
+            // STR_GameID = "537"; //train sorting
             //  STR_GameID = "619"; //fish sorting
             //  STR_GameID = "404"; //fruit ninja
             //  STR_GameID = "322"; //Domino arrange
@@ -155,26 +155,26 @@ public class MainController : MonoBehaviour
     private void Start()
     {
         I_loadTime = Random.Range(15, 51);
-     //   Debug.Log("Load Time :  " + I_loadTime);
+        //   Debug.Log("Load Time :  " + I_loadTime);
     }
 
     private void Update()
     {
         if (WEB)
         {
-            if (STR_GameID != "" && STR_childID!="" && !called) // live
+            if (STR_GameID != "" && STR_childID != "" && !called) // live
             {
                 called = true;
                 G_GameManager.SetActive(true);
             }
-            if(STR_GameID==""&& STR_childID == "" && !called && mode=="preview") // preview
+            if (STR_GameID == "" && STR_childID == "" && !called && mode == "preview") // preview
             {
                 called = true;
                 G_GameManager.SetActive(true);
-               // G_coverPage.SetActive(false);
+                // G_coverPage.SetActive(false);
             }
         }
-        if(MOBILE)
+        if (MOBILE)
         {
             if (STR_GameID != "" && STR_childID != "" && !called)
             {
@@ -184,18 +184,18 @@ public class MainController : MonoBehaviour
         }
 
 
-        if (called && startLoad<100f)
+        if (called && startLoad < 100f)
         {
             startLoad = startLoad + I_loadTime * Time.deltaTime;
             IM_loading.fillAmount = startLoad / maxLoad;
-            if(startLoad>= maxLoad)
+            if (startLoad >= maxLoad)
             {
                 G_coverPageStart.GetComponent<Button>().interactable = true;
                 G_coverPageStart.GetComponent<Animator>().enabled = true;
                 IM_loading.transform.parent.GetChild(1).gameObject.SetActive(true);
             }
         }
-        if(!G_coverPage.activeInHierarchy && !B_enteredGame) // player has entered the game
+        if (!G_coverPage.activeInHierarchy && !B_enteredGame) // player has entered the game
         {
             B_enteredGame = true;
 
