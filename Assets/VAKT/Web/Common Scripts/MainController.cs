@@ -67,23 +67,24 @@ public class MainController : MonoBehaviour
         //  Debug.Log("WEB");
 #endif
 
-        //MOBILE = false;
-        //WEB = true;
+        MOBILE = false;
+        WEB = true;
         //if (MOBILE)
         //{
         //    STR_GameID = GameManager.instance.STR_selectedGameID;
         //    G_GameManager.SetActive(false);
         //    G_GameID.SetActive(false);
         //}
-        //if (WEB)
+        if (WEB)
         {
-            //G_GameManager.SetActive(false);
-            //G_GameID.SetActive(true);
+            G_GameManager.SetActive(false);
+            G_GameID.SetActive(true);
 
 
             // testing
-            //STR_childID = "336";
-            //mode = "live";
+            //  STR_childID = "336";
+            mode = "live";
+            mode = "preview";
 
             // Live ID's
             // STR_GameID = "537"; //train sorting

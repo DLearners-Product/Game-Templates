@@ -47,6 +47,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
     public GameObject G_TilePrefab;
     public GameObject G_DummyTilePrefab;
     public TextMeshProUGUI G_CurrWord;
+    public List<TextMeshProUGUI> G_LettersList;
 
 
     [Header("Values")]
@@ -142,7 +143,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
         //GenerateGrid();
         charList = new List<string>();
         currWordStack = new Stack<Word_Tile>();
-
+        Invoke("ArrangeWords", 2f);
 
 
 
@@ -883,7 +884,8 @@ public class Snail_Word_Game_Main : MonoBehaviour
     public void WordFormationCheck()
     {
         //Debug.Log(currWord);
-        if (currWord == "them" || currWord == "stop")      //STRL_questions.Contains(currWord)
+        if (currWord == "stop" || currWord == "take" || currWord == "them" || currWord == "then" || currWord == "thank" || currWord == "always"
+            || currWord == "around" || currWord == "because" || currWord == "been" || currWord == "before")      //STRL_questions.Contains(currWord)
         {
             while (currWordStack.Count > 0)
             {
@@ -897,6 +899,29 @@ public class Snail_Word_Game_Main : MonoBehaviour
 
         }
 
+    }
+
+    public void ArrangeWords()
+    {
+        Debug.Log("arranging the words");
+
+
+        for (int i = 0; i < G_LettersList.Count; i++)
+        {
+            if (i > charList.Count - 1)
+            {
+
+            }
+            else
+            {
+                G_LettersList[i].text = charList[i];
+            }
+
+
+
+
+
+        }
     }
 
 }

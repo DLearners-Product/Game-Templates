@@ -1,51 +1,146 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SnailController : MonoBehaviour
 {
-    private float dirX;
-    private float moveSpeed;
-    private Rigidbody2D rb;
-    private bool facingRight = false;
-    private Vector3 localScale;
+    public Vector3 direction;
+    public float snailSpeed;
     public float rayDepth = 5f;
 
-    public Transform tileDetection;
+    public RectTransform characterRectTransform;
     public Transform fallDetection;
+
+    public LayerMask borderLayer;
+
+
+
+
+    public float moveSpeed = 5f;
+    public float blockDetectDistance = 0.5f;
+
+    private Rigidbody2D rb;
+    private bool movingRight = true;
+    private Transform leftBlock;
+    private Transform rightBlock;
 
     // Start is called before the first frame update
     void Start()
     {
-        localScale = transform.localScale;
-        rb = GetComponent<Rigidbody2D>();
-        dirX = -1f;
-        moveSpeed = 1f;
+        direction = Vector3.right;
+        snailSpeed = 0.01f;
+    }
+
+
+    private void Update()
+    {
+        CheckAndMove();
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        Debug.Log(collision.gameObject.name, collision.gameObject);
-
         if (collision.gameObject.CompareTag("TileBody"))
         {
-            dirX *= -1f;
-        }
+            if (direction == Vector3.left)
+            {
+                direction = Vector3.right;
+                characterRectTransform.localScale = new Vector3(1, 1, 1);
 
+            }
+            else
+            {
+                direction = Vector3.left;
+                characterRectTransform.localScale = new Vector3(-1, 1, 1);
+
+            }
+        }
     }
 
-    private void FixedUpdate()
+    public void CheckAndMove()
     {
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        RaycastHit2D tileInfo = Physics2D.Raycast(tileDetection.position, Vector2.down, rayDepth);
-        RaycastHit2D fallInfo = Physics2D.Raycast(fallDetection.position, Vector2.down, rayDepth);
 
-        if (tileInfo == false && fallInfo.collider == false)
+        transform.Translate(direction * snailSpeed);
+
+
+
+
+
+
+
+        /*        RaycastHit2D frontHit = Physics2D.Raycast(characterRectTransform.position, direction, rayDepth, borderLayer);
+                RaycastHit2D backHit = Physics2D.Raycast(characterRectTransform.position, -direction, rayDepth, borderLayer);
+
+                Debug.Log("front " + frontHit);
+                Debug.Log("front collider" + frontHit.collider);
+                Debug.Log(frontHit.collider == null);
+
+                Debug.Log("back " + backHit);
+                Debug.Log("back collider " + backHit.collider);
+
+                if (frontHit != true && frontHit.collider.gameObject.CompareTag("TileBody"))
+                {
+                    Debug.Log("front");
+
+                    Debug.DrawRay(characterRectTransform.position, direction, Color.green);
+                    ChangeDirection();
+                    return;
+                }
+                else if (backHit != true && backHit.collider.gameObject.CompareTag("TileBody"))
+                {
+                    Debug.Log("back");
+
+                    Debug.DrawRay(characterRectTransform.position, -direction, Color.red);
+                    ChangeDirection();
+                    return;
+                }
+
+                transform.Translate(direction * snailSpeed);*/
+
+
+        /*if (frontHit.collider != null)
         {
-            rb.velocity = Vector2.zero;
+            if (frontHit.collider.CompareTag("TileBody"))
+            {
+                if (direction == Vector3.left)
+                {
+                    direction = Vector3.right;
+                    characterRectTransform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    direction = Vector3.left;
+                    characterRectTransform.localScale = new Vector3(-1, 1, 1);
+                }
+            }
+
+
+            Debug.DrawRay(characterRectTransform.position, direction, Color.green);
+            transform.Translate(direction * snailSpeed);
         }
+        else
+        {
+
+        }*/
+
+
+        /* Ray downray = new Ray(fallDetection.position, Vector3.down);
+         RaycastHit downHitInfo;
+         if (Physics.Raycast(downray, out downHitInfo, rayDepth))
+         {
+             //if ray hits Wall, don't move the player
+             if (!downHitInfo.collider.CompareTag("TileBody"))
+             {
+                 Debug.Log("bottom ray hitting");
+
+                 return;
+             }
+         }*/
+
+
+        transform.Translate(direction * snailSpeed);
     }
 
     void LateUpdate()
@@ -55,15 +150,7 @@ public class SnailController : MonoBehaviour
 
     void CheckWhereToFace()
     {
-        if (dirX > 0)
-            facingRight = true;
-        else if (dirX < 0)
-            facingRight = false;
 
-        if (((facingRight) && (localScale.x < 0)) || ((!facingRight) && (localScale.x > 0)))
-            localScale.x *= -1;
-
-        transform.localScale = localScale;
     }
 }
 
