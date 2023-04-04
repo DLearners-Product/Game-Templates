@@ -40,5 +40,30 @@ public class Word_Tile : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject != gameObject){
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
+    }
+
+    // private void OnTriggerStay2D(Collider2D other)
+    // {
+    //     // if(!GameObject.ReferenceEquals(other.gameObject, gameObject)){
+    //     Debug.Log($"{other.gameObject.name} - {other.gameObject.GetInstanceID() == gameObject.GetInstanceID()} other : {other.gameObject.GetInstanceID()} current : {gameObject.GetInstanceID()}", gameObject);
+    //     // Debug.Log();
+    //     // }
+    // }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject != gameObject)
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    public void CheckBelowObjectDestroyed(){
+
+    }
 
 }
