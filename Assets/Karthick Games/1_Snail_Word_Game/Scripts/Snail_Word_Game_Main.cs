@@ -182,7 +182,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
                 G_Selected = Hit.collider.gameObject;
 
                 THI_Words();
-                G_Selected.GetComponent<Collider2D>().enabled = false;
+                // G_Selected.GetComponent<Collider2D>().enabled = false;
             }
         }
         if (Input.GetMouseButtonUp(0))
