@@ -903,7 +903,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
 
     public void ArrangeWords()
     {
-        Debug.Log("arranging the words");
+        // Debug.Log("arranging the words");
 
 
         for (int i = 0; i < G_LettersList.Count; i++)

@@ -23,6 +23,18 @@ public class SnailGameManager : MonoBehaviour
 
 
 
+
+    private List<GameObject> aboveGameObjectsList = new List<GameObject>();
+    private List<GameObject> belowGameObjectsList = new List<GameObject>();
+    private List<GameObject> cascadeGameObjectsList = new List<GameObject>();
+    private string aboveCellName = "";
+    private int r = 0, c = 0;
+
+
+
+
+
+
     void Start()
     {
         GridSizeCalculator(40);
@@ -175,21 +187,28 @@ public class SnailGameManager : MonoBehaviour
         // Implement your word checking logic here
         if (sb.ToString() == check)
         {
-            ClearFormedWord();
+            StartCoroutine(ClearFormedWord());
             // Add your code here to handle successful word formation
         }
     }
 
 
-    private void ClearFormedWord()
+    IEnumerator ClearFormedWord()
     {
-        GameObject aboveGameObject = null;
-        string aboveCellName = "";
-        int r = 0, c = 0;
+        // clearing the word
+        sb.Clear();
+        TXT_Word.text = sb.ToString();
 
+
+        // cascading cells
+        //for each letter in the wordStack, cascade above cells to below
         for (int i = 0; i < wordStack.Count; i++)
         {
             wordStack[i].SetActive(false);
+
+            // belowGameObjectsList[0] = wordStack[i];
+            cascadeGameObjectsList.Add(wordStack[i]);
+            Debug.Log(cascadeGameObjectsList[0].name);
 
             r = int.Parse((wordStack[i].name[0]).ToString());
             c = int.Parse((wordStack[i].name[1]).ToString());
@@ -197,27 +216,65 @@ public class SnailGameManager : MonoBehaviour
             while (r > 0)
             {
                 aboveCellName = "" + (r - 1) + c;
-
                 foreach (Transform child in gridParent)
                 {
                     if (aboveCellName == child.name)
                     {
-                        child.GetComponent<LetterController>().Move(child.transform.position, wordStack[i].transform.position);
+                        cascadeGameObjectsList.Add(child.gameObject);
+                        Debug.Log(child.gameObject.name);
+                        r--;
                         break;
                     }
                 }
-
-                r--;
             }
 
 
+
+            // while (r > 0)
+            // {
+            //     aboveCellName = "" + (r - 1) + c;
+            //     foreach (Transform child in gridParent)
+            //     {
+            //         if (aboveCellName == child.name)
+            //         {
+            //             child.GetComponent<LetterController>().Move(child.transform.position, wordStack[i].transform.position);
+            //             break;
+            //         }
+            //     }
+            //     r--;
+            // }
         }
 
-        sb.Clear();
-        TXT_Word.text = sb.ToString();
+        // 32   0
+        // 22   1   
+        // 12   2
+        // 02   3
+
+        // for (int i = 0; i < cascadeGameObjectsList.Count - 1; i++)
+        // {
+        //     CascadeCells(cascadeGameObjectsList[i + 1], cascadeGameObjectsList[i]);
+        //     yield return new WaitForSeconds(0.5f);
+        // }
+
+        for (int i = cascadeGameObjectsList.Count - 1; i >= 0; i--)
+        {
+            CascadeCells(cascadeGameObjectsList[i], cascadeGameObjectsList[i - 1]);
+            // yield return new WaitForSeconds(0.26f);
+            yield return null;
+
+        }
+
+        cascadeGameObjectsList.Clear();
+        r = 0;
+        c = 0;
+        yield return null;
     }
 
 
+    private void CascadeCells(GameObject from, GameObject to)
+    {
+        from.GetComponent<LetterController>().Move(from.transform.position, to.transform.position);
+    }
 
 
 }
