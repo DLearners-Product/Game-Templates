@@ -8,6 +8,10 @@ using TMPro;
 public class LetterController : MonoBehaviour
 {
 
+    [SerializeField] private Sprite[] SPRA_Tiles;
+
+
+
     private bool isClicked;
     private SnailGameManager REF_SnailGameManager;
     private float elapsedTime, desiredDuration = 0.5f;
@@ -23,7 +27,7 @@ public class LetterController : MonoBehaviour
     {
         if (isClicked)
         {
-            GetComponentInChildren<Image>().color = Color.white;
+            GetComponentInChildren<Image>().sprite = SPRA_Tiles[0];
             REF_SnailGameManager.RemoveLetter();
             isClicked = false;
 
@@ -31,10 +35,12 @@ public class LetterController : MonoBehaviour
         }
         else
         {
-            GetComponentInChildren<Image>().color = Color.green;
+            GetComponentInChildren<Image>().sprite = SPRA_Tiles[1];
             REF_SnailGameManager.AddLetter(gameObject);
             isClicked = true;
         }
+
+        AudioManager.Instance.PlayButtonClick();
     }
 
 
@@ -60,12 +66,16 @@ public class LetterController : MonoBehaviour
     }
 
 
+    public void PlayParticles()
+    {
+        GetComponentInChildren<ParticleSystem>().Play();
+    }
 
 
-
-
-
-
+    public void DisableGameObject()
+    {
+        gameObject.SetActive(false);
+    }
 
 
 
