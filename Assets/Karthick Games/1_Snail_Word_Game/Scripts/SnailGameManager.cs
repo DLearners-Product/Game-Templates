@@ -33,6 +33,8 @@ public class SnailGameManager : MonoBehaviour
     [SerializeField] private GameObject G_Fruit;
     [SerializeField] private GameObject[] GA_GridBGCategory;
     [SerializeField] private GameObject G_TransparentScreen;
+    [SerializeField] private GameObject G_Scroll;
+    [SerializeField] private GameObject G_WinWindow;
 
     [Space(10)]
 
@@ -58,6 +60,8 @@ public class SnailGameManager : MonoBehaviour
     private float elapsedTime_Color, desiredDuration_Color = 0.5f;
     private List<string> foundWordList = new List<string>();
     private List<char> shuffledChars;
+    private int remainingCharsNeeded;
+    private int index;
 
 
 
@@ -66,13 +70,14 @@ public class SnailGameManager : MonoBehaviour
         SB_WordFormed = new StringBuilder();
         SB_TotalWords = new StringBuilder();
         wordStack = new List<GameObject>();
+        shuffledChars = new List<char>();
         lastClickedLetter = null;
 
         ChangeCursor();
+        PrepareWordList();
         CalculateGridLength();
         GridSizeCalculator(gridLength);
         GenerateGrid(cellPrefab);
-        PrepareWordList();
     }
 
 
@@ -87,6 +92,7 @@ public class SnailGameManager : MonoBehaviour
 
     private void PrepareWordList()
     {
+        //appending input words to string builder
         for (int i = 0; i < TXTA_Words.Length; i++)
         {
             TXTA_Words[i].text = wordList[i];
@@ -137,6 +143,16 @@ public class SnailGameManager : MonoBehaviour
         }
 
         GA_GridBGCategory[I_GridCategory].SetActive(true);
+
+        //appending remaining characters to total words string builder
+        remainingCharsNeeded = (rows * columns) - SB_TotalWords.Length;
+        for (int i = 0; i < remainingCharsNeeded; i++)
+        {
+            SB_TotalWords.Append(GetRandomLetter());
+        }
+
+        //and shuffling i
+        shuffledChars = Shuffle(SB_TotalWords.ToString());
     }
 
 
@@ -158,21 +174,19 @@ public class SnailGameManager : MonoBehaviour
                 Vector3 cellPosition = new Vector3(col, row, 0);
 
                 // Instantiate a new grid cell GameObject at the calculated position
-                GameObject cell = Instantiate(cellPrefab, cellPosition, Quaternion.identity);
+                GameObject cell = Instantiate(cellPrefab, cellPosition, Quaternion.identity, gridParent);
 
-                // Set the parent of the grid cell GameObject to this GridGenerator GameObject
-                cell.transform.parent = gridParent;
                 cell.transform.localScale = Vector3.one;
-                cell.GetComponentInChildren<TextMeshProUGUI>().text = GetRandomLetter();
 
-                // Set the name of the grid cell GameObject for easy identification
-                // cell.name = "Cell (" + row + ", " + col + ")";
+                //getting the shuffled letter
+                cell.GetComponentInChildren<TextMeshProUGUI>().text = shuffledChars[index++].ToString();
+
+                //giving the cell rowcol as name
                 cell.name = "" + row + col;
 
                 // Store a reference to the grid cell GameObject in the gridCells array
                 gridCells[row, col] = cell;
 
-                // yield return new WaitForSeconds(0.05f);
                 cell.GetComponent<Animator>().enabled = false;
             }
         }
@@ -193,15 +207,13 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
-
-
-    char NextCharacter()
+    private string NextCharacter()
     {
         // Get and remove a random character from the shuffled list
         int randomIndex = UnityEngine.Random.Range(0, shuffledChars.Count);
         char nextChar = shuffledChars[randomIndex];
         shuffledChars.RemoveAt(randomIndex);
-        return nextChar;
+        return nextChar.ToString();
     }
 
 
@@ -220,12 +232,6 @@ public class SnailGameManager : MonoBehaviour
 
         return new List<char>(charArray);
     }
-
-
-
-
-
-
 
 
     public void AddLetter(GameObject letter)
@@ -286,9 +292,20 @@ public class SnailGameManager : MonoBehaviour
         else
         {
             TXT_Word.text = SB_WordFormed.ToString();
-            UpdateButtonBG();
+
+            if (wordList.Contains(SB_WordFormed.ToString()))
+            {
+                StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonCorrect));
+                IMG_ButtonBG.GetComponent<Animator>().SetTrigger("active");
+            }
+            else
+            {
+                StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonWrong));
+                IMG_ButtonBG.GetComponent<Animator>().SetTrigger("stop");
+            }
         }
     }
+
 
     private void UpdateButtonBG()
     {
@@ -314,9 +331,9 @@ public class SnailGameManager : MonoBehaviour
         IMG_ButtonBG.GetComponent<Animator>().SetTrigger("clicked");
         IMG_ButtonBG.GetComponent<Animator>().SetTrigger("stop");
 
+        //*success
         if (wordList.Contains(SB_WordFormed.ToString()))
         {
-            foundWordList.Add(SB_WordFormed.ToString());
             //greying out the found word
             for (int i = 0; i < TXTA_Words.Length; i++)
             {
@@ -326,13 +343,23 @@ public class SnailGameManager : MonoBehaviour
                 }
             }
 
+            foundWordList.Add(SB_WordFormed.ToString());
             wordList.Remove(SB_WordFormed.ToString());
 
             StartCoroutine(ClearFormedWord());
             UpdateFormedWord();
 
             StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonNormal));
+
+
+            //all words found
+            if (wordList.Count == 0 || foundWordList.Count == TXTA_Words.Length)
+            {
+                StartCoroutine(DestroyRemainingTiles());
+            }
+
         }
+        //!failure
         else
         {
             if (foundWordList.Contains(SB_WordFormed.ToString()))
@@ -360,14 +387,12 @@ public class SnailGameManager : MonoBehaviour
         // Cascading effect
         for (int i = 0; i < wordStack.Count; i++)
         {
-            // wordStack[i].SetActive(false);
             wordStack[i].GetComponent<Animator>().enabled = true;
             wordStack[i].GetComponent<Animator>().SetTrigger("inactive");
             AudioManager.Instance.PlayCorrect();
         }
 
         wordStack.Clear();
-
         yield return null;
     }
 
@@ -403,8 +428,32 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
+    IEnumerator DestroyRemainingTiles()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        foreach (Transform child in gridParent)
+        {
+            if (gameObject.activeInHierarchy)
+            {
+                child.GetComponent<Animator>().enabled = true;
+                child.GetComponent<Animator>().SetTrigger("inactive");
+                AudioManager.Instance.PlayCorrect();
+            }
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        G_Scroll.SetActive(false);
+        //after destroying all tiles
+        ShowGameOverPanel();
+    }
 
 
+    private void ShowGameOverPanel()
+    {
+        G_WinWindow.SetActive(true);
+
+    }
 
 
 }
