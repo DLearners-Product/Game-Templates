@@ -40,7 +40,7 @@ public class LetterController : MonoBehaviour
             isClicked = true;
         }
 
-        AudioManager.Instance.PlayButtonClick();
+        AudioManager.Instance.PlayLetterClick();
     }
 
 

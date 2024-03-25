@@ -11,12 +11,7 @@ public class SnailGameManager : MonoBehaviour
     public Color32 CLR_ButtonCorrect;
     public Color32 CLR_ButtonWrong;
 
-
-
-    public int size;
-    public string check;
-    public int rows; // Number of rows in the grid
-    public int columns; // Number of columns in the grid
+    private int columns = 6; // Number of columns in the grid
 
     [Space(10)]
 
@@ -28,67 +23,75 @@ public class SnailGameManager : MonoBehaviour
 
     [Space(10)]
 
-    public TextMeshProUGUI TXT_Word;
+    [SerializeField] private TextMeshProUGUI[] TXTA_Words;
+    [SerializeField] private TextMeshProUGUI TXT_Word;
 
     [Space(10)]
 
     [SerializeField] private Animator[] ANIM_ToastMessages;
-    public GameObject cellPrefab; // Prefab for individual grid cells
-    public GameObject G_Fruit;
-    public GameObject[] GA_GridBGCategory;
+    [SerializeField] private GameObject cellPrefab; // Prefab for individual grid cells
+    [SerializeField] private GameObject G_Fruit;
+    [SerializeField] private GameObject[] GA_GridBGCategory;
+    [SerializeField] private GameObject G_TransparentScreen;
 
     [Space(10)]
 
-    public Transform gridParent;
-    public Transform[] TA_NewGridCategory;
+    [SerializeField] private Transform gridParent;
+    [SerializeField] private Transform[] TA_New_GridCategory;
 
 
 
     private GameObject[,] gridCells; // 2D array to store references to grid cells
-    private StringBuilder sb;
+    private StringBuilder SB_WordFormed, SB_TotalWords;
     private List<GameObject> wordStack;
     private GameObject lastClickedLetter;
-    private bool isFirst = true;
-    private int gridCategory;
-
+    [HideInInspector] public int I_GridCategory;
 
 
     private List<GameObject> cascadeGameObjectsList = new List<GameObject>();
-    private string aboveCellName = "";
-    private int r = 0, c = 0;
+    [SerializeField] private List<string> wordList = new List<string>();
 
 
+    private int rows;
+    private int gridLength;
 
     private float elapsedTime_Color, desiredDuration_Color = 0.5f;
-
-
-    private List<string> wordList = new List<string>();
     private List<string> foundWordList = new List<string>();
+    private List<char> shuffledChars;
 
 
 
     void Start()
     {
-        ChangeCursor();
-        GridSizeCalculator(size);
-        GenerateGrid(cellPrefab);
-        sb = new StringBuilder();
+        SB_WordFormed = new StringBuilder();
+        SB_TotalWords = new StringBuilder();
         wordStack = new List<GameObject>();
         lastClickedLetter = null;
+
+        ChangeCursor();
+        CalculateGridLength();
+        GridSizeCalculator(gridLength);
+        GenerateGrid(cellPrefab);
         PrepareWordList();
+    }
+
+
+    private void CalculateGridLength()
+    {
+        foreach (string word in wordList)
+        {
+            gridLength += word.Length;
+        }
     }
 
 
     private void PrepareWordList()
     {
-        wordList.Add("AA");
-        wordList.Add("BB");
-        wordList.Add("CC");
-        wordList.Add("DD");
-        wordList.Add("EE");
-        wordList.Add("ABC");
-        wordList.Add("BCA");
-        wordList.Add("CAB");
+        for (int i = 0; i < TXTA_Words.Length; i++)
+        {
+            TXTA_Words[i].text = wordList[i];
+            SB_TotalWords.Append(wordList[i]);
+        }
     }
 
 
@@ -102,38 +105,38 @@ public class SnailGameManager : MonoBehaviour
 
     public void GridSizeCalculator(int size)
     {
-        if (size < 30)//0 - 29
+        if (size < 30)//0 - 29 characters
         {
             rows = 7;//42
-            gridCategory = 0;
+            I_GridCategory = 0;
         }
-        else if (size > 29 && size < 40)// 30-39
+        else if (size > 29 && size < 40)// 30-39 characters
         {
             rows = 9;//54
-            gridCategory = 1;
+            I_GridCategory = 1;
         }
-        else if (size > 39 && size < 50)//40-49
+        else if (size > 39 && size < 50)//40-49 characters
         {
             rows = 10;//60
-            gridCategory = 2;
+            I_GridCategory = 2;
         }
-        else if (size > 49 && size < 60)//50-59
+        else if (size > 49 && size < 60)//50-59 characters
         {
             rows = 12;//72
-            gridCategory = 3;
+            I_GridCategory = 3;
         }
-        else if (size > 59 && size < 70)//60-69
+        else if (size > 59 && size < 70)//60-69 characters
         {
             rows = 14;//84
-            gridCategory = 4;
+            I_GridCategory = 4;
         }
-        else if (size > 69 && size < 80)//70-79
+        else if (size > 69 && size < 80)//70-79 characters
         {
             rows = 15;//90
-            gridCategory = 5;
+            I_GridCategory = 5;
         }
 
-        GA_GridBGCategory[gridCategory].SetActive(true);
+        GA_GridBGCategory[I_GridCategory].SetActive(true);
     }
 
 
@@ -141,7 +144,7 @@ public class SnailGameManager : MonoBehaviour
     {
         // Initialize the gridCells array
         gridCells = new GameObject[rows, columns];
-        gridParent.position = TA_NewGridCategory[gridCategory].position;
+        gridParent.position = TA_New_GridCategory[I_GridCategory].position;
 
         // Loop through each row and column to create grid cells
         for (int row = 0; row < rows; row++)
@@ -181,14 +184,48 @@ public class SnailGameManager : MonoBehaviour
     private void RemoveGridLayoutGroup()
     {
         gridParent.GetComponent<GridLayoutGroup>().enabled = false;
-        Debug.Log(gridCells.Length);
     }
 
 
     private string GetRandomLetter()
     {
-        return ((char)Random.Range(65, 70)).ToString();
+        return ((char)Random.Range(97, 122)).ToString();
     }
+
+
+
+
+    char NextCharacter()
+    {
+        // Get and remove a random character from the shuffled list
+        int randomIndex = UnityEngine.Random.Range(0, shuffledChars.Count);
+        char nextChar = shuffledChars[randomIndex];
+        shuffledChars.RemoveAt(randomIndex);
+        return nextChar;
+    }
+
+
+    List<char> Shuffle(string input)
+    {
+        char[] charArray = input.ToCharArray();
+
+        // Shuffle the characters
+        for (int i = 0; i < charArray.Length; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(i, charArray.Length);
+            char temp = charArray[i];
+            charArray[i] = charArray[randomIndex];
+            charArray[randomIndex] = temp;
+        }
+
+        return new List<char>(charArray);
+    }
+
+
+
+
+
+
 
 
     public void AddLetter(GameObject letter)
@@ -205,7 +242,7 @@ public class SnailGameManager : MonoBehaviour
         // Enable interactivity for the current letter
         letter.GetComponentInChildren<Button>().interactable = true;
 
-        sb.Append(letter.GetComponentInChildren<TextMeshProUGUI>().text.ToString());
+        SB_WordFormed.Append(letter.GetComponentInChildren<TextMeshProUGUI>().text.ToString());
         wordStack.Add(letter);
         UpdateFormedWord();
     }
@@ -220,7 +257,7 @@ public class SnailGameManager : MonoBehaviour
         }
 
         // Remove the last letter from the stack
-        sb.Remove(sb.Length - 1, 1);
+        SB_WordFormed.Remove(SB_WordFormed.Length - 1, 1);
         wordStack.RemoveAt(wordStack.Count - 1);
 
         // Update the last clicked letter to the previous one
@@ -241,22 +278,21 @@ public class SnailGameManager : MonoBehaviour
 
     private void UpdateFormedWord()
     {
-        if (sb.Length == 0)
+        if (SB_WordFormed.Length == 0)
         {
             TXT_Word.text = "-";
+            StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonNormal));
         }
         else
         {
-            TXT_Word.text = sb.ToString();
+            TXT_Word.text = SB_WordFormed.ToString();
             UpdateButtonBG();
         }
-
-        // Check();
     }
 
     private void UpdateButtonBG()
     {
-        if (!wordList.Contains(sb.ToString()))
+        if (!wordList.Contains(SB_WordFormed.ToString()))
         {
             if (!IMG_ButtonBG.color.Equals(CLR_ButtonWrong))
             {
@@ -274,30 +310,32 @@ public class SnailGameManager : MonoBehaviour
 
     public void BUT_Check()
     {
-        // Implement your word checking logic here
-        /* if (sb.ToString() == check)
-        {
-            StartCoroutine(ClearFormedWord());
-            UpdateFormedWord();
-            // Add your code here to handle successful word formation
-        } */
+        StartCoroutine(IENUM_EnableDisableTransparentScreen());
+        IMG_ButtonBG.GetComponent<Animator>().SetTrigger("clicked");
+        IMG_ButtonBG.GetComponent<Animator>().SetTrigger("stop");
 
-        if (wordList.Contains(sb.ToString()))
+        if (wordList.Contains(SB_WordFormed.ToString()))
         {
-            foundWordList.Add(sb.ToString());
-            wordList.Remove(sb.ToString());
+            foundWordList.Add(SB_WordFormed.ToString());
+            //greying out the found word
+            for (int i = 0; i < TXTA_Words.Length; i++)
+            {
+                if (TXTA_Words[i].text == SB_WordFormed.ToString())
+                {
+                    TXTA_Words[i].color = CLR_ButtonNormal;
+                }
+            }
+
+            wordList.Remove(SB_WordFormed.ToString());
 
             StartCoroutine(ClearFormedWord());
             UpdateFormedWord();
 
             StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonNormal));
-            IMG_ButtonBG.GetComponent<Animator>().SetTrigger("clicked");
-            IMG_ButtonBG.GetComponent<Animator>().SetTrigger("stop");
-            // Add your code here to handle successful word formation
         }
         else
         {
-            if (foundWordList.Contains(sb.ToString()))
+            if (foundWordList.Contains(SB_WordFormed.ToString()))
             {
                 //word already found
                 ANIM_ToastMessages[0].SetTrigger("active");
@@ -307,6 +345,8 @@ public class SnailGameManager : MonoBehaviour
                 //word is not in the list
                 ANIM_ToastMessages[1].SetTrigger("active");
             }
+
+            AudioManager.Instance.PlayWrong();
         }
     }
 
@@ -314,8 +354,8 @@ public class SnailGameManager : MonoBehaviour
     IEnumerator ClearFormedWord()
     {
         // clearing the word
-        sb.Clear();
-        TXT_Word.text = sb.ToString();
+        SB_WordFormed.Clear();
+        TXT_Word.text = SB_WordFormed.ToString();
 
         // Cascading effect
         for (int i = 0; i < wordStack.Count; i++)
@@ -338,8 +378,6 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
-
-
     IEnumerator IENUM_LerpColor(Image img, Color32 currentColor, Color32 targetColor)
     {
         //*slowly changing color for background
@@ -355,6 +393,18 @@ public class SnailGameManager : MonoBehaviour
         //resetting elapsed time back to zero
         elapsedTime_Color = 0f;
     }
+
+
+    IEnumerator IENUM_EnableDisableTransparentScreen()
+    {
+        G_TransparentScreen.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        G_TransparentScreen.SetActive(false);
+    }
+
+
+
+
 
 
 }

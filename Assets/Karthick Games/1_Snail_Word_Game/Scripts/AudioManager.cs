@@ -6,6 +6,7 @@ public class AudioManager : GenericSingleton<AudioManager>
 {
 
     [SerializeField] private AudioSource AS_SFX;
+    [SerializeField] private AudioClip AC_LetterClick;
     [SerializeField] private AudioClip AC_ButtonClick;
     [SerializeField] private AudioClip AC_Correct;
     [SerializeField] private AudioClip AC_Wrong;
@@ -15,6 +16,11 @@ public class AudioManager : GenericSingleton<AudioManager>
     public void PlayButtonClick()
     {
         AS_SFX.PlayOneShot(AC_ButtonClick);
+    }
+
+    public void PlayLetterClick()
+    {
+        AS_SFX.PlayOneShot(AC_LetterClick);
     }
 
 
