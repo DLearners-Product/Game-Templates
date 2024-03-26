@@ -29,14 +29,14 @@ public class Word_Tile : MonoBehaviour
             {
                 isPressed = false;
                 gameObject.GetComponent<Image>().color = defaultColor;
-                Snail_Word_Game_Main.Instance.RemoveFromStack();
+                // Snail_Word_Game_Main.Instance.RemoveFromStack();
             }
         }
         else
         {
             isPressed = true;
             gameObject.GetComponent<Image>().color = Color.green;
-            Snail_Word_Game_Main.Instance.AddToStack(this);
+            // Snail_Word_Game_Main.Instance.AddToStack(this);
         }
     }
 

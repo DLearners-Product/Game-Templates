@@ -137,16 +137,6 @@ public class Snail_Word_Game_Main : MonoBehaviour
     {
 
 
-
-
-        //grid generation
-        //GenerateGrid();
-        charList = new List<string>();
-        currWordStack = new Stack<Word_Tile>();
-        Invoke("ArrangeWords", 2f);
-
-
-
         G_Game.SetActive(false);
         B_CloseDemo = true;
 
@@ -467,6 +457,8 @@ public class Snail_Word_Game_Main : MonoBehaviour
         // STR_currentSelectedAnswer = "";
         // B_Correct = false;
     }
+
+
     public void THI_Collect_Out(bool plus)
     {
 
@@ -495,6 +487,8 @@ public class Snail_Word_Game_Main : MonoBehaviour
         TEX_points.text = I_Points.ToString();
         Invoke("THI_pointFxOff", 1f);
     }
+
+
     public void THI_Wrong()
     {
         Debug.Log("Wrong ans");
@@ -527,6 +521,8 @@ public class Snail_Word_Game_Main : MonoBehaviour
         }
         TEX_points.text = I_Points.ToString();
     }
+
+
     public void THI_pointFxOn(bool plus)
     {
         if (plus)
@@ -559,6 +555,9 @@ public class Snail_Word_Game_Main : MonoBehaviour
         }
         Invoke("THI_pointFxOff", 1f);
     }
+
+
+
     public void THI_pointFxOff()
     {
         TM_pointFx.text = "";
@@ -713,6 +712,8 @@ public class Snail_Word_Game_Main : MonoBehaviour
 
         // THI_createOptions();
     }
+
+
     public void THI_TrackGameData(string analysis)
     {
         DBmanager TrainSortingDB = new DBmanager();
@@ -750,6 +751,8 @@ public class Snail_Word_Game_Main : MonoBehaviour
             Debug.Log("Sending data to DB success : " + www.downloadHandler.text);
         }
     }
+
+    
     public void BUT_playAgain()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -771,157 +774,7 @@ public class Snail_Word_Game_Main : MonoBehaviour
 
     }
 
-    public int GetWordsCharacterCount()
-    {
-        int charCount = 0;
+    
 
-        for (int i = 0; i < G_LeftPanelQuestions.transform.childCount; i++)
-        {
-            foreach (char c in G_LeftPanelQuestions.transform.GetChild(i).GetComponent<TextMeshProUGUI>().text)
-            {
-                charCount++;
-                string temp = c.ToString();
-                charList.Add(temp);
-            }
-        }
-
-        return charCount;
-    }
-
-    public void GenerateGrid()
-    {
-        int totalCharCount = GetWordsCharacterCount();
-
-        //if (totalCharCount < 35)
-        //{
-        //    cols = 5;
-        //}
-
-        int count = 0;
-        for (int i = 0; i < cols; i++)
-        {
-            for (int j = 0; j < rows; j++)
-            {
-                GameObject tile;
-                //Debug.Log(" i = " + i + " | j = " + j + " | count = " + count + " | charList(" + count + ") = " + charList[count]);
-                if (count > totalCharCount - 1)
-                {
-                    tile = Instantiate(G_DummyTilePrefab);
-                }
-                else
-                {
-                    tile = Instantiate(G_TilePrefab);
-                    tile.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = charList[count];
-                    count++;
-                }
-
-                tile.transform.SetParent(G_Grid.transform, false);
-                tile.transform.position = new Vector3(i * 1.25f, -j * 1.25f, 0f);
-
-            }
-
-        }
-
-    }
-
-    public void OnClickTile(GameObject gameObject)
-    {
-        /*if (isPressed)
-        {
-            currWordStack.Push(letter);
-            currWord += letter;
-        }
-        else
-        {
-            currWordStack.Pop();
-            currWord = currWord.Remove(currWord.Length - 1, 1);
-        }
-
-        G_CurrWord.text = currWord;*/
-
-
-
-
-        //Word_Tile go = gameObject;
-        //if (go.isPressed == false)
-        //{
-        //    currWordStack.Push(go.letter);
-        //    go.isPressed = true;
-        //    currWord += go.letter;
-        //}
-        //else if (currWordStack.Peek() == go.letter)
-        //{
-        //    currWordStack.Pop();
-        //    go.isPressed = false;
-        //    currWord = currWord.Remove(currWord.Length - 1, 1);
-        //}
-
-
-    }
-
-    public void AddToStack(Word_Tile tile)
-    {
-        currWordStack.Push(tile);
-
-        //form the word
-        currWord += tile.letter;
-        UpdateWord();
-    }
-
-    public void RemoveFromStack()
-    {
-        currWordStack.Pop();
-        currWord = currWord.Remove(currWord.Length - 1, 1);
-        UpdateWord();
-    }
-
-    public void UpdateWord()
-    {
-        G_CurrWord.text = currWord;
-        WordFormationCheck();
-    }
-
-    public void WordFormationCheck()
-    {
-        //Debug.Log(currWord);
-        if (currWord == "stop" || currWord == "take" || currWord == "them" || currWord == "then" || currWord == "thank" || currWord == "always"
-            || currWord == "around" || currWord == "because" || currWord == "been" || currWord == "before")      //STRL_questions.Contains(currWord)
-        {
-            while (currWordStack.Count > 0)
-            {
-                Word_Tile tile = currWordStack.Pop();
-                tile.gameObject.SetActive(false);
-
-            }
-
-            currWord = "";
-            G_CurrWord.text = currWord;
-
-        }
-
-    }
-
-    public void ArrangeWords()
-    {
-        // Debug.Log("arranging the words");
-
-
-        for (int i = 0; i < G_LettersList.Count; i++)
-        {
-            if (i > charList.Count - 1)
-            {
-
-            }
-            else
-            {
-                G_LettersList[i].text = charList[i];
-            }
-
-
-
-
-
-        }
-    }
 
 }
