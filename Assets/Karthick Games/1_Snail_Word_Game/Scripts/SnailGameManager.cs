@@ -7,11 +7,15 @@ using System.Text;
 
 public class SnailGameManager : MonoBehaviour
 {
+
+    #region =======================================user input=======================================
     public Color32 CLR_ButtonNormal;
     public Color32 CLR_ButtonCorrect;
     public Color32 CLR_ButtonWrong;
 
-    private int columns = 6; // Number of columns in the grid
+    #endregion
+
+    #region =======================================unity reference variables=======================================
 
     [Space(10)]
 
@@ -29,40 +33,47 @@ public class SnailGameManager : MonoBehaviour
     [Space(10)]
 
     [SerializeField] private Animator[] ANIM_ToastMessages;
+
+    [Space(10)]
+
     [SerializeField] private GameObject cellPrefab; // Prefab for individual grid cells
-    [SerializeField] private GameObject G_Fruit;
     [SerializeField] private GameObject[] GA_GridBGCategory;
     [SerializeField] private GameObject G_TransparentScreen;
     [SerializeField] private GameObject G_Scroll;
     [SerializeField] private GameObject G_WinWindow;
+    [SerializeField] private GameObject G_Coin;
 
     [Space(10)]
 
     [SerializeField] private Transform gridParent;
     [SerializeField] private Transform[] TA_New_GridCategory;
 
+    [Space(10)]
+
+    [SerializeField] private ParticleSystem PS_TotalGridParticleEffect;
+
+    #endregion
+
+    [SerializeField] private List<string> wordList = new List<string>();
 
 
+    #region =======================================local variables=======================================
     private GameObject[,] gridCells; // 2D array to store references to grid cells
     private StringBuilder SB_WordFormed, SB_TotalWords;
     private List<GameObject> wordStack;
     private GameObject lastClickedLetter;
     [HideInInspector] public int I_GridCategory;
-
-
-    private List<GameObject> cascadeGameObjectsList = new List<GameObject>();
-    [SerializeField] private List<string> wordList = new List<string>();
-
-
     private int rows;
+    private int columns = 6; // Number of columns in the grid
     private int gridLength;
-
     private float elapsedTime_Color, desiredDuration_Color = 0.5f;
     private List<string> foundWordList = new List<string>();
+    private List<Transform> coinList = new List<Transform>();
     private List<char> shuffledChars;
     private int remainingCharsNeeded;
     private int index;
 
+    #endregion
 
 
     void Start()
@@ -325,6 +336,28 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
+    public void AddCoinPos(Transform pos)
+    {
+        coinList.Add(pos);
+    }
+
+    public void RemoveCoinPos()
+    {
+        coinList.RemoveAt(coinList.Count - 1);
+    }
+
+
+    private void SpawnCoins()
+    {
+        for (int i = 0; i < coinList.Count; i++)
+        {
+            Instantiate(G_Coin, coinList[i].position, Quaternion.identity, gridParent);
+        }
+
+        coinList.Clear();
+    }
+
+
     public void BUT_Check()
     {
         StartCoroutine(IENUM_EnableDisableTransparentScreen());
@@ -334,6 +367,8 @@ public class SnailGameManager : MonoBehaviour
         //*success
         if (wordList.Contains(SB_WordFormed.ToString()))
         {
+            PS_TotalGridParticleEffect.Play();
+
             //greying out the found word
             for (int i = 0; i < TXTA_Words.Length; i++)
             {
@@ -343,6 +378,9 @@ public class SnailGameManager : MonoBehaviour
                 }
             }
 
+            //spawn coins
+            Invoke(nameof(SpawnCoins), 0.2f);
+
             foundWordList.Add(SB_WordFormed.ToString());
             wordList.Remove(SB_WordFormed.ToString());
 
@@ -350,7 +388,6 @@ public class SnailGameManager : MonoBehaviour
             UpdateFormedWord();
 
             StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonNormal));
-
 
             //all words found
             if (wordList.Count == 0 || foundWordList.Count == TXTA_Words.Length)
@@ -397,11 +434,6 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
-    private void CascadeCells(GameObject from, GameObject to)
-    {
-        from.GetComponent<LetterController>().Move(from.transform.position, to.transform.position);
-    }
-
 
     IEnumerator IENUM_LerpColor(Image img, Color32 currentColor, Color32 targetColor)
     {
@@ -438,9 +470,9 @@ public class SnailGameManager : MonoBehaviour
             {
                 child.GetComponent<Animator>().enabled = true;
                 child.GetComponent<Animator>().SetTrigger("inactive");
-                AudioManager.Instance.PlayCorrect();
             }
         }
+        AudioManager.Instance.PlayCorrect();
 
         yield return new WaitForSeconds(1.5f);
         G_Scroll.SetActive(false);
@@ -452,6 +484,7 @@ public class SnailGameManager : MonoBehaviour
     private void ShowGameOverPanel()
     {
         G_WinWindow.SetActive(true);
+        AudioManager.Instance.PlayYummy(3.8f);
 
     }
 

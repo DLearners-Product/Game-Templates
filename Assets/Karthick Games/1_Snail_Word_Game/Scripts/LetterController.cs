@@ -27,6 +27,7 @@ public class LetterController : MonoBehaviour
     {
         if (isClicked)
         {
+            REF_SnailGameManager.RemoveCoinPos();
             GetComponentInChildren<Image>().sprite = SPRA_Tiles[0];
             REF_SnailGameManager.RemoveLetter();
             isClicked = false;
@@ -35,6 +36,7 @@ public class LetterController : MonoBehaviour
         }
         else
         {
+            REF_SnailGameManager.AddCoinPos(transform);
             GetComponentInChildren<Image>().sprite = SPRA_Tiles[1];
             REF_SnailGameManager.AddLetter(gameObject);
             isClicked = true;

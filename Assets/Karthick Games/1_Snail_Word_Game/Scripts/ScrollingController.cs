@@ -68,16 +68,15 @@ public class ScrollingController : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void BUT_Click()
     {
-        StartCoroutine(IncreaseDecreaseSpeed());
+        StartCoroutine(IENUM_AdjustSpeed());
         AudioManager.Instance.PlayButtonClick();
     }
 
 
-    IEnumerator IncreaseDecreaseSpeed()
+    IEnumerator IENUM_AdjustSpeed()
     {
-        StopAllCoroutines();
         scrollSpeed = 20f;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.2f);
         scrollSpeed = 2.5f;
     }
 
