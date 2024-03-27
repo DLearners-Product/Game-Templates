@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
+
 public class SnailGameManager : MonoBehaviour
 {
     [Header("==========Integration variables==========")]
@@ -38,7 +39,6 @@ public class SnailGameManager : MonoBehaviour
     public GameObject G_QuestionParent;
     public GameObject G_QuestionPrefab;
     GameObject G_Selected;
-    public GameObject G_Rocket;
     bool B_CanClick, B_Wrong;
     public bool B_Start, B_End;
     public string STR_Word;
@@ -49,12 +49,6 @@ public class SnailGameManager : MonoBehaviour
 
     //*****************************************************************************************************************************
     public GameObject G_LeftPanelQuestions;
-    public GameObject G_Grid;
-    public GameObject G_TilePrefab;
-    public GameObject G_DummyTilePrefab;
-    public TextMeshProUGUI G_CurrWord;
-    public List<TextMeshProUGUI> G_LettersList;
-
 
     [Header("Values")]
     public string STR_currentQuestionAnswer;
@@ -152,6 +146,8 @@ public class SnailGameManager : MonoBehaviour
     [SerializeField] private GameObject G_Scroll;
     [SerializeField] private GameObject G_WinWindow;
     [SerializeField] private GameObject G_Coin;
+    [SerializeField] private GameObject G_WordListParticleEffect;
+
 
     [Space(10)]
 
@@ -161,7 +157,6 @@ public class SnailGameManager : MonoBehaviour
     [Space(10)]
 
     [SerializeField] private ParticleSystem PS_TotalGridParticleEffect;
-
     #endregion
 
 
@@ -175,15 +170,16 @@ public class SnailGameManager : MonoBehaviour
     private int columns = 6; // Number of columns in the grid
     private int gridLength;
     private float elapsedTime_Color, desiredDuration_Color = 0.5f;
-    private List<string> foundWordList = new List<string>();
     private List<Transform> coinList = new List<Transform>();
     private List<char> shuffledChars;
     private int remainingCharsNeeded;
     private int index;
+    private List<string> wordList = new List<string>();
+    private List<string> foundWordList = new List<string>();
+
 
     #endregion
 
-    [SerializeField] private List<string> wordList = new List<string>();
 
 
 
@@ -214,6 +210,7 @@ public class SnailGameManager : MonoBehaviour
 
     void Start()
     {
+
         #region =======================================integration=======================================
 
         // G_Game.SetActive(false);
@@ -228,6 +225,10 @@ public class SnailGameManager : MonoBehaviour
         STRL_questions = new List<string>();
         STRL_answers = new List<string>();
         STRL_options = new List<string>();
+
+
+
+
         Invoke("THI_gameData", 1f);
 
         I_currentQuestionCount = -1;
@@ -235,6 +236,11 @@ public class SnailGameManager : MonoBehaviour
         #endregion
 
 
+    }
+
+
+    public void GameInit()
+    {
         SB_WordFormed = new StringBuilder();
         SB_TotalWords = new StringBuilder();
         wordStack = new List<GameObject>();
@@ -246,41 +252,43 @@ public class SnailGameManager : MonoBehaviour
         CalculateGridLength();
         GridSizeCalculator(gridLength);
         GenerateGrid(cellPrefab);
+
+        G_WordListParticleEffect.SetActive(true);
     }
 
 
-
-
-    private void Update()
-    {
-        /*         if (!G_Demo.activeInHierarchy && B_CloseDemo)
-                {
-                    B_CloseDemo = false;
-                    DemoOver();
-                }
-
-                if (Input.GetMouseButton(0))
-                {
-                    Vector2 worldpoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    RaycastHit2D Hit = Physics2D.Raycast(worldpoint, Vector2.zero);
-
-                    if (Hit.collider != null)
+    /*
+        private void Update()
+        {
+                     if (!G_Demo.activeInHierarchy && B_CloseDemo)
                     {
-                        G_Selected = Hit.collider.gameObject;
-
-                        THI_Words();
-                        // G_Selected.GetComponent<Collider2D>().enabled = false;
+                        B_CloseDemo = false;
+                        DemoOver();
                     }
-                }
-                if (Input.GetMouseButtonUp(0))
-                {
-                    THI_End();
-                }
-                if (BG_Move)
-                {
-                    G_BG.transform.Translate(Vector3.down * 2f * Time.deltaTime);
-                } */
-    }
+
+                    if (Input.GetMouseButton(0))
+                    {
+                        Vector2 worldpoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        RaycastHit2D Hit = Physics2D.Raycast(worldpoint, Vector2.zero);
+
+                        if (Hit.collider != null)
+                        {
+                            G_Selected = Hit.collider.gameObject;
+
+                            THI_Words();
+                            // G_Selected.GetComponent<Collider2D>().enabled = false;
+                        }
+                    }
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        THI_End();
+                    }
+                    if (BG_Move)
+                    {
+                        G_BG.transform.Translate(Vector3.down * 2f * Time.deltaTime);
+                    } 
+        }
+        */
 
 
 
@@ -297,6 +305,12 @@ public class SnailGameManager : MonoBehaviour
 
     private void PrepareWordList()
     {
+        //fetching questions list to local list
+        for (int i = 0; i < TXTA_Words.Length; i++)
+        {
+            wordList.Add(STRL_questions[i]);
+        }
+
         //appending input words to string builder
         for (int i = 0; i < TXTA_Words.Length; i++)
         {
@@ -448,7 +462,6 @@ public class SnailGameManager : MonoBehaviour
         UpdateFormedWord();
     }
 
-
     public void RemoveLetter()
     {
         // Disable interactivity for the last clicked letter
@@ -533,6 +546,8 @@ public class SnailGameManager : MonoBehaviour
         //*success
         if (wordList.Contains(SB_WordFormed.ToString()))
         {
+            IncrementPoints();
+
             PS_TotalGridParticleEffect.Play();
 
             //greying out the found word
@@ -581,6 +596,32 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
+    private void IncrementPoints()
+    {
+        I_Points++;
+    }
+
+
+    private void DecrementPoints()
+    {
+        if (I_Points > 0)
+        {
+            I_Points--;
+        }
+
+    }
+
+
+    private void UpdateScore()
+    {
+        THI_TrackGameData("1");
+
+
+        TM_pointFx.text = (I_Points * I_correctPoints).ToString();
+        I_Points = 0;
+    }
+
+
     IEnumerator ClearFormedWord()
     {
         // clearing the word
@@ -598,7 +639,6 @@ public class SnailGameManager : MonoBehaviour
         wordStack.Clear();
         yield return null;
     }
-
 
 
     IEnumerator IENUM_LerpColor(Image img, Color32 currentColor, Color32 targetColor)
@@ -628,7 +668,7 @@ public class SnailGameManager : MonoBehaviour
 
     IEnumerator DestroyRemainingTiles()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3);
 
         foreach (Transform child in gridParent)
         {
@@ -640,7 +680,7 @@ public class SnailGameManager : MonoBehaviour
         }
         AudioManager.Instance.PlayCorrect();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.25f);
         G_Scroll.SetActive(false);
         //after destroying all tiles
         ShowGameOverPanel();
@@ -651,8 +691,9 @@ public class SnailGameManager : MonoBehaviour
     {
         G_WinWindow.SetActive(true);
         AudioManager.Instance.PlayYummy(3.8f);
-
+        Invoke("THI_Levelcompleted", 4f);
     }
+
 
     #endregion
 
@@ -672,7 +713,7 @@ public class SnailGameManager : MonoBehaviour
         {
             // preview data in html game generator
 
-            Debug.Log("PREVIEW MODE RAKESH");
+            Debug.Log("PREVIEW MODE");
             THI_getPreviewData();
         }
     }
@@ -960,8 +1001,6 @@ public class SnailGameManager : MonoBehaviour
             I_wrongPoints = IL_numbers[2];
             MainController.instance.I_TotalQuestions = STRL_questions.Count;
 
-
-
             StartCoroutine(EN_getAudioClips());
             StartCoroutine(IN_CoverImage());
 
@@ -1045,6 +1084,8 @@ public class SnailGameManager : MonoBehaviour
         EventSystem.current.currentSelectedGameObject.GetComponent<AudioSource>().Play();
         Debug.Log("player clicked. so playing audio");
     }
+
+
     public void THI_getPreviewData()
     {
         List<string> STRL_Passagedetails = new List<string>();
@@ -1071,11 +1112,11 @@ public class SnailGameManager : MonoBehaviour
 
     public void THI_TrackGameData(string analysis)
     {
-        DBmanager TrainSortingDB = new DBmanager();
-        TrainSortingDB.question_id = STR_currentQuestionID;
-        TrainSortingDB.answer = STR_currentSelectedAnswer;
-        TrainSortingDB.analysis = analysis;
-        string toJson = JsonUtility.ToJson(TrainSortingDB);
+        DBmanager SnailWordGameDB = new DBmanager();
+        SnailWordGameDB.question_id = STR_currentQuestionID;
+        SnailWordGameDB.answer = STR_currentSelectedAnswer;
+        SnailWordGameDB.analysis = analysis;
+        string toJson = JsonUtility.ToJson(SnailWordGameDB);
         STRL_gameData.Add(toJson);
         STR_Data = string.Join(",", STRL_gameData);
     }
@@ -1114,6 +1155,7 @@ public class SnailGameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+
     public void BUT_instructionPage()
     {
         StopAllCoroutines();
@@ -1129,17 +1171,6 @@ public class SnailGameManager : MonoBehaviour
         G_instructionPage.SetActive(false);
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     #endregion

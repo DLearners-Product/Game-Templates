@@ -15,10 +15,14 @@ namespace SnailWordGame
 
         [SerializeField] private ParticleSystem PS_Effects;
 
+        [SerializeField] private SnailGameManager REF_SnailGameManager;
+
 
         void Start()
         {
-            Invoke(nameof(DisableGame), 1f);
+            AudioManager.Instance.PlayIntroMusic();
+            REF_SnailGameManager.Invoke("GameInit", 1f);
+            Invoke(nameof(DisableGame), 2f);
         }
 
 
@@ -33,7 +37,7 @@ namespace SnailWordGame
             AudioManager.Instance.PlayButtonClick();
             ANIM_Intro.SetTrigger("exit");
             StartCoroutine(IENUM_EnableGame());
-            AudioManager.Instance.PlayMusic();
+            AudioManager.Instance.PlayGameMusic();
         }
 
 

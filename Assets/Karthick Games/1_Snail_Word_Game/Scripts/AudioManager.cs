@@ -11,19 +11,27 @@ public class AudioManager : GenericSingleton<AudioManager>
 
     [Space(10)]
 
+
+    [SerializeField] private AudioClip AC_IntroMusic;
+    [SerializeField] private AudioClip AC_GameMusic;
+
     [SerializeField] private AudioClip AC_LetterClick;
     [SerializeField] private AudioClip AC_ButtonClick;
     [SerializeField] private AudioClip AC_Correct;
     [SerializeField] private AudioClip AC_Wrong;
-    [SerializeField] private AudioClip AC_Music;
     [SerializeField] private AudioClip AC_Swoosh;
     [SerializeField] private AudioClip AC_Yummy;
 
 
-
-    public void PlayMusic()
+    public void PlayIntroMusic()
     {
-        AS_Music.clip = AC_Music;
+        AS_Music.PlayOneShot(AC_IntroMusic);
+    }
+
+
+    public void PlayGameMusic()
+    {
+        AS_Music.clip = AC_GameMusic;
         AS_Music.Play();
         AS_Music.loop = true;
     }
