@@ -137,6 +137,7 @@ public class SnailGameManager : MonoBehaviour
     [Space(10)]
 
     [SerializeField] private Animator[] ANIM_ToastMessages;
+    [SerializeField] private Animator ANIM_ScoreCard;
 
     [Space(10)]
 
@@ -156,7 +157,12 @@ public class SnailGameManager : MonoBehaviour
 
     [Space(10)]
 
+
     [SerializeField] private ParticleSystem PS_TotalGridParticleEffect;
+    [SerializeField] private ParticleSystem PS_ScoreCard;
+
+
+
     #endregion
 
 
@@ -176,6 +182,9 @@ public class SnailGameManager : MonoBehaviour
     private int index;
     private List<string> wordList = new List<string>();
     private List<string> foundWordList = new List<string>();
+
+
+    private int I_CollectedPoints = 0;
 
 
     #endregion
@@ -546,7 +555,7 @@ public class SnailGameManager : MonoBehaviour
         //*success
         if (wordList.Contains(SB_WordFormed.ToString()))
         {
-            IncrementPoints();
+            Invoke(nameof(UpdateScore), 3.3f);
 
             PS_TotalGridParticleEffect.Play();
 
@@ -589,6 +598,7 @@ public class SnailGameManager : MonoBehaviour
             {
                 //word is not in the list
                 ANIM_ToastMessages[1].SetTrigger("active");
+                // Invoke(nameof(UpdateScore), 2.5f);
             }
 
             AudioManager.Instance.PlayWrong();
@@ -596,13 +606,13 @@ public class SnailGameManager : MonoBehaviour
     }
 
 
-    private void IncrementPoints()
+    public void IncrementPoints()
     {
         I_Points++;
     }
 
 
-    private void DecrementPoints()
+    public void DecrementPoints()
     {
         if (I_Points > 0)
         {
@@ -616,9 +626,14 @@ public class SnailGameManager : MonoBehaviour
     {
         THI_TrackGameData("1");
 
-
-        TM_pointFx.text = (I_Points * I_correctPoints).ToString();
+        I_Points = I_Points * I_correctPoints;
+        I_CollectedPoints += I_Points;
+        TEX_points.text = I_CollectedPoints.ToString();
         I_Points = 0;
+
+        ANIM_ScoreCard.SetTrigger("clicked");
+        PS_ScoreCard.Play();
+        AudioManager.Instance.PlayCoinChime();
     }
 
 

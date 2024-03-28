@@ -21,6 +21,8 @@ public class AudioManager : GenericSingleton<AudioManager>
     [SerializeField] private AudioClip AC_Wrong;
     [SerializeField] private AudioClip AC_Swoosh;
     [SerializeField] private AudioClip AC_Yummy;
+    [SerializeField] private AudioClip AC_CoinChime;
+    [SerializeField] private AudioClip[] ACA_LetterVO;
 
 
     public void PlayIntroMusic()
@@ -66,10 +68,22 @@ public class AudioManager : GenericSingleton<AudioManager>
     }
 
 
+    public void PlayCoinChime()
+    {
+        AS_SFX.PlayOneShot(AC_CoinChime);
+    }
+
+
     public void PlayYummy(float delay)
     {
         AS_Voice.clip = AC_Yummy;
         AS_Voice.PlayDelayed(delay);
+    }
+
+
+    public void PlayLetterVO(int index)
+    {
+        AS_Voice.PlayOneShot(ACA_LetterVO[index]);
     }
 
 

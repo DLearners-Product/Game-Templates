@@ -31,18 +31,27 @@ public class LetterController : MonoBehaviour
             GetComponentInChildren<Image>().sprite = SPRA_Tiles[0];
             REF_SnailGameManager.RemoveLetter();
             isClicked = false;
+            REF_SnailGameManager.DecrementPoints();
 
             GetComponentInChildren<Button>().interactable = true;
+
+            AudioManager.Instance.PlayLetterClick();
         }
         else
         {
+            PlayLetterVO();
             REF_SnailGameManager.AddCoinPos(transform);
             GetComponentInChildren<Image>().sprite = SPRA_Tiles[1];
             REF_SnailGameManager.AddLetter(gameObject);
             isClicked = true;
+            REF_SnailGameManager.IncrementPoints();
         }
+    }
 
-        AudioManager.Instance.PlayLetterClick();
+
+    private void PlayLetterVO()
+    {
+        AudioManager.Instance.PlayLetterVO(char.ToLower(transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.ToString()[0]) - 'a');
     }
 
 
