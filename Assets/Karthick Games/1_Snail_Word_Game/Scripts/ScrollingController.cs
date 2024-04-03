@@ -69,7 +69,7 @@ public class ScrollingController : MonoBehaviour, IPointerEnterHandler, IPointer
     public void BUT_Click()
     {
         StartCoroutine(IENUM_AdjustSpeed());
-        AudioManager.Instance.PlayButtonClick();
+        SnailWordGame.AudioManager.Instance.PlayButtonClick();
     }
 
 

@@ -35,7 +35,7 @@ public class LetterController : MonoBehaviour
 
             GetComponentInChildren<Button>().interactable = true;
 
-            AudioManager.Instance.PlayLetterClick();
+            SnailWordGame.AudioManager.Instance.PlayLetterClick();
         }
         else
         {
@@ -51,7 +51,7 @@ public class LetterController : MonoBehaviour
 
     private void PlayLetterVO()
     {
-        AudioManager.Instance.PlayLetterVO(char.ToLower(transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.ToString()[0]) - 'a');
+        SnailWordGame.AudioManager.Instance.PlayLetterVO(char.ToLower(transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text.ToString()[0]) - 'a');
     }
 
 

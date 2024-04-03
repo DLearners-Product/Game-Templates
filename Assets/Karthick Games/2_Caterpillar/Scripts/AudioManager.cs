@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SnailWordGame
+namespace CaterpillarSortingGame
 {
 
     public class AudioManager : GenericSingleton<AudioManager>

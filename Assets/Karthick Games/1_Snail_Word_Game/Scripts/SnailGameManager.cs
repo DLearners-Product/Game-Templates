@@ -601,7 +601,7 @@ public class SnailGameManager : MonoBehaviour
                 // Invoke(nameof(UpdateScore), 2.5f);
             }
 
-            AudioManager.Instance.PlayWrong();
+            SnailWordGame.AudioManager.Instance.PlayWrong();
         }
     }
 
@@ -633,7 +633,7 @@ public class SnailGameManager : MonoBehaviour
 
         ANIM_ScoreCard.SetTrigger("clicked");
         PS_ScoreCard.Play();
-        AudioManager.Instance.PlayCoinChime();
+        SnailWordGame.AudioManager.Instance.PlayCoinChime();
     }
 
 
@@ -648,7 +648,7 @@ public class SnailGameManager : MonoBehaviour
         {
             wordStack[i].GetComponent<Animator>().enabled = true;
             wordStack[i].GetComponent<Animator>().SetTrigger("inactive");
-            AudioManager.Instance.PlayCorrect();
+            SnailWordGame.AudioManager.Instance.PlayCorrect();
         }
 
         wordStack.Clear();
@@ -693,7 +693,7 @@ public class SnailGameManager : MonoBehaviour
                 child.GetComponent<Animator>().SetTrigger("inactive");
             }
         }
-        AudioManager.Instance.PlayCorrect();
+        SnailWordGame.AudioManager.Instance.PlayCorrect();
 
         yield return new WaitForSeconds(1.25f);
         G_Scroll.SetActive(false);
@@ -705,7 +705,7 @@ public class SnailGameManager : MonoBehaviour
     private void ShowGameOverPanel()
     {
         G_WinWindow.SetActive(true);
-        AudioManager.Instance.PlayYummy(3.8f);
+        SnailWordGame.AudioManager.Instance.PlayYummy(3.8f);
         Invoke("THI_Levelcompleted", 4f);
     }
 
