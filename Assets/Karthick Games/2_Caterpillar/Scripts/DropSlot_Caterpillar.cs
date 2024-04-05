@@ -1,15 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using CaterpillarSortingGame;
 
 
 public class DropSlot_Caterpillar : MonoBehaviour, IDropHandler
 {
-
-
-
     private float _elapsedTime, _desiredDuration = 0.5f;
+    private static int answerCount = 0;
+    private CaterpillarGameManager REF_CaterpillarGameManager;
+    private QandA REF_QandA;
 
+
+    void Start()
+    {
+        REF_CaterpillarGameManager = FindObjectOfType<CaterpillarGameManager>();
+        REF_QandA = FindObjectOfType<QandA>();
+    }
 
 
     public void OnDrop(PointerEventData eventData)
@@ -20,15 +27,27 @@ public class DropSlot_Caterpillar : MonoBehaviour, IDropHandler
         {
             if (drag.name == gameObject.name)
             {
+                //*correct answer
                 drag.isDropped = true;
+                answerCount++;
+
+                AudioManager.Instance.PlayCorrect();
                 GetComponentInChildren<ParticleSystem>().Play();
                 StartCoroutine(IENUM_LerpTransform(drag.rectTransform, drag.rectTransform.anchoredPosition, GetComponent<RectTransform>().anchoredPosition));
+
+                if (answerCount == 6)
+                {
+                    AudioManager.Instance.PlayGameWon();
+                    REF_QandA.Invoke("SpawnCoins", 1f);
+                    REF_CaterpillarGameManager.Invoke("HideCurrentQuestion", 5f);
+                    // REF_CaterpillarGameManager.Invoke("ShowNextQuestion", 5f);
+                    answerCount = 0;
+                }
             }
             else
             {
-
-
-
+                //!wrong answer
+                AudioManager.Instance.PlayWrong();
             }
 
         }
@@ -56,3 +75,4 @@ public class DropSlot_Caterpillar : MonoBehaviour, IDropHandler
     }
 
 }
+

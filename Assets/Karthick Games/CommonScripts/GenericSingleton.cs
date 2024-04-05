@@ -15,6 +15,8 @@ public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
 
     protected virtual void Awake()
     {
+        Debug.Log(this.gameObject.name, this.gameObject);
+
         if (instance != null)
         {
             Destroy(this);

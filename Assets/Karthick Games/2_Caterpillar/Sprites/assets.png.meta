@@ -38,6 +38,9 @@ TextureImporter:
   - first:
       213: -7292218540346254485
     second: assets_11
+  - first:
+      213: -5815258922555547143
+    second: assets_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -168,7 +171,7 @@ TextureImporter:
         serializedVersion: 2
         x: 39
         y: 1331
-        width: 278
+        width: 281
         height: 695
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -229,10 +232,10 @@ TextureImporter:
       name: assets_3
       rect:
         serializedVersion: 2
-        x: 1604
+        x: 1600
         y: 1872
-        width: 148
-        height: 152
+        width: 152
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,9 +253,9 @@ TextureImporter:
       name: assets_4
       rect:
         serializedVersion: 2
-        x: 1802
+        x: 1800
         y: 1888
-        width: 148
+        width: 150
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -316,7 +319,7 @@ TextureImporter:
         x: 560
         y: 703
         width: 659
-        height: 695
+        height: 694
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +337,10 @@ TextureImporter:
       name: assets_8
       rect:
         serializedVersion: 2
-        x: 1553
-        y: 1328
-        width: 473
-        height: 347
+        x: 1552
+        y: 1332
+        width: 474
+        height: 343
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,9 +359,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 72
-        y: 918
+        y: 912
         width: 249
-        height: 365
+        height: 371
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,9 +379,9 @@ TextureImporter:
       name: assets_10
       rect:
         serializedVersion: 2
-        x: 1293
+        x: 1288
         y: 559
-        width: 710
+        width: 715
         height: 672
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -399,7 +402,7 @@ TextureImporter:
         serializedVersion: 2
         x: 126
         y: 552
-        width: 234
+        width: 233
         height: 319
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -410,6 +413,27 @@ TextureImporter:
       bones: []
       spriteID: b6bd4269fd5dcca90800000000000000
       internalID: -7292218540346254485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: assets_12
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 72
+        width: 750
+        height: 392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f1e72c02dc0c4fa0800000000000000
+      internalID: -5815258922555547143
       vertices: []
       indices: 
       edges: []

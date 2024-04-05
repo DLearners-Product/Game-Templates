@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 namespace CaterpillarSortingGame
 {
@@ -14,18 +13,14 @@ namespace CaterpillarSortingGame
 
         [Space(10)]
 
-
         [SerializeField] private AudioClip AC_IntroMusic;
         [SerializeField] private AudioClip AC_GameMusic;
+        [SerializeField] private AudioClip AC_GameWon;
 
-        [SerializeField] private AudioClip AC_LetterClick;
-        [SerializeField] private AudioClip AC_ButtonClick;
         [SerializeField] private AudioClip AC_Correct;
         [SerializeField] private AudioClip AC_Wrong;
-        [SerializeField] private AudioClip AC_Swoosh;
-        [SerializeField] private AudioClip AC_Yummy;
-        [SerializeField] private AudioClip AC_CoinChime;
-        [SerializeField] private AudioClip[] ACA_LetterVO;
+        [SerializeField] private AudioClip AC_CaterpillarMovement;
+        [SerializeField] private AudioClip AC_CoinCollect;
 
 
         public void PlayIntroMusic()
@@ -42,14 +37,11 @@ namespace CaterpillarSortingGame
         }
 
 
-        public void PlayButtonClick()
+        public void PlayGameWon()
         {
-            AS_SFX.PlayOneShot(AC_ButtonClick);
-        }
-
-        public void PlayLetterClick()
-        {
-            AS_SFX.PlayOneShot(AC_LetterClick);
+            AS_Music.clip = AC_GameWon;
+            AS_Music.Play();
+            AS_Music.loop = false;
         }
 
 
@@ -65,29 +57,19 @@ namespace CaterpillarSortingGame
         }
 
 
-        public void PlaySwoosh()
+        public void PlayCaterpillarMovement()
         {
-            AS_SFX.PlayOneShot(AC_Swoosh);
+            AS_SFX.PlayOneShot(AC_CaterpillarMovement);
         }
 
 
-        public void PlayCoinChime()
+        public void PlayCoinCollect()
         {
-            AS_SFX.PlayOneShot(AC_CoinChime);
+            AS_SFX.PlayOneShot(AC_CoinCollect);
         }
 
 
-        public void PlayYummy(float delay)
-        {
-            AS_Voice.clip = AC_Yummy;
-            AS_Voice.PlayDelayed(delay);
-        }
 
-
-        public void PlayLetterVO(int index)
-        {
-            AS_Voice.PlayOneShot(ACA_LetterVO[index]);
-        }
 
 
     }
