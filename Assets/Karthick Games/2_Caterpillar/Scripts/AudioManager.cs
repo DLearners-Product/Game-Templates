@@ -37,6 +37,12 @@ namespace CaterpillarSortingGame
         }
 
 
+        public bool IsMusicPlaying()
+        {
+            return AS_Music.isPlaying;
+        }
+
+
         public void PlayGameWon()
         {
             AS_Music.clip = AC_GameWon;

@@ -146,7 +146,7 @@ namespace CaterpillarSortingGame
 
         public IEnumerator IENUM_CaterpillarOut()
         {
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(8f);
 
             G_QandA.SetActive(false);
             G_Caterpillar.SetActive(true);
@@ -157,11 +157,6 @@ namespace CaterpillarSortingGame
             yield return new WaitForSeconds(4f);
 
             REF_CaterpillarGameManager.RemoveCurrentQuestion();
-
-            yield return new WaitForSeconds(0.2f);
-
-            REF_CaterpillarGameManager.ShowNextQuestion();
-
         }
 
 
