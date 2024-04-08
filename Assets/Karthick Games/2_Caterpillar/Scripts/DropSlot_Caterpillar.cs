@@ -39,8 +39,7 @@ public class DropSlot_Caterpillar : MonoBehaviour, IDropHandler
                 {
                     AudioManager.Instance.PlayGameWon();
                     REF_QandA.Invoke("SpawnCoins", 1f);
-                    REF_CaterpillarGameManager.Invoke("HideCurrentQuestion", 5f);
-                    // REF_CaterpillarGameManager.Invoke("ShowNextQuestion", 5f);
+                    REF_QandA.StartCoroutine(REF_QandA.IENUM_CaterpillarOut());
                     answerCount = 0;
                 }
             }

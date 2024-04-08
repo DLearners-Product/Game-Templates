@@ -10,10 +10,18 @@ namespace CaterpillarSortingGame
     public class QandA : MonoBehaviour
     {
 
+        [SerializeField] private Animator ANIM_CaterpillarMove;
+        [SerializeField] private Animator ANIM_CaterpillarUpDown;
+
+        [Space(10)]
+        [SerializeField] private GameObject G_Caterpillar;
+        [SerializeField] private GameObject G_QandA;
+
         [SerializeField] private GameObject[] GA_Slots;
         [SerializeField] private GameObject[] GA_Draggables;
         [SerializeField] private GameObject G_CoinPrefab;
 
+        [Space(10)]
 
         private CaterpillarGameManager REF_CaterpillarGameManager;
 
@@ -27,11 +35,37 @@ namespace CaterpillarSortingGame
         void Start()
         {
             REF_CaterpillarGameManager = GameObject.FindObjectOfType<CaterpillarGameManager>();
+            //PrepareQuestions();
+            //SetSlotData();
+            //SetDraggableData();
+            //StartCoroutine(IENUM_DisableDraggableAnimator());
+
+
+            StartCoroutine(IENUM_CaterpillarIn());
+        }
+
+
+
+        IEnumerator IENUM_CaterpillarIn()
+        {
+
+            ANIM_CaterpillarMove.SetTrigger("in");
+            ANIM_CaterpillarUpDown.SetTrigger("active");
+            AudioManager.Instance.PlayCaterpillarMovement();
+
+            yield return new WaitForSeconds(4f);
+
+            ANIM_CaterpillarUpDown.SetTrigger("inactive");
+            G_Caterpillar.SetActive(false);
+            G_QandA.SetActive(true);
+
+            //set data
             PrepareQuestions();
             SetSlotData();
             SetDraggableData();
-            StartCoroutine(IENUM_DisableDraggableAnimation());
+            Invoke("DisableDraggableAnimator", 0.6f);
         }
+
 
 
         private void PrepareQuestions()
@@ -77,15 +111,12 @@ namespace CaterpillarSortingGame
         }
 
 
-        IEnumerator IENUM_DisableDraggableAnimation()
+        private void DisableDraggableAnimator()
         {
-            yield return new WaitForSeconds(0.6f);
-
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
                 GA_Draggables[i].GetComponent<Animator>().enabled = false;
             }
-
         }
 
 
@@ -107,25 +138,33 @@ namespace CaterpillarSortingGame
         }
 
 
-        IEnumerator IENUM_LerpTransform(RectTransform obj, Vector3 currentPosition, Vector3 targetPosition)
+        public GameObject GetCaterpillar()
         {
-            while (_elapsedTime < _desiredDuration)
-            {
-                _elapsedTime += Time.deltaTime;
-                float percentageComplete = _elapsedTime / _desiredDuration;
-
-                obj.anchoredPosition = Vector3.Lerp(currentPosition, targetPosition, percentageComplete);
-                yield return null;
-            }
-
-            //resetting elapsed time back to zero
-            _elapsedTime = 0f;
+            return G_Caterpillar;
         }
 
 
+        public IEnumerator IENUM_CaterpillarOut()
+        {
+            yield return new WaitForSeconds(7f);
+
+            G_QandA.SetActive(false);
+            G_Caterpillar.SetActive(true);
+            ANIM_CaterpillarMove.SetTrigger("out");
+            ANIM_CaterpillarUpDown.SetTrigger("active");
+            AudioManager.Instance.PlayCaterpillarMovement();
+
+            yield return new WaitForSeconds(4f);
+
+            REF_CaterpillarGameManager.RemoveCurrentQuestion();
+
+            yield return new WaitForSeconds(0.2f);
+
+            REF_CaterpillarGameManager.ShowNextQuestion();
+
+        }
+
 
     }
-
-
 
 }
