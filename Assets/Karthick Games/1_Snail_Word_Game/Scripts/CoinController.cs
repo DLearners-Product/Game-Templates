@@ -15,8 +15,8 @@ namespace CaterpillarSortingGame
 
         void Start()
         {
-            T_Points = GameObject.FindGameObjectWithTag("Points")?.transform;
-            StartCoroutine(IENUM_LerpMoveTile(transform.position, T_Points.position));
+            T_Points = GameObject.FindGameObjectWithTag("Points").transform;
+            StartCoroutine(IENUM_LerpMoveTile(transform.position, T_Points.GetChild(0).GetChild(1).position));
         }
 
 

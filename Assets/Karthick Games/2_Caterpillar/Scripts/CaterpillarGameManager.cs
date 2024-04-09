@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Text;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -15,13 +14,13 @@ namespace CaterpillarSortingGame
     public class CaterpillarGameManager : MonoBehaviour
     {
 
-        [Header("==========Integration variables==========")]
+        [Header("==========Integration==========")]
 
 
         #region ---------------------------------------integration---------------------------------------
 
 
-        public static SnailGameManager Instance;
+        public static CaterpillarGameManager Instance;
         public bool B_production;
 
         [Header("Screens and UI elements")]
@@ -111,45 +110,27 @@ namespace CaterpillarSortingGame
         public AudioClip[] ACA_optionClips;
         public AudioClip[] ACA_instructionClips;
 
-        #endregion
 
+        private void Awake()
+        {
+            Instance = this;
 
+            if (B_production)
+            {
+                URL = "https://dlearners.in/template_and_games/Game_template_api-s/game_template_1.php"; // PRODUCTION FETCH DATA
+                SendValueURL = "https://dlearners.in/template_and_games/Game_template_api-s/save_child_questions.php"; // PRODUCTION SEND DATA
 
+            }
+            else
+            {
+                // URL = "http://103.117.180.121:8000/test/Game_template_api-s/game_template_1.php"; // UAT FETCH DATA
+                // SendValueURL = "http://103.117.180.121:8000/test/Game_template_api-s/save_child_questions.php"; // UAT SEND DATA
 
+                URL = "http://20.120.84.12/Test/template_and_games/Game_template_api-s/game_template_1.php"; // UAT FETCH DATA
+                SendValueURL = "http://20.120.84.12/Test/template_and_games/Game_template_api-s/save_child_questions.php"; // UAT SEND DATA
+            }
 
-        [Header("==========Game variables==========")]
-
-
-        #region  ---------------------------------------unity reference variables---------------------------------------
-
-
-        [SerializeField] private GameObject G_QandAPrefab;
-        [SerializeField] private GameObject G_Caterpillar;
-        [SerializeField] private GameObject G_TransparentScreen;
-
-
-
-        [SerializeField] private Transform T_QandAParent;
-
-
-
-        private GameObject _InstantiatedQandA;
-
-        #endregion
-
-
-        #region  ---------------------------------------local variables---------------------------------------
-
-
-        private int I_CurrentIndex;
-
-
-        #endregion
-
-
-
-
-        #region =======================================integration=======================================
+        }
 
 
         void THI_gameData()
@@ -562,11 +543,11 @@ namespace CaterpillarSortingGame
 
         public void THI_TrackGameData(string analysis)
         {
-            DBmanager SnailWordGameDB = new DBmanager();
-            SnailWordGameDB.question_id = STR_currentQuestionID;
-            SnailWordGameDB.answer = STR_currentSelectedAnswer;
-            SnailWordGameDB.analysis = analysis;
-            string toJson = JsonUtility.ToJson(SnailWordGameDB);
+            DBmanager CaterpillarGameDB = new DBmanager();
+            CaterpillarGameDB.question_id = STR_currentQuestionID;
+            CaterpillarGameDB.answer = STR_currentSelectedAnswer;
+            CaterpillarGameDB.analysis = analysis;
+            string toJson = JsonUtility.ToJson(CaterpillarGameDB);
             STRL_gameData.Add(toJson);
             STR_Data = string.Join(",", STRL_gameData);
         }
@@ -622,9 +603,47 @@ namespace CaterpillarSortingGame
 
         }
 
-
+        //################################################################
+        //################################################################
         #endregion
 
+
+
+        [Space(10)]
+
+        [Header("==========Game==========")]
+
+
+        #region  ---------------------------------------unity reference variables---------------------------------------
+
+        [SerializeField] private GameObject G_Leaf;
+        [SerializeField] private GameObject G_QandAPrefab;
+        [SerializeField] private GameObject G_TransparentScreen;
+
+
+
+        [SerializeField] private Transform T_QandAParent;
+
+
+        private GameObject _InstantiatedQandA;
+
+
+        //################################################################
+        //################################################################
+        #endregion
+
+
+
+        #region  ---------------------------------------local variables---------------------------------------
+
+
+        [HideInInspector] public int I_CurrentIndex;
+        private int I_CollectedPoints = 0;
+
+
+        //################################################################
+        //################################################################
+        #endregion
 
 
 
@@ -633,54 +652,117 @@ namespace CaterpillarSortingGame
 
         void Start()
         {
-            I_CurrentIndex = 0;
-            Invoke(nameof(ShowNextQuestion), 3f);
+
+            #region =======================================integration=======================================
+
+            // G_Game.SetActive(false);
+            B_CloseDemo = true;
+
+            G_Transition.SetActive(false);
+            G_levelComplete.SetActive(false);
+            G_instructionPage.SetActive(false);
+
+            TEX_points.text = I_Points.ToString();
+
+            Invoke("THI_gameData", 1f);
+
+            I_currentQuestionCount = -1;
+
+            #endregion
+
+            I_CurrentIndex = -1;
+
+        }
+
+
+        public void GameInit()
+        {
+            StartCoroutine(IENUM_GameInit());
+        }
+
+
+        IEnumerator IENUM_GameInit()
+        {
+            G_Leaf.SetActive(true);
+
+            yield return new WaitForSeconds(3f);
+
+            ShowNextQuestion();
         }
 
 
         public void ShowNextQuestion()
         {
+
             if (!AudioManager.Instance.IsMusicPlaying())
             {
                 AudioManager.Instance.PlayGameMusic();
             }
 
-            StartCoroutine(IENUM_ShowCurrentQuestion());
-        }
+            I_CurrentIndex++;
 
-
-        IEnumerator IENUM_ShowCurrentQuestion()
-        {
-            // G_Caterpillar.SetActive(true);
-            // G_TransparentScreen.SetActive(true);
-            // ANIM_CaterpillarMove.SetTrigger("in");
-            // ANIM_CaterpillarUpDown.SetTrigger("active");
-            // AudioManager.Instance.PlayCaterpillarMovement();
-
-            // yield return new WaitForSeconds(4f);
-
-            // ANIM_CaterpillarUpDown.SetTrigger("inactive");
-            // G_TransparentScreen.SetActive(false);
-            // G_Caterpillar.SetActive(false);
-            // G_QandA.SetActive(true);
+            if (I_CurrentIndex == STRL_questions.Count)
+            {
+                THI_Levelcompleted();
+                return;
+            }
 
             _InstantiatedQandA = Instantiate(G_QandAPrefab, G_QandAPrefab.transform.position, Quaternion.identity, T_QandAParent);
-            G_Caterpillar = _InstantiatedQandA.GetComponent<QandA>().GetCaterpillar();
-
-            yield return new WaitForSeconds(4f);
-
         }
 
 
         public void RemoveCurrentQuestion()
         {
             Destroy(_InstantiatedQandA.gameObject);
-            StartCoroutine(IENUM_ShowCurrentQuestion());
+            ShowNextQuestion();
+        }
+
+
+        public void IncrementPoints()
+        {
+            I_Points++;
+        }
+
+
+        public void DecrementPoints()
+        {
+            if (I_Points > 0)
+            {
+                I_Points--;
+            }
+
+        }
+
+
+        private void UpdateScore()
+        {
+            THI_TrackGameData("1");
+
+            I_Points = I_Points * I_correctPoints;
+            I_CollectedPoints += I_Points;
+            TEX_points.text = I_CollectedPoints.ToString();
+            I_Points = 0;
+
+            // ANIM_ScoreCard.SetTrigger("clicked");
+            // PS_ScoreCard.Play();
+            SnailWordGame.AudioManager.Instance.PlayCoinChime();
+        }
+
+        public IEnumerator IENUM_UpdateScoreCount(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            for (int i = I_CollectedPoints; i < I_Points; i++)
+            {
+                TEX_points.text = i.ToString();
+                yield return new WaitForSeconds(0.2f);
+            }
         }
 
 
 
-
+        //################################################################
+        //################################################################
         #endregion
 
 

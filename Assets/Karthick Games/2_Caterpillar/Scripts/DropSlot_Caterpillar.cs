@@ -34,6 +34,8 @@ public class DropSlot_Caterpillar : MonoBehaviour, IDropHandler
                 AudioManager.Instance.PlayCorrect();
                 GetComponentInChildren<ParticleSystem>().Play();
                 StartCoroutine(IENUM_LerpTransform(drag.rectTransform, drag.rectTransform.anchoredPosition, GetComponent<RectTransform>().anchoredPosition));
+                gameObject.GetComponent<DropSlot_Caterpillar>().enabled = false;
+                REF_CaterpillarGameManager.IncrementPoints();
 
                 if (answerCount == 6)
                 {
@@ -41,12 +43,14 @@ public class DropSlot_Caterpillar : MonoBehaviour, IDropHandler
                     REF_QandA.Invoke("SpawnCoins", 1f);
                     REF_QandA.StartCoroutine(REF_QandA.IENUM_CaterpillarOut());
                     answerCount = 0;
+                    // REF_CaterpillarGameManager.StartCoroutine(REF_CaterpillarGameManager.IENUM_UpdateScoreCount(4.5f));
                 }
             }
             else
             {
                 //!wrong answer
                 AudioManager.Instance.PlayWrong();
+                REF_CaterpillarGameManager.DecrementPoints();
             }
 
         }

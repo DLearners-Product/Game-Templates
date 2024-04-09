@@ -26,8 +26,10 @@ namespace CaterpillarSortingGame
         private CaterpillarGameManager REF_CaterpillarGameManager;
 
 
-        private List<int> GA_Questions;             //draggable
-        private List<int> GA_SortedQuestions;       //slot
+        private List<string> GA_Questions;             //draggable
+        private List<string> GA_SortedQuestions;       //slot
+
+        string question = "", answer = "";
 
         private float _elapsedTime, _desiredDuration = 0.5f;
 
@@ -70,44 +72,59 @@ namespace CaterpillarSortingGame
 
         private void PrepareQuestions()
         {
-            GA_Questions = new List<int>();
-            GA_SortedQuestions = new List<int>();
+            GA_Questions = REF_CaterpillarGameManager.STRL_questions;
+            GA_SortedQuestions = REF_CaterpillarGameManager.STRL_answers;
 
-            for (int i = 0; i < GA_Slots.Length; i++)
-            {
-                int randomNum = Random.Range(1, 10);
-                GA_Questions.Add(randomNum);
-                GA_SortedQuestions.Add(randomNum);
-            }
+            question = REF_CaterpillarGameManager.STRL_questions[REF_CaterpillarGameManager.I_CurrentIndex];
+            answer = REF_CaterpillarGameManager.STRL_answers[REF_CaterpillarGameManager.I_CurrentIndex];
+
+            // for (int i = 0; i < GA_Slots.Length; i++)
+            // {
+            //     int randomNum = Random.Range(1, 10);
+            //     GA_Questions.Add(randomNum);
+            //     GA_SortedQuestions.Add(randomNum);
+            // }
 
             //ascending order
-            GA_SortedQuestions.Sort();
+            // GA_SortedQuestions.Sort();
 
             //descending order
             // GA_SortedQuestions.Sort((a, b) => b.CompareTo(a));
+
+
+
         }
 
 
         private void SetSlotData()
         {
             //sorted
+            /*             for (int i = 0; i < GA_Slots.Length; i++)
+                        {
+                            GA_Slots[i].name = GA_SortedQuestions[i].ToString();
+                        } */
+
             for (int i = 0; i < GA_Slots.Length; i++)
             {
-                GA_Slots[i].name = GA_SortedQuestions[i].ToString();
+                GA_Slots[i].name = answer[i].ToString();
             }
-
         }
 
 
         private void SetDraggableData()
         {
             //unsorted
+            /*             for (int i = 0; i < GA_Draggables.Length; i++)
+                        {
+                            GA_Draggables[i].name = GA_Questions[i].ToString();
+                            GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = GA_Questions[i].ToString();
+                        } */
+
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                GA_Draggables[i].name = GA_Questions[i].ToString();
-                GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = GA_Questions[i].ToString();
+                GA_Draggables[i].name = question[i].ToString();
+                GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = question[i].ToString();
             }
-
         }
 
 
@@ -128,10 +145,21 @@ namespace CaterpillarSortingGame
 
         IEnumerator IENUM_SpawnCoins()
         {
+            List<int> ascendingIndexList = new List<int>();
+
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = "";
-                Instantiate(G_CoinPrefab, GA_Draggables[i].transform.position, Quaternion.identity, transform);
+                // ascendingIndexList.Add(int.Parse(GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text));
+            }
+
+            ascendingIndexList.Sort();
+
+            for (int i = 0; i < GA_Draggables.Length; i++)
+            {
+                // GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = "";
+                Instantiate(G_CoinPrefab, GA_Slots[i].transform.position, Quaternion.identity, transform);
+                // GA_Draggables[].GetComponent<Text>().text = "";
+
                 yield return new WaitForSeconds(0.5f);
             }
 

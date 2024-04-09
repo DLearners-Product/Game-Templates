@@ -67,7 +67,7 @@ public class MainController : MonoBehaviour
 #endif
 
         // MOBILE = false;
-        // WEB = true;
+        WEB = true;
 
         //if (MOBILE)
         //{
