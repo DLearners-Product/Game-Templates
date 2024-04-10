@@ -237,7 +237,7 @@ namespace CaterpillarSortingGame
 
         void THI_Levelcompleted()
         {
-            MainController.instance.I_TotalPoints = I_Points;
+            MainController.instance.I_TotalPoints = I_CollectedPoints;
             G_levelComplete.SetActive(true);
             StartCoroutine(IN_sendDataToDB());
         }
@@ -590,7 +590,7 @@ namespace CaterpillarSortingGame
         public void BUT_instructionPage()
         {
             StopAllCoroutines();
-            Time.timeScale = 0;
+            // Time.timeScale = 0;
             G_instructionPage.SetActive(true);
             TEXM_instruction.text = STR_instruction;
             TEXM_instruction.gameObject.AddComponent<AudioSource>().Play();
@@ -598,7 +598,7 @@ namespace CaterpillarSortingGame
 
         public void BUT_closeInstruction()
         {
-            Time.timeScale = 1;
+            // Time.timeScale = 1;
             G_instructionPage.SetActive(false);
 
         }
@@ -616,6 +616,7 @@ namespace CaterpillarSortingGame
 
         #region  ---------------------------------------unity reference variables---------------------------------------
 
+        [HideInInspector] public string mode = "";
         [SerializeField] private GameObject G_Leaf;
         [SerializeField] private GameObject G_QandAPrefab;
         [SerializeField] private GameObject G_TransparentScreen;
@@ -677,6 +678,7 @@ namespace CaterpillarSortingGame
 
         public void GameInit()
         {
+            AudioManager.Instance.PlayGameMusic();
             StartCoroutine(IENUM_GameInit());
         }
 
@@ -694,11 +696,6 @@ namespace CaterpillarSortingGame
         public void ShowNextQuestion()
         {
 
-            if (!AudioManager.Instance.IsMusicPlaying())
-            {
-                AudioManager.Instance.PlayGameMusic();
-            }
-
             I_CurrentIndex++;
 
             if (I_CurrentIndex == STRL_questions.Count)
@@ -713,6 +710,7 @@ namespace CaterpillarSortingGame
 
         public void RemoveCurrentQuestion()
         {
+            AudioManager.Instance.PlayGameMusic();
             Destroy(_InstantiatedQandA.gameObject);
             ShowNextQuestion();
         }
@@ -734,29 +732,35 @@ namespace CaterpillarSortingGame
         }
 
 
-        private void UpdateScore()
+        public void UpdateScore(float delay)
         {
             THI_TrackGameData("1");
 
             I_Points = I_Points * I_correctPoints;
-            I_CollectedPoints += I_Points;
-            TEX_points.text = I_CollectedPoints.ToString();
-            I_Points = 0;
+            // I_CollectedPoints += I_Points;
+            // TEX_points.text = I_CollectedPoints.ToString();
+            // I_Points = 0;
 
             // ANIM_ScoreCard.SetTrigger("clicked");
             // PS_ScoreCard.Play();
-            SnailWordGame.AudioManager.Instance.PlayCoinChime();
+            StartCoroutine(IENUM_UpdateScoreCount(delay));
         }
+
 
         public IEnumerator IENUM_UpdateScoreCount(float delay)
         {
             yield return new WaitForSeconds(delay);
 
-            for (int i = I_CollectedPoints; i < I_Points; i++)
+            AudioManager.Instance.PlayCoinCollect(0f);
+
+            for (int i = I_CollectedPoints; i <= (I_CollectedPoints + I_Points); i++)
             {
                 TEX_points.text = i.ToString();
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.35f);
             }
+
+            I_CollectedPoints += I_Points;
+            I_Points = 0;
         }
 
 

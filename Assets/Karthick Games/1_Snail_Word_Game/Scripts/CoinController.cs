@@ -15,6 +15,7 @@ namespace CaterpillarSortingGame
 
         void Start()
         {
+            AudioManager.Instance.PlayCoinSpawn();
             T_Points = GameObject.FindGameObjectWithTag("Points").transform;
             StartCoroutine(IENUM_LerpMoveTile(transform.position, T_Points.GetChild(0).GetChild(1).position));
         }
@@ -38,8 +39,6 @@ namespace CaterpillarSortingGame
 
             T_Points.GetComponent<Animator>().SetTrigger("clicked");
             T_Points.GetComponentInChildren<ParticleSystem>().Play();
-            AudioManager.Instance.PlayCoinCollect();
-
         }
 
     }

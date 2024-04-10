@@ -821,7 +821,7 @@ public class SnailGameManager : MonoBehaviour
 
     void THI_Levelcompleted()
     {
-        MainController.instance.I_TotalPoints = I_Points;
+        MainController.instance.I_TotalPoints = I_CollectedPoints;
         G_levelComplete.SetActive(true);
         StartCoroutine(IN_sendDataToDB());
     }

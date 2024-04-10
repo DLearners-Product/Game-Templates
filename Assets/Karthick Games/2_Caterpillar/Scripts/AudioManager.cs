@@ -20,6 +20,7 @@ namespace CaterpillarSortingGame
         [SerializeField] private AudioClip AC_Correct;
         [SerializeField] private AudioClip AC_Wrong;
         [SerializeField] private AudioClip AC_CaterpillarMovement;
+        [SerializeField] private AudioClip AC_CoinSpawn;
         [SerializeField] private AudioClip AC_CoinCollect;
 
 
@@ -43,7 +44,7 @@ namespace CaterpillarSortingGame
         }
 
 
-        public void PlayGameWon()
+        public void PlayGameWonMusic()
         {
             AS_Music.clip = AC_GameWon;
             AS_Music.Play();
@@ -69,9 +70,16 @@ namespace CaterpillarSortingGame
         }
 
 
-        public void PlayCoinCollect()
+        public void PlayCoinSpawn()
         {
-            AS_SFX.PlayOneShot(AC_CoinCollect);
+            AS_SFX.PlayOneShot(AC_CoinSpawn);
+        }
+
+
+        public void PlayCoinCollect(float delay)
+        {
+            AS_SFX.clip = AC_CoinCollect;
+            AS_SFX.PlayDelayed(delay);
         }
 
 

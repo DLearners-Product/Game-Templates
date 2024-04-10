@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +30,12 @@ namespace CaterpillarSortingGame
         private List<string> GA_Questions;             //draggable
         private List<string> GA_SortedQuestions;       //slot
 
-        string question = "", answer = "";
+        // string question = "", answer = "";
 
         private float _elapsedTime, _desiredDuration = 0.5f;
+
+        private static int I_FirstIndex = 0, I_LastIndex = 5;
+
 
 
         void Start()
@@ -42,6 +46,8 @@ namespace CaterpillarSortingGame
             //SetDraggableData();
             //StartCoroutine(IENUM_DisableDraggableAnimator());
 
+            GA_Questions = new List<string>();
+            GA_SortedQuestions = new List<string>();
 
             StartCoroutine(IENUM_CaterpillarIn());
         }
@@ -72,11 +78,13 @@ namespace CaterpillarSortingGame
 
         private void PrepareQuestions()
         {
-            GA_Questions = REF_CaterpillarGameManager.STRL_questions;
-            GA_SortedQuestions = REF_CaterpillarGameManager.STRL_answers;
+            /*             GA_Questions = REF_CaterpillarGameManager.STRL_questions;
+                        GA_SortedQuestions = REF_CaterpillarGameManager.STRL_answers;
 
-            question = REF_CaterpillarGameManager.STRL_questions[REF_CaterpillarGameManager.I_CurrentIndex];
-            answer = REF_CaterpillarGameManager.STRL_answers[REF_CaterpillarGameManager.I_CurrentIndex];
+                        question = REF_CaterpillarGameManager.STRL_questions[REF_CaterpillarGameManager.I_CurrentIndex];
+                        answer = REF_CaterpillarGameManager.STRL_answers[REF_CaterpillarGameManager.I_CurrentIndex]; */
+
+
 
             // for (int i = 0; i < GA_Slots.Length; i++)
             // {
@@ -93,6 +101,29 @@ namespace CaterpillarSortingGame
 
 
 
+
+            for (int i = I_FirstIndex; i <= I_LastIndex; i++)
+            {
+                GA_Questions.Add(REF_CaterpillarGameManager.STRL_options[i]);
+                GA_SortedQuestions.Add(REF_CaterpillarGameManager.STRL_options[i]);
+            }
+
+            string mode = "descending";
+
+            //ascending order
+            if (mode == "ascending")
+            {
+                //ascending order
+                GA_SortedQuestions.Sort();
+            }
+            else if (mode == "descending")
+            {
+                //descending order
+                GA_SortedQuestions.Sort((a, b) => b.CompareTo(a));
+            }
+
+
+
         }
 
 
@@ -106,7 +137,7 @@ namespace CaterpillarSortingGame
 
             for (int i = 0; i < GA_Slots.Length; i++)
             {
-                GA_Slots[i].name = answer[i].ToString();
+                GA_Slots[i].name = GA_SortedQuestions[i].ToString();
             }
         }
 
@@ -122,8 +153,11 @@ namespace CaterpillarSortingGame
 
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                GA_Draggables[i].name = question[i].ToString();
-                GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = question[i].ToString();
+                // GA_Draggables[i].name = question[i].ToString();
+                // GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = question[i].ToString();
+
+                GA_Draggables[i].name = GA_Questions[i].ToString();
+                GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = GA_Questions[i].ToString();
             }
         }
 
@@ -145,20 +179,42 @@ namespace CaterpillarSortingGame
 
         IEnumerator IENUM_SpawnCoins()
         {
+            #region Getting Draggable number's ascending index list
+
             List<int> ascendingIndexList = new List<int>();
 
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                // ascendingIndexList.Add(int.Parse(GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text));
+                ascendingIndexList.Add(int.Parse(GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text));
             }
 
-            ascendingIndexList.Sort();
+            List<int> indicesInOrder = new List<int>();
+
+            if (REF_CaterpillarGameManager.mode == "ascending")
+            {
+                indicesInOrder = Enumerable.Range(0, ascendingIndexList.Count)
+                                                                       .OrderBy(i => ascendingIndexList[i])
+                                                                       .ToList();
+            }
+            else if (REF_CaterpillarGameManager.mode == "descending")
+            {
+                indicesInOrder = Enumerable.Range(0, ascendingIndexList.Count)
+                                                                          .OrderBy(i => ascendingIndexList[i])
+                                                                          .OrderByDescending(i => ascendingIndexList[i])
+                                                                          .ToList();
+            }
+
+            // List<int> indicesInAscendingOrder = Enumerable.Range(0, ascendingIndexList.Count)
+            //                                            .OrderBy(i => ascendingIndexList[i])
+            //                                            .ToList();
+
+            #endregion
+
 
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                // GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = "";
                 Instantiate(G_CoinPrefab, GA_Slots[i].transform.position, Quaternion.identity, transform);
-                // GA_Draggables[].GetComponent<Text>().text = "";
+                GA_Draggables[indicesInOrder[i]].GetComponentInChildren<Text>().text = "";
 
                 yield return new WaitForSeconds(0.5f);
             }

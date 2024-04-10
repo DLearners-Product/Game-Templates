@@ -66,7 +66,7 @@ public class MainController : MonoBehaviour
         //  Debug.Log("WEB");
 #endif
 
-        // MOBILE = false;
+        MOBILE = false;
         WEB = true;
 
         //if (MOBILE)
