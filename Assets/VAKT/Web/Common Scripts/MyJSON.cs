@@ -34,8 +34,8 @@ public class MyJSON
         JSONNode n = JSON.Parse(MainController.instance.STR_IDjson);
         MainController.instance.STR_childID = n["child_id"];
         MainController.instance.STR_GameID = n["game_id"];
-    //    Debug.Log("CHILD ID FROM CRASH: " + MainController.instance.STR_childID);
-     //   Debug.Log("GAME ID FROM CRASH: " + MainController.instance.STR_GameID);
+        //    Debug.Log("CHILD ID FROM CRASH: " + MainController.instance.STR_childID);
+        //   Debug.Log("GAME ID FROM CRASH: " + MainController.instance.STR_GameID);
     }
 
     public void THI_onGameComplete(string json)
@@ -51,7 +51,7 @@ public class MyJSON
     {
         JSONNode n = JSON.Parse(json);
         PassageClickManager.instance.STR_passage = n["options"][0]["option"];
-        for(int i = 0; i <n["q_a"].AsArray.Count; i++)
+        for (int i = 0; i < n["q_a"].AsArray.Count; i++)
         {
             PassageClickManager.instance.STRL_questions.Add(n["q_a"][i]["question"]);
             PassageClickManager.instance.STRL_answers.Add(n["q_a"][i]["answer"]); // answer
@@ -59,7 +59,7 @@ public class MyJSON
     }
 
     public void Temp_type_1_LWS(string json, List<int> IL_numbers, List<string> STRL_instruction, List<string> STRL_instructionAudios, List<string> STRL_questions
-                   , List<string> STRL_answers, List<string> STRL_quesitonAudios, List<string> STRL_questionID, List<string> STRL_options, List<string> STRL_optionAudios,List<string> STRL_details, List<string> STRL_cover_img_link)
+                   , List<string> STRL_answers, List<string> STRL_quesitonAudios, List<string> STRL_questionID, List<string> STRL_options, List<string> STRL_optionAudios, List<string> STRL_details, List<string> STRL_cover_img_link)
     {
         Debug.Log(json);
 
@@ -69,7 +69,7 @@ public class MyJSON
         IL_numbers.Add(n["correct_points"]); // correct points
         IL_numbers.Add(n["wrong_points"]); // wrong points
         STRL_instruction.Add(n["instruction"]); // instruction
-       // STRL_difficulty.Add(n["difficulty_level"]); // difficulty level
+                                                // STRL_difficulty.Add(n["difficulty_level"]); // difficulty level
         STRL_instructionAudios.Add(n["instruction_audio"]);//instruction audio
         STRL_cover_img_link.Add(n["game_cover_img"]); // bg image link
 
@@ -90,13 +90,13 @@ public class MyJSON
         STRL_details.Add(n["child_standard"]);
         STRL_details.Add(n["lesson_name"]);
 
-       
+
     }
 
 
     public void Temp_type_1(string json, List<int> IL_numbers, List<string> STRL_difficulty, List<string> STRL_instruction, List<string> STRL_BG_img_link, List<string> STRL_instructionAudio, List<string> STRL_questions
-                   , List<string> STRL_answers, List<string> STRL_quesitonAudios, List<string> STRL_questionID, List<string> STRL_options, List<string> STRL_optionAudios, List<string> STRL_avatar_Color, 
-        List<string> STRL_Panel_Img_link, List<string> STRL_cover_img_link,List<string> STRL_passageDetail)
+                   , List<string> STRL_answers, List<string> STRL_quesitonAudios, List<string> STRL_questionID, List<string> STRL_options, List<string> STRL_optionAudios, List<string> STRL_avatar_Color,
+        List<string> STRL_Panel_Img_link, List<string> STRL_cover_img_link, List<string> STRL_passageDetail)
     {
         Debug.Log(json);
         JSONNode n = JSON.Parse(json);
@@ -108,9 +108,9 @@ public class MyJSON
         STRL_instruction.Add(n["instruction"]); // game instruction
         STRL_BG_img_link.Add(n["bg_image"]); // bg image lin
         STRL_cover_img_link.Add(n["game_cover_img"]); // bg image link
-        
-      //  IL_numbers.Add(n["q_a"][0]["options"].AsArray.Count);
-        
+
+        //  IL_numbers.Add(n["q_a"][0]["options"].AsArray.Count);
+
         STRL_instructionAudio.Add(n["instruction_audio"]); // instruction audio
 
         for (int i = 0; i < n["q_a"].AsArray.Count; i++)
@@ -125,13 +125,13 @@ public class MyJSON
             STRL_options.Add(n["options"][i]["option"]); // option
             STRL_optionAudios.Add(n["options"][i]["option_voice"]); // option audioz
         }
-        if (n["customization"] != "" && n["customization"] !=null)
+        if (n["customization"] != "" && n["customization"] != null)
         {
             STRL_avatar_Color.Add(n["customization"]["helicopter"]["customization_details"]["color"]);
             STRL_Panel_Img_link.Add(n["customization"]["option_holder"]["location"]);
         }
 
-        if (n["additional_keys"] != null && n["additional_keys"] !="" )
+        if (n["additional_keys"] != null && n["additional_keys"] != "")
         {
             Debug.Log(n["additional_keys"]);
             Debug.Log("Passage = " + n["additional_keys"]["passage"]);
@@ -143,8 +143,8 @@ public class MyJSON
 
     }
 
-    public void Temp_type_2(string json, List<string> STRL_difficulty, List<int> IL_numbers, List<string> STRL_questions, List<string> STRL_answers, List<string> STRL_options, 
-        List<string> STRL_questionIDs, List<string> STRL_instruction, List<string> STRL_questionAudios, List<string> STRL_optionAudios, List<string> STRL_instructionAudios,List<string> STRL_cover_img_link, List<string> STRL_passageDetail)
+    public void Temp_type_2(string json, List<string> STRL_difficulty, List<int> IL_numbers, List<string> STRL_questions, List<string> STRL_answers, List<string> STRL_options,
+        List<string> STRL_questionIDs, List<string> STRL_instruction, List<string> STRL_questionAudios, List<string> STRL_optionAudios, List<string> STRL_instructionAudios, List<string> STRL_cover_img_link, List<string> STRL_passageDetail)
     {
         Debug.Log(json);
 
@@ -171,7 +171,7 @@ public class MyJSON
             for (int j = 0; j < n["q_a"][i]["options"].AsArray.Count; j++)
             {
                 STRL_options.Add(n["q_a"][i]["options"][j]["option"]); // option
-                STRL_optionAudios.Add(n["q_a"][i]["options"][j] ["option_voice"]); // option audio
+                STRL_optionAudios.Add(n["q_a"][i]["options"][j]["option_voice"]); // option audio
             }
         }
 
@@ -187,8 +187,8 @@ public class MyJSON
     }
 
 
-    public void Temp_type_2_LWS(string json, List<string> STRL_difficulty, List<int> IL_numbers, List<string> STRL_questions, List<string> STRL_answers, List<string> STRL_options, 
-        List<string> STRL_questionIDs, List<string> STRL_instruction, List<string> STRL_questionAudios, List<string> STRL_optionAudios, 
+    public void Temp_type_2_LWS(string json, List<string> STRL_difficulty, List<int> IL_numbers, List<string> STRL_questions, List<string> STRL_answers, List<string> STRL_options,
+        List<string> STRL_questionIDs, List<string> STRL_instruction, List<string> STRL_questionAudios, List<string> STRL_optionAudios,
         List<string> STRL_instructionAudios, List<string> STRL_details, List<string> STRL_cover_img_link)
     {
         Debug.Log(json);

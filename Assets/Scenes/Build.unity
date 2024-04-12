@@ -123,149 +123,60 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &1037299661
+--- !u!1001 &4628597654462466315
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6866573696559049599, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: B_production
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609172, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_Name
-      value: Caterpillar_SortingGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9100782167262203388, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: STR_previewJsonAPI
-      value: '{     "q_a": [         {             "question_id": 1,            
-        "answer": "111213141516",             "question": "141316151211",            
-        "question_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/selectpanda.mp3",            
-        "options": [                 {                     "option_id": 1,                    
-        "option": "14",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 2,                    
-        "option": "13",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 3,                    
-        "option": "15",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 4,                    
-        "option": "16",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 5,                    
-        "option": "12",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 6,                    
-        "option": "11",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"                
-        }             ]         },         {             "question_id": 2,            
-        "answer": "456789",             "question": "987654",             "question_voice":
-        "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/selectpanda.mp3",            
-        "options": [                 {                     "option_id": 1,                    
-        "option": "9",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 2,                    
-        "option": "8",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 3,                    
-        "option": "7",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 4,                    
-        "option": "6",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 5,                    
-        "option": "5",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 6,                    
-        "option": "4",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"                
-        }             ]         },         {             "question_id": 3,            
-        "answer": "112233",             "question": "332121",             "question_voice":
-        "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/selectpanda.mp3",            
-        "options": [                 {                     "option_id": 1,                    
-        "option": "3",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 2,                    
-        "option": "3",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 3,                    
-        "option": "2",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 4,                    
-        "option": "1",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 5,                    
-        "option": "2",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 6,                    
-        "option": "1",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"                
-        }             ]         },         {             "question_id": 4,            
-        "answer": "667788",             "question": "876876",             "question_voice":
-        "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/selectpanda.mp3",            
-        "options": [                 {                     "option_id": 1,                    
-        "option": "8",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 2,                    
-        "option": "7",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 3,                    
-        "option": "6",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 4,                    
-        "option": "8",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 5,                    
-        "option": "7",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 6,                    
-        "option": "6",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"                
-        }             ]         },         {             "question_id": 5,            
-        "answer": "135789",             "question": "987531",             "question_voice":
-        "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/selectpanda.mp3",            
-        "options": [                 {                     "option_id": 1,                    
-        "option": "9",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 2,                    
-        "option": "8",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 3,                    
-        "option": "7",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 4,                    
-        "option": "5",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 5,                    
-        "option": "3",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-        },                 {                     "option_id": 6,                    
-        "option": "1",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"                
-        }             ]         }     ],     "correct_points": "1",     "wrong_points":
-        "1",     "video": "",     "instruction": "Game Instruction",     "instruction_audio":
-        "https://dlearners.in/template_and_games/instruction_audio.mp3",     "bg_image":
-        "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/bg.png",    
-        "difficulty_level": "1",     "customization": {},     "child_name": "Child
-        name here",     "child_standard": "std here",     "lesson_name": "Lesson
-        name here",     "game_cover_img": null }'
+    - target: {fileID: 4499214923670551634, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_Name
+      value: Caterpillar_SortingGame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}

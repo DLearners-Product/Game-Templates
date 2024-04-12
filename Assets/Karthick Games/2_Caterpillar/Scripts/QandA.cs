@@ -30,28 +30,19 @@ namespace CaterpillarSortingGame
         private List<string> GA_Questions;             //draggable
         private List<string> GA_SortedQuestions;       //slot
 
-        // string question = "", answer = "";
 
         private float _elapsedTime, _desiredDuration = 0.5f;
-
-        private static int I_FirstIndex = 0, I_LastIndex = 5;
-
 
 
         void Start()
         {
             REF_CaterpillarGameManager = GameObject.FindObjectOfType<CaterpillarGameManager>();
-            //PrepareQuestions();
-            //SetSlotData();
-            //SetDraggableData();
-            //StartCoroutine(IENUM_DisableDraggableAnimator());
 
             GA_Questions = new List<string>();
             GA_SortedQuestions = new List<string>();
 
             StartCoroutine(IENUM_CaterpillarIn());
         }
-
 
 
         IEnumerator IENUM_CaterpillarIn()
@@ -75,66 +66,31 @@ namespace CaterpillarSortingGame
         }
 
 
-
         private void PrepareQuestions()
         {
-            /*             GA_Questions = REF_CaterpillarGameManager.STRL_questions;
-                        GA_SortedQuestions = REF_CaterpillarGameManager.STRL_answers;
-
-                        question = REF_CaterpillarGameManager.STRL_questions[REF_CaterpillarGameManager.I_CurrentIndex];
-                        answer = REF_CaterpillarGameManager.STRL_answers[REF_CaterpillarGameManager.I_CurrentIndex]; */
-
-
-
-            // for (int i = 0; i < GA_Slots.Length; i++)
-            // {
-            //     int randomNum = Random.Range(1, 10);
-            //     GA_Questions.Add(randomNum);
-            //     GA_SortedQuestions.Add(randomNum);
-            // }
-
-            //ascending order
-            // GA_SortedQuestions.Sort();
-
-            //descending order
-            // GA_SortedQuestions.Sort((a, b) => b.CompareTo(a));
-
-
-
-
-            for (int i = I_FirstIndex; i <= I_LastIndex; i++)
+            //fetching questions and options and assigning them to local list for easy q and a manipulation
+            for (int i = REF_CaterpillarGameManager.I_FirstIndex; i <= REF_CaterpillarGameManager.I_LastIndex; i++)
             {
                 GA_Questions.Add(REF_CaterpillarGameManager.STRL_options[i]);
                 GA_SortedQuestions.Add(REF_CaterpillarGameManager.STRL_options[i]);
             }
 
-            string mode = "descending";
-
-            //ascending order
-            if (mode == "ascending")
+            //sorting options based on the mdoe
+            if (REF_CaterpillarGameManager.STR_Mode == "asc")
             {
                 //ascending order
                 GA_SortedQuestions.Sort();
             }
-            else if (mode == "descending")
+            else if (REF_CaterpillarGameManager.STR_Mode == "desc")
             {
                 //descending order
                 GA_SortedQuestions.Sort((a, b) => b.CompareTo(a));
             }
-
-
-
         }
 
 
         private void SetSlotData()
         {
-            //sorted
-            /*             for (int i = 0; i < GA_Slots.Length; i++)
-                        {
-                            GA_Slots[i].name = GA_SortedQuestions[i].ToString();
-                        } */
-
             for (int i = 0; i < GA_Slots.Length; i++)
             {
                 GA_Slots[i].name = GA_SortedQuestions[i].ToString();
@@ -144,18 +100,8 @@ namespace CaterpillarSortingGame
 
         private void SetDraggableData()
         {
-            //unsorted
-            /*             for (int i = 0; i < GA_Draggables.Length; i++)
-                        {
-                            GA_Draggables[i].name = GA_Questions[i].ToString();
-                            GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = GA_Questions[i].ToString();
-                        } */
-
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                // GA_Draggables[i].name = question[i].ToString();
-                // GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = question[i].ToString();
-
                 GA_Draggables[i].name = GA_Questions[i].ToString();
                 GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = GA_Questions[i].ToString();
             }
@@ -181,32 +127,27 @@ namespace CaterpillarSortingGame
         {
             #region Getting Draggable number's ascending index list
 
-            List<int> ascendingIndexList = new List<int>();
+            List<int> draggableIndexList = new List<int>();
 
             for (int i = 0; i < GA_Draggables.Length; i++)
             {
-                ascendingIndexList.Add(int.Parse(GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text));
+                draggableIndexList.Add(int.Parse(GA_Draggables[i].GetComponentInChildren<Text>().text));
             }
 
             List<int> indicesInOrder = new List<int>();
 
-            if (REF_CaterpillarGameManager.mode == "ascending")
+            if (REF_CaterpillarGameManager.STR_Mode == "asc")
             {
-                indicesInOrder = Enumerable.Range(0, ascendingIndexList.Count)
-                                                                       .OrderBy(i => ascendingIndexList[i])
-                                                                       .ToList();
+                indicesInOrder = Enumerable.Range(0, draggableIndexList.Count)
+                                            .OrderBy(i => draggableIndexList[i])
+                                            .ToList();
             }
-            else if (REF_CaterpillarGameManager.mode == "descending")
+            else if (REF_CaterpillarGameManager.STR_Mode == "desc")
             {
-                indicesInOrder = Enumerable.Range(0, ascendingIndexList.Count)
-                                                                          .OrderBy(i => ascendingIndexList[i])
-                                                                          .OrderByDescending(i => ascendingIndexList[i])
-                                                                          .ToList();
+                indicesInOrder = Enumerable.Range(0, draggableIndexList.Count)
+                                            .OrderByDescending(i => draggableIndexList[i])
+                                            .ToList();
             }
-
-            // List<int> indicesInAscendingOrder = Enumerable.Range(0, ascendingIndexList.Count)
-            //                                            .OrderBy(i => ascendingIndexList[i])
-            //                                            .ToList();
 
             #endregion
 
@@ -218,7 +159,6 @@ namespace CaterpillarSortingGame
 
                 yield return new WaitForSeconds(0.5f);
             }
-
         }
 
 
@@ -239,6 +179,10 @@ namespace CaterpillarSortingGame
             AudioManager.Instance.PlayCaterpillarMovement();
 
             yield return new WaitForSeconds(4f);
+
+
+            REF_CaterpillarGameManager.I_FirstIndex = REF_CaterpillarGameManager.I_LastIndex + 1;
+            REF_CaterpillarGameManager.I_LastIndex = REF_CaterpillarGameManager.I_FirstIndex + 5;
 
             REF_CaterpillarGameManager.RemoveCurrentQuestion();
         }

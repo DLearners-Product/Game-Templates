@@ -9593,6 +9593,104 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &431540520
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2267260519216996251, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267260520485850553, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: G_Demo
+      value: 
+      objectReference: {fileID: 431540521}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_RootOrder
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551633, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214923670551634, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_Name
+      value: Caterpillar_SortingGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214924194497334, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214924275588309, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214924568433696, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214924758346036, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214925257549874, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499214925263915189, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628597654750067688, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+--- !u!1 &431540521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4499214924758346036, guid: 15149c25d9f82d845ad7046a5ffe4ad9, type: 3}
+  m_PrefabInstance: {fileID: 431540520}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &440705210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4671388286350335104, guid: e85050c36d1aa49ad927ee3db408ab7f, type: 3}
@@ -50713,63 +50811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &6866573695829318715
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 9100782167132609172, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_Name
-      value: Caterpillar_SortingGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_RootOrder
-      value: 38
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100782167132609175, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b412e9c6eb9ec541aeab8d9cdbcf4a7, type: 3}
 --- !u!1001 &7132246756182315384
 PrefabInstance:
   m_ObjectHideFlags: 0

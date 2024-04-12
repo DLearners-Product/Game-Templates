@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
-
+using SimpleJSON;
 
 namespace CaterpillarSortingGame
 {
@@ -110,6 +110,9 @@ namespace CaterpillarSortingGame
         public AudioClip[] ACA_optionClips;
         public AudioClip[] ACA_instructionClips;
 
+
+        public List<string> STRL_Passagedetails = new List<string>();
+        public string STR_Mode;
 
         private void Awake()
         {
@@ -418,13 +421,21 @@ namespace CaterpillarSortingGame
             }
             else
             {
-                List<string> STRL_Passagedetails = new List<string>();
+
                 MyJSON json = new MyJSON();
                 //json.Helitemp(www.downloadHandler.text);
                 json.Temp_type_2(www.downloadHandler.text, STRL_difficulty, IL_numbers, STRL_questions, STRL_answers, STRL_options, STRL_questionID, STRL_instruction, STRL_quesitonAudios, STRL_optionAudios,
                 STRL_instructionAudio, STRL_cover_img_link, STRL_Passagedetails);
                 //        Debug.Log("GAME DATA : " + www.downloadHandler.text);
 
+                JSONNode parseJSON = JSON.Parse(www.downloadHandler.text);
+
+                Debug.Log("999999999999999999999999999999999999999999999999999");
+                Debug.Log(parseJSON["additional_keys"]);
+                Debug.Log(parseJSON["additional_keys"]["Sorting mode"]);
+                Debug.Log(parseJSON["additional_keys"]["Sorting mode"]["content_data"]);
+
+                STR_Mode = parseJSON["additional_keys"]["Sorting mode"]["content_data"];
                 STR_difficulty = STRL_difficulty[0];
 
                 STR_instruction = STRL_instruction[0];
@@ -484,10 +495,8 @@ namespace CaterpillarSortingGame
                 }
                 else
                 {
-
                     ACA_instructionClips[i] = DownloadHandlerAudioClip.GetContent(www);
                     Debug.Log("audio clips fetched instruction");
-
                 }
             }
             THI_assignAudioClips();
@@ -520,17 +529,28 @@ namespace CaterpillarSortingGame
         public void THI_getPreviewData()
         {
             List<string> STRL_Passagedetails = new List<string>();
+
             MyJSON json = new MyJSON();
             //  json.Helitemp(MainController.instance.STR_previewJsonAPI);
             json.Temp_type_2(MainController.instance.STR_previewJsonAPI, STRL_difficulty, IL_numbers, STRL_questions, STRL_answers, STRL_options, STRL_questionID, STRL_instruction, STRL_quesitonAudios, STRL_optionAudios,
                 STRL_instructionAudio, STRL_cover_img_link, STRL_Passagedetails);
 
+            // STR_Mode = STRL_Passagedetails[];
             STR_difficulty = STRL_difficulty[0];
             STR_instruction = STRL_instruction[0];
             MainController.instance.I_correctPoints = I_correctPoints = IL_numbers[1];
             I_wrongPoints = IL_numbers[2];
             MainController.instance.I_TotalQuestions = STRL_questions.Count;
 
+            //manually parsing the additional key "Sorting mode"
+            JSONNode parseJSON = JSON.Parse(MainController.instance.STR_previewJsonAPI);
+
+            /*             Debug.Log("999999999999999999999999999999999999999999999999999");
+                        Debug.Log(parseJSON["additional_keys"]);
+                        Debug.Log(parseJSON["additional_keys"]["Sorting mode"]);
+                        Debug.Log(parseJSON["additional_keys"]["Sorting mode"]["content_data"]); */
+
+            STR_Mode = parseJSON["additional_keys"]["Sorting mode"]["content_data"];
 
 
             StartCoroutine(EN_getAudioClips());
@@ -550,6 +570,9 @@ namespace CaterpillarSortingGame
             string toJson = JsonUtility.ToJson(CaterpillarGameDB);
             STRL_gameData.Add(toJson);
             STR_Data = string.Join(",", STRL_gameData);
+
+            Debug.Log("strl_gamedata = " + toJson);
+            Debug.Log("str_data = " + STR_Data);
         }
 
 
@@ -592,6 +615,7 @@ namespace CaterpillarSortingGame
             StopAllCoroutines();
             // Time.timeScale = 0;
             G_instructionPage.SetActive(true);
+
             TEXM_instruction.text = STR_instruction;
             TEXM_instruction.gameObject.AddComponent<AudioSource>().Play();
         }
@@ -616,14 +640,18 @@ namespace CaterpillarSortingGame
 
         #region  ---------------------------------------unity reference variables---------------------------------------
 
-        [HideInInspector] public string mode = "";
         [SerializeField] private GameObject G_Leaf;
         [SerializeField] private GameObject G_QandAPrefab;
         [SerializeField] private GameObject G_TransparentScreen;
-
+        [SerializeField] private GameObject G_AscInstruction;
+        [SerializeField] private GameObject G_DescInstruction;
 
 
         [SerializeField] private Transform T_QandAParent;
+
+
+        [HideInInspector] public int I_FirstIndex = 0;
+        [HideInInspector] public int I_LastIndex = 5;
 
 
         private GameObject _InstantiatedQandA;
@@ -672,8 +700,23 @@ namespace CaterpillarSortingGame
             #endregion
 
             I_CurrentIndex = -1;
-
         }
+
+
+        // private void PreparingDemo()
+        // {
+        //     //to show its ascending or descending demo
+        //     if (STR_Mode == "asc")
+        //     {
+        //         G_AscInstruction.SetActive(true);
+        //         G_DescInstruction.SetActive(false);
+        //     }
+        //     else if (STR_Mode == "desc")
+        //     {
+        //         G_DescInstruction.SetActive(true);
+        //         G_AscInstruction.SetActive(false);
+        //     }
+        // }
 
 
         public void GameInit()
