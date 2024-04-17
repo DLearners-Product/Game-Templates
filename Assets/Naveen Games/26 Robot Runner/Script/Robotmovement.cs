@@ -27,7 +27,7 @@ public class Robotmovement : MonoBehaviour
     public ParticleSystem smokeeffect;
     public ParticleSystem stareffect;
     GameObject G_portal;
-   // public bool B_portalopen;
+    // public bool B_portalopen;
 
     public AudioSource AS_falling;
     public AudioSource AS_Walking;
@@ -37,20 +37,40 @@ public class Robotmovement : MonoBehaviour
     public GameObject play;
     public AnimationClip AC_portaldisapears;
 
+
     public void Awake()
     {
         OBJ_robotmovement = this;
         Robot = this.gameObject;
         RB2D_robot = this.GetComponent<Rigidbody2D>();
-       // FollowingCamera.OBJ_followingCamera.B_canfollow = false;
+        // FollowingCamera.OBJ_followingCamera.B_canfollow = false;
         startpostion = transform.position;
-      //  B_portalopen = false;
-       // startfunction();
+        //  B_portalopen = false;
+        // startfunction();
     }
+
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            jump();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            down();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            startfunction();
+        }
+    }
+
+
     public void startfunction()
     {
         this.GetComponent<Animator>().Play("land");
-        
+
         movementsped = 0f;
         RB2D_robot.gravityScale = 0;
         transform.position = startpostion;
@@ -58,19 +78,22 @@ public class Robotmovement : MonoBehaviour
         play.SetActive(true);
         offscoreeffect();
     }
+
+
     public void offscoreeffect()
     {
         G_10.SetActive(false);
         G_5.SetActive(false);
     }
-    // Start is called before the first frame update
+
+
     void Start()
     {
         // OBJ_robotmovement = this;
-
         this.GetComponent<Animator>().Play("land");
-       
     }
+
+
     public void BUT_Play()
     {
         RB2D_robot.gravityScale = 1.5f;
@@ -78,33 +101,41 @@ public class Robotmovement : MonoBehaviour
         FollowingCamera.OBJ_followingCamera.B_canfollow = true;
         AS_falling.Play();
     }
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
         transform.Translate(Vector2.right * movementsped);
     }
+
+
     public void jump()
     {
         if (B_canjump)
         {
             this.GetComponent<Animator>().Play("jump");
-            AS_Walking.Stop(); 
-            AS_Jumping.Play(); 
+            AS_Walking.Stop();
+            AS_Jumping.Play();
             // this.GetComponent<SpriteRenderer>().sprite = SPR_jump;
             RB2D_robot.velocity = Vector2.up * jumpspeed;
             // B_canjump = false;
         }
 
     }
+
+
     public void down()
     {
         if (!B_canjump)
         {
             this.GetComponent<Animator>().Play("land");
-           
+
             RB2D_robot.velocity = Vector2.down * jumpspeed;
         }
     }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "star")
@@ -112,46 +143,51 @@ public class Robotmovement : MonoBehaviour
             starplayparticle();
             Destroy(collision.gameObject);
             RB_Runner_Main.Instance.THI_Collect_Out(true);
-           // Main_runner.OBJ_main_Runner.AddScore();
+            // Main_runner.OBJ_main_Runner.AddScore();
         }
-/*        if (collision.gameObject.tag == "crtans")
-        {
-            Destroy(collision.gameObject);
-            B_portalopen = true;
-            G_10.SetActive(true);
-           // Main_runner.OBJ_main_Runner.crtAns();
-        }
-        if (collision.gameObject.tag == "wrgans")
-        {
-            Destroy(collision.gameObject);
-            G_5.SetActive(true);
-           // wrgansout();                                  //destroyeffect
-           // Main_runner.OBJ_main_Runner.wrgAns();
-        }*/
+        /*        if (collision.gameObject.tag == "crtans")
+                {
+                    Destroy(collision.gameObject);
+                    B_portalopen = true;
+                    G_10.SetActive(true);
+                   // Main_runner.OBJ_main_Runner.crtAns();
+                }
+                if (collision.gameObject.tag == "wrgans")
+                {
+                    Destroy(collision.gameObject);
+                    G_5.SetActive(true);
+                   // wrgansout();                                  //destroyeffect
+                   // Main_runner.OBJ_main_Runner.wrgAns();
+                }*/
         if (collision.gameObject.name == "portal")
         {
             G_portal = collision.gameObject;
             G_portal.GetComponent<Animator>().SetInteger("cond", 1);
-                this.gameObject.SetActive(false);
-                Invoke("nextquest", AC_portaldisapears.length);
+            this.gameObject.SetActive(false);
+            Invoke("nextquest", AC_portaldisapears.length);
             AS_Portal.Play();
             // Main_runner.OBJ_main_Runner.portalcloseanim();
             // this.transform.position = startpostion;
         }
     }
+
+
     public void backtostart()
     {
         Destroy(Local_blastanim);
         this.gameObject.SetActive(true);
-      
+
     }
+
 
     public void nextquest()
     {
         Destroy(G_portal);
         RB_Runner_Main.Instance.THI_ShowQuestion();
-       // B_portalopen = false;
+        // B_portalopen = false;
     }
+
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Floor" || collision.gameObject.name == "floating")
@@ -173,24 +209,28 @@ public class Robotmovement : MonoBehaviour
             }
         }
     }
-   /* public void wrgansout()
-    {
-        movementsped = 0;
-        this.GetComponent<Animator>().Play("land");
-        this.gameObject.SetActive(false);
-        Local_blastanim = Instantiate(blast);
-        Local_blastanim.transform.position = this.transform.position;
-       // Main_runner.OBJ_main_Runner.reducelife();
-        B_reducelife = false;
-        Invoke("spawnthere", AC_blast.length);
-    }
-    public void spawnthere()
-    {
-        Destroy(Local_blastanim);
-        this.gameObject.SetActive(true);
-        B_reducelife = true;
-    }*/
-   public void Robot_Out()
+
+
+    /* public void wrgansout()
+     {
+         movementsped = 0;
+         this.GetComponent<Animator>().Play("land");
+         this.gameObject.SetActive(false);
+         Local_blastanim = Instantiate(blast);
+         Local_blastanim.transform.position = this.transform.position;
+        // Main_runner.OBJ_main_Runner.reducelife();
+         B_reducelife = false;
+         Invoke("spawnthere", AC_blast.length);
+     }
+     public void spawnthere()
+     {
+         Destroy(Local_blastanim);
+         this.gameObject.SetActive(true);
+         B_reducelife = true;
+     }*/
+
+
+    public void Robot_Out()
     {
         movementsped = 0;
         this.gameObject.SetActive(false);
@@ -198,10 +238,12 @@ public class Robotmovement : MonoBehaviour
         Local_blastanim = Instantiate(blast);
         Local_blastanim.transform.position = this.transform.position;
 
-       // Main_runner.OBJ_main_Runner.reducelife();
+        // Main_runner.OBJ_main_Runner.reducelife();
         B_reducelife = false;
         Invoke("THI_Outrespawn", AC_blast.length);
     }
+
+
     public void THI_Outrespawn()
     {
         Destroy(Local_blastanim);
@@ -221,27 +263,30 @@ public class Robotmovement : MonoBehaviour
         play.SetActive(true);
 
     }
+
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Floor" || collision.gameObject.name == "floating")
         {
-           // movementsped = 0;
+            // movementsped = 0;
             stopparticle();
             this.GetComponent<Animator>().Play("jump");
             B_canjump = false;
         }
     }
+
     public void THI_respawn()
     {
         Destroy(Local_blastanim);
-        
+
         Vector2 pos = this.transform.position;
-        if(pos!=startpostion)
+        if (pos != startpostion)
         {
-            pos = new Vector2(pos.x - 10, pos.y +10);
+            pos = new Vector2(pos.x - 10, pos.y + 10);
             this.transform.position = pos;
         }
-        
+
         this.gameObject.SetActive(true);
         this.GetComponent<Animator>().Play("land");
 
@@ -250,16 +295,24 @@ public class Robotmovement : MonoBehaviour
         play.SetActive(true);
 
     }
+
+
     public void playparticle()
     {
         smokeeffect.Play();
     }
+
+
     public void stopparticle()
     {
         smokeeffect.Stop();
     }
+
+
     public void starplayparticle()
     {
         stareffect.Play();
     }
+
+
 }

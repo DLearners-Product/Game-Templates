@@ -26,6 +26,9 @@ public class synSwipeControls : MonoBehaviour
 
     public void Update()
     {
+
+        #region swipe input
+
         B_Tap = B_swipeLeft = B_swipeRight = B_swipeUp = B_swipeDown = false;
 
         #region standaloneinput
@@ -35,12 +38,14 @@ public class synSwipeControls : MonoBehaviour
             B_isDragging = true;
             VEC2_StartTouch = Input.mousePosition;
         }
+
         if (Input.GetMouseButtonUp(0))
         {
             B_isDragging = false;
             THI_ResetPosition();
         }
         #endregion
+
         #region mobileinput
         if (Input.touches.Length > 0)
         {
@@ -58,8 +63,6 @@ public class synSwipeControls : MonoBehaviour
         }
         #endregion
 
-
-
         //calculations
         VEC2_SwipeDelta = Vector2.zero;
         if (B_isDragging)
@@ -73,8 +76,6 @@ public class synSwipeControls : MonoBehaviour
                 VEC2_SwipeDelta = (Vector2)Input.mousePosition - VEC2_StartTouch;
             }
         }
-
-
 
         //crossdeadline
         if (VEC2_SwipeDelta.magnitude > 125)
@@ -98,6 +99,9 @@ public class synSwipeControls : MonoBehaviour
                 }
             }
         }
+
+        #endregion
+
     }
 
     public void THI_ResetPosition()

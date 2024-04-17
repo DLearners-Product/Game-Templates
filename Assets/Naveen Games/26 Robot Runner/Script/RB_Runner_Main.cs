@@ -95,8 +95,16 @@ public class RB_Runner_Main : MonoBehaviour
     public AudioClip[] ACA__questionClips;
     public AudioClip[] ACA_optionClips;
     public AudioClip[] ACA_instructionClips;
-    // Start is called before the first frame update
-    // Start is called before the first frame update
+
+
+    [SerializeField] private Sprite[] SPRA_ArrowsWebGL;
+    [SerializeField] private Sprite[] SPRA_ArrowsMobile;
+    [SerializeField] private Image[] IMGA_Up;
+    [SerializeField] private Image[] IMGA_Down;
+    [SerializeField] private GameObject G_PlayerControls;
+
+
+
     private void Awake()
     {
         Instance = this;
@@ -137,7 +145,36 @@ public class RB_Runner_Main : MonoBehaviour
         I_currentQuestionCount = -1;
         I_Dummmy = 0;
         I_Counter = 0;
+
+
+
+        #region----------Platform Checking to set sprites for controls in Demo
+
+        if (MainController.instance.WEB)
+        {
+            G_PlayerControls.SetActive(false);
+
+            IMGA_Up[0].sprite = SPRA_ArrowsWebGL[0];
+            IMGA_Up[1].sprite = SPRA_ArrowsWebGL[0];
+            IMGA_Down[0].sprite = SPRA_ArrowsWebGL[1];
+            IMGA_Down[1].sprite = SPRA_ArrowsWebGL[1];
+        }
+        else if (MainController.instance.MOBILE)
+        {
+            G_PlayerControls.SetActive(true);
+
+            IMGA_Up[0].sprite = SPRA_ArrowsMobile[0];
+            IMGA_Up[1].sprite = SPRA_ArrowsMobile[0];
+            IMGA_Down[0].sprite = SPRA_ArrowsMobile[1];
+            IMGA_Down[1].sprite = SPRA_ArrowsMobile[1];
+        }
+
+        #endregion
+
+
     }
+
+
     private void Update()
     {
         if (!G_Demo.activeInHierarchy && B_CloseDemo)
@@ -147,15 +184,17 @@ public class RB_Runner_Main : MonoBehaviour
         }
 
     }
+
+
     public void THI_Check()
     {
-        if(B_CanClick)
+        if (B_CanClick)
         {
             GameObject G_Selected = EventSystem.current.currentSelectedGameObject;
             STR_currentSelectedAnswer = EventSystem.current.currentSelectedGameObject.GetComponent<TextMeshProUGUI>().text;
 
 
-            if (STR_currentSelectedAnswer==STR_currentQuestionAnswer)
+            if (STR_currentSelectedAnswer == STR_currentQuestionAnswer)
             {
                 G_Selected.GetComponent<AudioSource>().Play();
                 B_CanClick = false;
@@ -164,11 +203,11 @@ public class RB_Runner_Main : MonoBehaviour
             }
             else { THI_Wrong(); }
         }
-       
+
     }
     void THI_gameData()
     {
-         // THI_getPreviewData();
+        // THI_getPreviewData();
         if (MainController.instance.mode == "live")
         {
             StartCoroutine(EN_getValues()); // live game in portal
@@ -185,7 +224,7 @@ public class RB_Runner_Main : MonoBehaviour
     public void DemoOver()
     {
         G_Game.SetActive(true);
-        
+
     }
     void THI_Transition()
     {
@@ -226,10 +265,10 @@ public class RB_Runner_Main : MonoBehaviour
             int Index = Random.Range(0, GA_Question.Length);
             G_currentquestion = Instantiate(GA_Question[Index]);
             G_currentquestion.transform.SetParent(G_QuestionSpawn.transform, false);
-                
-             I_currentQuestionCount++;
-            
-            
+
+            I_currentQuestionCount++;
+
+
             STRA_AnsList = null;
             STR_currentQuestionID = STRL_questionID[I_currentQuestionCount];
             int currentquesCount = I_currentQuestionCount + 1;
@@ -243,19 +282,19 @@ public class RB_Runner_Main : MonoBehaviour
             G_Question.transform.GetChild(0).transform.GetChild(0).GetComponent<AudioSource>().clip = ACA__questionClips[I_currentQuestionCount];
 
             I_Dummmy = I_Counter + IL_numbers[3];
-           
+
             for (int i = 0; i < G_Options.transform.childCount; i++)
             {
                 G_Options.transform.GetChild(i).name = STRL_options[i + I_Counter];
-                G_Options.transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = STRL_options[i+ I_Counter];
+                G_Options.transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = STRL_options[i + I_Counter];
                 G_Options.transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.white;
-                G_Options.transform.GetChild(i).transform.GetChild(0).GetComponent<AudioSource>().clip = ACA_optionClips[i+ I_Counter];
+                G_Options.transform.GetChild(i).transform.GetChild(0).GetComponent<AudioSource>().clip = ACA_optionClips[i + I_Counter];
             }
 
 
-            
+
             I_Counter = I_Counter + IL_numbers[3];
-           
+
             I_wrongAnsCount = 0;
         }
         else
@@ -286,13 +325,13 @@ public class RB_Runner_Main : MonoBehaviour
         // Release bird animation
         THI_TrackGameData("1");
         Invoke(nameof(THI_Transition), 3f);
-       
+
 
     }
 
     IEnumerator Highlight()
     {
-        for(int i=0;i<5;i++)
+        for (int i = 0; i < 5; i++)
         {
             G_Highlight.GetComponent<TextMeshProUGUI>().color = Color.green;
             yield return new WaitForSeconds(0.5f);
@@ -310,9 +349,9 @@ public class RB_Runner_Main : MonoBehaviour
             if (STR_difficulty == "assistive")
             {
                 B_CanClick = false;
-                for (int i=0;i<G_Options.transform.childCount;i++)
+                for (int i = 0; i < G_Options.transform.childCount; i++)
                 {
-                    if(G_Options.transform.GetChild(i).name == STR_currentQuestionAnswer)
+                    if (G_Options.transform.GetChild(i).name == STR_currentQuestionAnswer)
                     {
                         G_Options.transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.green;
                     }
@@ -333,7 +372,7 @@ public class RB_Runner_Main : MonoBehaviour
                     }
                 }
                 StartCoroutine(Highlight());
-               // Invoke(nameof(THI_Transition), 3f);
+                // Invoke(nameof(THI_Transition), 3f);
 
                 //Show answer and after click next question
             }
@@ -358,7 +397,7 @@ public class RB_Runner_Main : MonoBehaviour
     }
     public void THI_Collect_Out(bool plus)
     {
-        
+
         if (plus)
         {
             AS_collecting.Play();
@@ -386,7 +425,7 @@ public class RB_Runner_Main : MonoBehaviour
     }
     public void THI_Wrong()
     {
-       // Debug.Log("Wrong ans");
+        // Debug.Log("Wrong ans");
 
         AS_oops.Play();
         THI_pointFxOn(false);
@@ -394,10 +433,10 @@ public class RB_Runner_Main : MonoBehaviour
         I_wrongAnsCount++;
 
 
-      /*  if (I_wrongAnsCount == 5)
-        {
-            Debug.Log("Restart or use coins");
-        }*/
+        /*  if (I_wrongAnsCount == 5)
+          {
+              Debug.Log("Restart or use coins");
+          }*/
         //REDO the same question
 
         // wrong bird animation
@@ -501,11 +540,11 @@ public class RB_Runner_Main : MonoBehaviour
             I_wrongPoints = IL_numbers[2];
             MainController.instance.I_TotalQuestions = STRL_questions.Count;
 
-            for(int i=0;i<GA_Options.Length;i++)
+            for (int i = 0; i < GA_Options.Length; i++)
             {
                 GA_Options[i].SetActive(false);
             }
-            if(IL_numbers[3]==2)
+            if (IL_numbers[3] == 2)
             {
                 G_Options = GA_Options[0];
             }
@@ -616,7 +655,7 @@ public class RB_Runner_Main : MonoBehaviour
     {
         if (ACA_instructionClips.Length > 0)
         {
-            TEXM_instruction.text= TEXM_instruction2.text= STR_instruction;
+            TEXM_instruction.text = TEXM_instruction2.text = STR_instruction;
             TEXM_instruction.gameObject.AddComponent<AudioSource>();
             TEXM_instruction.gameObject.GetComponent<AudioSource>().playOnAwake = false;
             TEXM_instruction.gameObject.GetComponent<AudioSource>().clip = ACA_instructionClips[0];
@@ -630,7 +669,7 @@ public class RB_Runner_Main : MonoBehaviour
             TEXM_instruction2.gameObject.GetComponent<Button>().onClick.AddListener(THI_playAudio);
         }
 
-       // DemoOver();//remove later
+        // DemoOver();//remove later
         // THI_Transition();
     }
     void THI_playAudio()
@@ -651,7 +690,7 @@ public class RB_Runner_Main : MonoBehaviour
         MainController.instance.I_correctPoints = I_correctPoints = IL_numbers[1];
         I_wrongPoints = IL_numbers[2];
         MainController.instance.I_TotalQuestions = STRL_questions.Count;
-        
+
         for (int i = 0; i < GA_Options.Length; i++)
         {
             GA_Options[i].SetActive(false);
