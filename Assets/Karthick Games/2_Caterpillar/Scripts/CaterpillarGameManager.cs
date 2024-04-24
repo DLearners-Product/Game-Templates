@@ -173,9 +173,8 @@ namespace CaterpillarSortingGame
 
         public void THI_NextQuestion()
         {
-
-
             G_Transition.SetActive(false);
+
             if (I_currentQuestionCount < STRL_questions.Count - 1)
             {
 
@@ -183,12 +182,12 @@ namespace CaterpillarSortingGame
 
 
 
-                // STR_currentQuestionID = STRL_questionID[I_currentQuestionCount];
+                STR_currentQuestionID = STRL_questionID[I_currentQuestionCount];
                 int currentquesCount = I_currentQuestionCount + 1;
                 TEX_questionCount.text = currentquesCount + "/" + STRL_questions.Count;
-                // STR_currentQuestionAnswer = STRL_answers[I_currentQuestionCount];
-                //  G_Question.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = STRL_questions[I_currentQuestionCount];
-                //  G_Question.transform.GetChild(0).GetComponent<AudioSource>().clip = ACA__questionClips[I_currentQuestionCount];
+                STR_currentQuestionAnswer = STRL_answers[I_currentQuestionCount];
+                //   G_Question.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = STRL_questions[I_currentQuestionCount];
+                //   G_Question.transform.GetChild(0).GetComponent<AudioSource>().clip = ACA__questionClips[I_currentQuestionCount];
 
                 for (int i = 0; i < STRL_questions.Count; i++)
                 {
@@ -627,7 +626,7 @@ namespace CaterpillarSortingGame
 
         }
 
-        //################################################################
+        //!end of integration
         //################################################################
         #endregion
 
@@ -657,7 +656,7 @@ namespace CaterpillarSortingGame
         private GameObject _InstantiatedQandA;
 
 
-        //################################################################
+        //!end of unity reference variables
         //################################################################
         #endregion
 
@@ -670,7 +669,7 @@ namespace CaterpillarSortingGame
         private int I_CollectedPoints = 0;
 
 
-        //################################################################
+        //!end of local variables
         //################################################################
         #endregion
 
@@ -703,25 +702,8 @@ namespace CaterpillarSortingGame
         }
 
 
-        // private void PreparingDemo()
-        // {
-        //     //to show its ascending or descending demo
-        //     if (STR_Mode == "asc")
-        //     {
-        //         G_AscInstruction.SetActive(true);
-        //         G_DescInstruction.SetActive(false);
-        //     }
-        //     else if (STR_Mode == "desc")
-        //     {
-        //         G_DescInstruction.SetActive(true);
-        //         G_AscInstruction.SetActive(false);
-        //     }
-        // }
-
-
         public void GameInit()
         {
-            AudioManager.Instance.PlayGameMusic();
             StartCoroutine(IENUM_GameInit());
         }
 
@@ -738,6 +720,7 @@ namespace CaterpillarSortingGame
 
         public void ShowNextQuestion()
         {
+            STR_currentSelectedAnswer = "";
 
             I_CurrentIndex++;
 
@@ -746,6 +729,13 @@ namespace CaterpillarSortingGame
                 THI_Levelcompleted();
                 return;
             }
+
+
+
+            STR_currentQuestionID = STRL_questionID[I_CurrentIndex];
+            int currentquesCount = I_CurrentIndex + 1;
+            TEX_questionCount.text = I_CurrentIndex + "/" + STRL_questions.Count;
+            STR_currentQuestionAnswer = STRL_answers[I_CurrentIndex];
 
             _InstantiatedQandA = Instantiate(G_QandAPrefab, G_QandAPrefab.transform.position, Quaternion.identity, T_QandAParent);
         }
@@ -780,12 +770,6 @@ namespace CaterpillarSortingGame
             THI_TrackGameData("1");
 
             I_Points = I_Points * I_correctPoints;
-            // I_CollectedPoints += I_Points;
-            // TEX_points.text = I_CollectedPoints.ToString();
-            // I_Points = 0;
-
-            // ANIM_ScoreCard.SetTrigger("clicked");
-            // PS_ScoreCard.Play();
             StartCoroutine(IENUM_UpdateScoreCount(delay));
         }
 
@@ -808,7 +792,7 @@ namespace CaterpillarSortingGame
 
 
 
-        //################################################################
+        //!end of gameplay logic
         //################################################################
         #endregion
 

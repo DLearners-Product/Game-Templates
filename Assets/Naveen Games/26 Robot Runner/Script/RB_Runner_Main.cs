@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
+
+
 public class RB_Runner_Main : MonoBehaviour
 {
     public static RB_Runner_Main Instance;
@@ -154,6 +156,7 @@ public class RB_Runner_Main : MonoBehaviour
         {
             G_PlayerControls.SetActive(false);
 
+            //setting images
             IMGA_Up[0].sprite = SPRA_ArrowsWebGL[0];
             IMGA_Up[1].sprite = SPRA_ArrowsWebGL[0];
             IMGA_Down[0].sprite = SPRA_ArrowsWebGL[1];
@@ -163,6 +166,7 @@ public class RB_Runner_Main : MonoBehaviour
         {
             G_PlayerControls.SetActive(true);
 
+            //setting images
             IMGA_Up[0].sprite = SPRA_ArrowsMobile[0];
             IMGA_Up[1].sprite = SPRA_ArrowsMobile[0];
             IMGA_Down[0].sprite = SPRA_ArrowsMobile[1];

@@ -66,8 +66,8 @@ public class MainController : MonoBehaviour
         //  Debug.Log("WEB");
 #endif
 
-        MOBILE = false;
-        WEB = true;
+        // MOBILE = false;
+        // WEB = true;
 
         //if (MOBILE)
         //{
@@ -77,14 +77,14 @@ public class MainController : MonoBehaviour
         //}
         if (WEB)
         {
-            G_GameManager.SetActive(false);
-            G_GameID.SetActive(true);
+            // G_GameManager.SetActive(false);
+            // G_GameID.SetActive(true);
 
 
             // testing
             // STR_childID = "336";
             // mode = "live";
-            mode = "preview";
+            // mode = "preview";
 
             // Live ID's
             // STR_GameID = "1151"; //caterpillar sorting
@@ -92,7 +92,7 @@ public class MainController : MonoBehaviour
             //  STR_GameID = "619"; //fish sorting
             //  STR_GameID = "404"; //fruit ninja
             //  STR_GameID = "322"; //Domino arrange
-            //  STR_GameID = "378"; //robot runner
+            //   STR_GameID = "378"; //robot runner
             //  STR_GameID = "539"; //fish nemo
             //  STR_GameID = "364"; //Cake Baking ,robot runner
             //  STR_GameID = "332"; //Farm harvest ,desert car racing
