@@ -54,6 +54,7 @@ namespace Playground
         public void BUT_Settings()
         {
             G_SettingsWindow.SetActive(true);
+            BUT_GeneralSettings();
             isSettingsWindowActive = true;
             isPauseWindowActive = false;
         }
