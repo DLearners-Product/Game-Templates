@@ -12,6 +12,7 @@ TagManager:
   - Ground
   - TileBody
   - Points
+  - Color
   layers:
   - Default
   - TransparentFX
