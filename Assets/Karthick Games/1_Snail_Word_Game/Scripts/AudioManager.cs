@@ -26,6 +26,7 @@ namespace SnailWordGame
         [SerializeField] private AudioClip AC_Yummy;
         [SerializeField] private AudioClip AC_CoinChime;
         [SerializeField] private AudioClip[] ACA_LetterVO;
+        [SerializeField] private AudioClip AC_CoinSpawn;
 
 
         public void PlayIntroMusic()
@@ -87,6 +88,17 @@ namespace SnailWordGame
         public void PlayLetterVO(int index)
         {
             AS_Voice.PlayOneShot(ACA_LetterVO[index]);
+        }
+
+        public void PlayWordVO(AudioClip clip)
+        {
+            AS_Voice.clip = clip;
+            AS_Voice.PlayDelayed(1.5f);
+        }
+
+        public void PlayCoinSpawn()
+        {
+            AS_SFX.PlayOneShot(AC_CoinSpawn);
         }
 
 

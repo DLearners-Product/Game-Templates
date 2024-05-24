@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace CaterpillarSortingGame
+namespace SnailWordGame
 {
 
     public class CoinController : MonoBehaviour

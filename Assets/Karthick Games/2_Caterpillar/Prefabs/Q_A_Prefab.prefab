@@ -25446,7 +25446,7 @@ MonoBehaviour:
   - {fileID: 6470254551194503702}
   - {fileID: 6470254552078316897}
   - {fileID: 6470254552016269920}
-  G_CoinPrefab: {fileID: 1478791923259374987, guid: 57da17a5988c47d49a0fc5c732362cfd, type: 3}
+  G_CoinPrefab: {fileID: 7812052980583936471, guid: 8b52e3cc194895d4ba9ff7d9b76caf62, type: 3}
 --- !u!1 &6470254551289415435
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,8 +66,8 @@ public class MainController : MonoBehaviour
         //  Debug.Log("WEB");
 #endif
 
-        // MOBILE = false;
-        // WEB = true;
+        MOBILE = false;
+        WEB = true;
 
         //if (MOBILE)
         //{
@@ -77,16 +77,17 @@ public class MainController : MonoBehaviour
         //}
         if (WEB)
         {
-            // G_GameManager.SetActive(false);
-            // G_GameID.SetActive(true);
+            G_GameManager.SetActive(false);
+            G_GameID.SetActive(true);
 
 
             // testing
-            // STR_childID = "336";
-            // mode = "live";
+            STR_childID = "336";
+            mode = "live";
             // mode = "preview";
 
             // Live ID's
+            STR_GameID = "1155"; //snail word game
             // STR_GameID = "1151"; //caterpillar sorting
             // STR_GameID = "537"; //train sorting
             //  STR_GameID = "619"; //fish sorting

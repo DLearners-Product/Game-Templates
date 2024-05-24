@@ -1,41 +1,46 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinController : MonoBehaviour
+
+namespace CaterpillarSortingGame
 {
 
-    [SerializeField] private Transform T_Points;
-
-    private float elapsedTime = 0f, desiredDuration = 1.5f;
-
-
-    void Start()
+    public class CoinController : MonoBehaviour
     {
-        T_Points = GameObject.FindGameObjectWithTag("Points")?.transform;
-        StartCoroutine(IENUM_LerpMoveTile(transform.position, T_Points.position));
-    }
+
+        private Transform T_Points;
+
+        private float elapsedTime = 0f, desiredDuration = 1.5f;
 
 
-
-    IEnumerator IENUM_LerpMoveTile(Vector3 currentPosition, Vector3 newPosition)
-    {
-        yield return new WaitForSeconds(2f);
-
-        while (elapsedTime < desiredDuration)
+        void Start()
         {
-            elapsedTime += Time.deltaTime;
-            float percentageComplete = elapsedTime / desiredDuration;
-
-            transform.position = Vector3.Lerp(currentPosition, newPosition, percentageComplete);
-            yield return null;
+            AudioManager.Instance.PlayCoinSpawn();
+            T_Points = GameObject.FindGameObjectWithTag("Points").transform;
+            StartCoroutine(IENUM_LerpMoveTile(transform.position, T_Points.GetChild(0).GetChild(1).position));
         }
 
-        //resetting elapsed time back to zero
-        elapsedTime = 0f;
+
+        IEnumerator IENUM_LerpMoveTile(Vector3 currentPosition, Vector3 newPosition)
+        {
+            yield return new WaitForSeconds(2f);
+
+            while (elapsedTime < desiredDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float percentageComplete = elapsedTime / desiredDuration;
+
+                transform.position = Vector3.Lerp(currentPosition, newPosition, percentageComplete);
+                yield return null;
+            }
+
+            //resetting elapsed time back to zero
+            elapsedTime = 0f;
+
+            T_Points.GetComponent<Animator>().SetTrigger("clicked");
+            T_Points.GetComponentInChildren<ParticleSystem>().Play();
+        }
+
     }
-
-
-
 
 }

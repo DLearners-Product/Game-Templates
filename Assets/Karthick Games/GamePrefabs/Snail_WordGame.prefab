@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0c9449054984347a95f7970888e58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  B_production: 0
+  B_production: 1
   G_Game: {fileID: 2379731618819169768}
   G_Demo: {fileID: 0}
   G_Transition: {fileID: 2379731620211151498}
@@ -26598,6 +26598,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a9dfd5c5e6effb049ae34550907f62f6, type: 3}
   - {fileID: 8300000, guid: 9fc24a41c42ede94eb28116a531d5ceb, type: 3}
   - {fileID: 8300000, guid: 82acaedd2522cd44198daeb04eaf6313, type: 3}
+  AC_CoinSpawn: {fileID: 8300000, guid: 24b35f9a7886b61418e74c20e268ca1f, type: 3}
 --- !u!1 &2379731619381234475
 GameObject:
   m_ObjectHideFlags: 0
@@ -50704,100 +50705,91 @@ MonoBehaviour:
   I_TotalQuestions: 0
   I_correctPoints: 0
   mode: 
-  STR_previewJsonAPI: '{     "q_a": [         {             "question_id": 1,            
-    "answer": "ape",             "question": "ape",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/selectpanda.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "a",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "p",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"                
-    }             ]         },         {             "question_id": 2,            
-    "answer": "be",             "question": "be",             "question_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/select84.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "b",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/48.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/b4.mp3"                
-    }             ]         },         {             "question_id": 3,            
-    "answer": "cee",             "question": "cee",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/whatistheoppositeofstrong.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "c",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/weak.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/wak.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/waek.mp3"                
-    }             ]         },         {             "question_id": 4,            
-    "answer": "dee",             "question": "dee",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/whatistheoppositeofsit.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "d",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/stand.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/stand.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/satnd.mp3"                
-    }             ]         },         {             "question_id": 5,            
-    "answer": "eee",             "question": "eee",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/whatisthesumof5and9.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/13.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/14.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/15.mp3"                
-    }             ]         },         {             "question_id": 6,            
-    "answer": "fff",             "question": "fff",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/whatisthestartingletterofbandit.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "f",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/b.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "f",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/d.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "f",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/8.mp3"                
-    }             ]         },         {             "question_id": 7,            
-    "answer": "mango",             "question": "mango",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/whatisthe3alphabetofexcuses.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "m",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/u.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "a",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/x.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "n",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/c.mp3"                
-    },                 {                     "option_id": 4,                    
-    "option": "g",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/c.mp3"                
-    },                 {                     "option_id": 5,                    
-    "option": "o",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/c.mp3"                
-    }             ]         },         {             "question_id": 8,            
-    "answer": "jk",             "question": "jk",             "question_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/solve82.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "j",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/5.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "k",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/6.mp3"                
-    }             ]         },         {             "question_id": 9,            
-    "answer": "sad",             "question": "sad",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/whatistheantonymofhappy.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "s",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/bad.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "a",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/sad.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "d",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/lad.mp3"                
-    }             ]         },         {             "question_id": 10,            
-    "answer": "ten",             "question": "ten",             "question_voice":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/__udy.mp3",            
-    "options": [                 {                     "option_id": 1,                    
-    "option": "t",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/st.mp3"                
-    },                 {                     "option_id": 2,                    
-    "option": "e",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/sf.mp3"                
-    },                 {                     "option_id": 3,                    
-    "option": "n",                     "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/sg.mp3"                
-    }             ]         }     ],     "correct_points": "1",     "wrong_points":
-    "1",     "video": "",     "instruction": "Game Instruction",     "instruction_audio":
-    "https://dlearners.in/template_and_games/instruction_audio.mp3",     "bg_image":
-    "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/bg.png",    
-    "difficulty_level": "1",     "customization": {},     "child_name": "Child name
-    here",     "child_standard": "std here",     "lesson_name": "Lesson name here",    
+  STR_previewJsonAPI: '{    "q_a": [       {          "question_id": 1,         
+    "answer": "ape",          "question": "ape",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "a",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"            
+    },             {                "option_id": 2,                "option": "p",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/panda.mp3"            
+    },             {                "option_id": 3,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/banda.mp3"            
+    }          ]       },       {          "question_id": 2,          "answer": "be",         
+    "question": "be",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "b",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/48.mp3"            
+    },             {                "option_id": 2,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/b4.mp3"            
+    }          ]       },       {          "question_id": 3,          "answer": "cee",         
+    "question": "cee",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "c",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/weak.mp3"            
+    },             {                "option_id": 2,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/wak.mp3"            
+    },             {                "option_id": 3,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/waek.mp3"            
+    }          ]       },       {          "question_id": 4,          "answer": "dee",         
+    "question": "dee",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "d",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/stand.mp3"            
+    },             {                "option_id": 2,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/stand.mp3"            
+    },             {                "option_id": 3,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/satnd.mp3"            
+    }          ]       },       {          "question_id": 5,          "answer": "eee",         
+    "question": "eee",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "e",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/13.mp3"            
+    },             {                "option_id": 2,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/14.mp3"            
+    },             {                "option_id": 3,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/15.mp3"            
+    }          ]       },       {          "question_id": 6,          "answer": "fff",         
+    "question": "fff",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "f",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/b.mp3"            
+    },             {                "option_id": 2,                "option": "f",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/d.mp3"            
+    },             {                "option_id": 3,                "option": "f",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/8.mp3"            
+    }          ]       },       {          "question_id": 7,          "answer": "mango",         
+    "question": "mango",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "m",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/u.mp3"            
+    },             {                "option_id": 2,                "option": "a",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/x.mp3"            
+    },             {                "option_id": 3,                "option": "n",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/c.mp3"            
+    },             {                "option_id": 4,                "option": "g",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/c.mp3"            
+    },             {                "option_id": 5,                "option": "o",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/c.mp3"            
+    }          ]       },       {          "question_id": 8,          "answer": "jk",         
+    "question": "jk",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "j",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/5.mp3"            
+    },             {                "option_id": 2,                "option": "k",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/6.mp3"            
+    }          ]       },       {          "question_id": 9,          "answer": "sad",         
+    "question": "sad",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "s",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/bad.mp3"            
+    },             {                "option_id": 2,                "option": "a",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/sad.mp3"            
+    },             {                "option_id": 3,                "option": "d",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/lad.mp3"            
+    }          ]       },       {          "question_id": 10,          "answer":
+    "ten",          "question": "ten",          "question_voice": "https://dlearners.in/template_and_games/instruction_audio.mp3",         
+    "options": [             {                "option_id": 1,                "option":
+    "t",                "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/st.mp3"            
+    },             {                "option_id": 2,                "option": "e",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/sf.mp3"            
+    },             {                "option_id": 3,                "option": "n",               
+    "option_voice": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/preview/audio/sg.mp3"            
+    }          ]       }    ],    "correct_points": "1",    "wrong_points": "1",   
+    "video": "",    "instruction": "Game Instruction",    "instruction_audio": "https://dlearners.in/template_and_games/instruction_audio.mp3",   
+    "bg_image": "https://dlearners.in/template_and_games/Template_Uploader/TemplateHub/DL_bird/bg.png",   
+    "difficulty_level": "1",    "customization": {},    "child_name": "Child name
+    here",    "child_standard": "std here",    "lesson_name": "Lesson name here",   
     "game_cover_img": null }'
   I_loadTime: 0
 --- !u!1 &2379731619914212264
@@ -69405,6 +69397,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fface8b9bb98f4f90b72ada8ced7f979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AS_Voice: {fileID: 0}
+  ACA_VOWebGL: []
+  ACA_VOMobile: []
+  ACA_VOHelp: {fileID: 0}
+  TXT_Controls: {fileID: 0}
+  STR_TextWebGL: 
+  STR_TextMobile: 
   AC_demo: {fileID: 7400000, guid: 2b36ac9e922cdf543a084cb6358e41e6, type: 2}
 --- !u!1 &2379731620584287942
 GameObject:
@@ -92385,7 +92384,7 @@ GameObject:
   - component: {fileID: 7813730443264111251}
   - component: {fileID: 7813730443264111253}
   m_Layer: 5
-  m_Name: Coin
+  m_Name: 3DCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

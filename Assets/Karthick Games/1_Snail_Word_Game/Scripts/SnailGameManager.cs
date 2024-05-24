@@ -185,6 +185,7 @@ public class SnailGameManager : MonoBehaviour
 
 
     private int I_CollectedPoints = 0;
+    private int I_FormedWordIndex = -1;
 
 
     #endregion
@@ -512,6 +513,17 @@ public class SnailGameManager : MonoBehaviour
 
             if (wordList.Contains(SB_WordFormed.ToString()))
             {
+                //play formed word VO
+                for (int i = 0; i < STRL_answers.Count; i++)
+                {
+                    if (SB_WordFormed.ToString().Equals(STRL_answers[i]))
+                    {
+                        I_FormedWordIndex = i;
+                        break;
+                    }
+                }
+                SnailWordGame.AudioManager.Instance.PlayWordVO(ACA__questionClips[I_FormedWordIndex]);
+
                 StartCoroutine(IENUM_LerpColor(IMG_ButtonBG, IMG_ButtonBG.color, CLR_ButtonCorrect));
                 IMG_ButtonBG.GetComponent<Animator>().SetTrigger("active");
             }
