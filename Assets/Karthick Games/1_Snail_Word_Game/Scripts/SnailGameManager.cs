@@ -262,43 +262,10 @@ public class SnailGameManager : MonoBehaviour
         CalculateGridLength();
         GridSizeCalculator(gridLength);
         GenerateGrid(cellPrefab);
+        TEXM_instruction.text = STR_instruction;
 
         G_WordListParticleEffect.SetActive(true);
     }
-
-
-    /*
-        private void Update()
-        {
-                     if (!G_Demo.activeInHierarchy && B_CloseDemo)
-                    {
-                        B_CloseDemo = false;
-                        DemoOver();
-                    }
-
-                    if (Input.GetMouseButton(0))
-                    {
-                        Vector2 worldpoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        RaycastHit2D Hit = Physics2D.Raycast(worldpoint, Vector2.zero);
-
-                        if (Hit.collider != null)
-                        {
-                            G_Selected = Hit.collider.gameObject;
-
-                            THI_Words();
-                            // G_Selected.GetComponent<Collider2D>().enabled = false;
-                        }
-                    }
-                    if (Input.GetMouseButtonUp(0))
-                    {
-                        THI_End();
-                    }
-                    if (BG_Move)
-                    {
-                        G_BG.transform.Translate(Vector3.down * 2f * Time.deltaTime);
-                    } 
-        }
-        */
 
 
 
@@ -315,16 +282,21 @@ public class SnailGameManager : MonoBehaviour
 
     private void PrepareWordList()
     {
-        //fetching questions list to local list
+        //fetching questions list to local list and also adding audio to word list
         for (int i = 0; i < TXTA_Words.Length; i++)
         {
             wordList.Add(STRL_questions[i]);
+            // wordList.Sort();
+
+            TXTA_Words[i].GetComponent<AudioSource>().clip = ACA__questionClips[i];
         }
 
         //appending input words to string builder
         for (int i = 0; i < TXTA_Words.Length; i++)
         {
+            //setting text to word list
             TXTA_Words[i].text = wordList[i];
+            
             SB_TotalWords.Append(wordList[i]);
         }
     }
