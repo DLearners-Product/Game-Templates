@@ -11,6 +11,7 @@ namespace SnailWordGame
 
         [SerializeField] private GameObject G_Intro;
         [SerializeField] private GameObject G_Game;
+        [SerializeField] private GameObject G_Demo;
 
 
         [SerializeField] private ParticleSystem PS_Effects;
@@ -62,6 +63,7 @@ namespace SnailWordGame
         private void DisableAnimator()
         {
             G_Game.GetComponent<Animator>().enabled = false;
+            G_Demo.SetActive(true);
         }
 
     }

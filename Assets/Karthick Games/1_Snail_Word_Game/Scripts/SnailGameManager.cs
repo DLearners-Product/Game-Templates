@@ -148,6 +148,7 @@ public class SnailGameManager : MonoBehaviour
     [SerializeField] private GameObject G_WinWindow;
     [SerializeField] private GameObject G_Coin;
     [SerializeField] private GameObject G_WordListParticleEffect;
+    [SerializeField] private GameObject G_AudioPanel;
 
 
     [Space(10)]
@@ -186,6 +187,7 @@ public class SnailGameManager : MonoBehaviour
 
     private int I_CollectedPoints = 0;
     private int I_FormedWordIndex = -1;
+    private bool B_IsAudioPanelActive = false;
 
 
     #endregion
@@ -286,18 +288,17 @@ public class SnailGameManager : MonoBehaviour
         for (int i = 0; i < TXTA_Words.Length; i++)
         {
             wordList.Add(STRL_questions[i]);
-            // wordList.Sort();
-
             TXTA_Words[i].GetComponent<AudioSource>().clip = ACA__questionClips[i];
         }
 
         //appending input words to string builder
         for (int i = 0; i < TXTA_Words.Length; i++)
         {
-            //setting text to word list
+            //setting words text to word list
             TXTA_Words[i].text = wordList[i];
-            
-            SB_TotalWords.Append(wordList[i]);
+
+            //SB_TotalWords.Append(wordList[i]);
+            SB_WordFormed.Append(wordList[i]);
         }
     }
 
@@ -346,19 +347,39 @@ public class SnailGameManager : MonoBehaviour
         GA_GridBGCategory[I_GridCategory].SetActive(true);
 
         //appending remaining characters to total words string builder
-        remainingCharsNeeded = (rows * columns) - SB_TotalWords.Length;
+        remainingCharsNeeded = (rows * columns) - SB_WordFormed.Length;
+
+        Debug.Log("new wordlist---------");
         for (int i = 0; i < remainingCharsNeeded; i++)
         {
-            SB_TotalWords.Append(GetRandomLetter());
+            wordList.Add(GetRandomLetter());
+            Debug.Log(wordList[i]);
         }
 
-        //and shuffling i
-        shuffledChars = Shuffle(SB_TotalWords.ToString());
+
+
+        //and shuffling i##############################################
+        // shuffledChars = Shuffle(SB_TotalWords.ToString());
+
+
+
+        //without shuffling############################################
+        wordList.Sort();
+
+        for (int i = 0; i < wordList.Count; i++)
+        {
+            SB_TotalWords.Append(wordList[i]);
+        }
+
+        char[] charArray = (SB_TotalWords.ToString()).ToCharArray();
+        shuffledChars = new List<char>(charArray);
     }
 
 
     public void GenerateGrid(GameObject cellPrefab)
     {
+        SB_WordFormed.Clear();
+
         // Initialize the gridCells array
         gridCells = new GameObject[rows, columns];
         gridParent.position = TA_New_GridCategory[I_GridCategory].position;
@@ -617,7 +638,7 @@ public class SnailGameManager : MonoBehaviour
 
         ANIM_ScoreCard.SetTrigger("clicked");
         PS_ScoreCard.Play();
-        SnailWordGame.AudioManager.Instance.PlayCoinChime();
+        // SnailWordGame.AudioManager.Instance.PlayCoinChime();
     }
 
 
@@ -683,6 +704,21 @@ public class SnailGameManager : MonoBehaviour
         G_Scroll.SetActive(false);
         //after destroying all tiles
         ShowGameOverPanel();
+    }
+
+
+    public void BUT_AudioPanel()
+    {
+        if (B_IsAudioPanelActive)
+        {
+            G_AudioPanel.SetActive(false);
+            B_IsAudioPanelActive = false;
+        }
+        else
+        {
+            G_AudioPanel.SetActive(true);
+            B_IsAudioPanelActive = true;
+        }
     }
 
 

@@ -52,6 +52,13 @@ namespace DLearners
         [SerializeField] private Slider SL_Voice;
 
         [Space(10)]
+        [Header("PARTICLES---------------------------------------------------------")]
+        [SerializeField] private ParticleSystem PS_Music;
+        [SerializeField] private ParticleSystem PS_SFX;
+        [SerializeField] private ParticleSystem PS_Voice;
+
+
+        [Space(10)]
         [Header("GRADIENT---------------------------------------------------------")]
         [SerializeField] private Gradient GR_Slider;
 
@@ -112,6 +119,10 @@ namespace DLearners
 
             UpdateColor(value, IMG_Music, IMG_FillMusic);
             UpdateVolume(value, AS_Music);
+
+
+            Color color = GR_Slider.Evaluate(value);
+            PS_Music.startColor = color;
         }
 
 
@@ -128,6 +139,9 @@ namespace DLearners
 
             UpdateColor(SL_SFX.value, IMG_SFX, IMG_FillSFX);
             UpdateVolume(value, AS_SFX);
+
+            Color color = GR_Slider.Evaluate(value);
+            PS_SFX.startColor = color;
         }
 
 
@@ -144,6 +158,9 @@ namespace DLearners
 
             UpdateColor(SL_Voice.value, IMG_Voice, IMG_FillVoice);
             UpdateVolume(value, AS_Voice);
+
+            Color color = GR_Slider.Evaluate(value);
+            PS_Voice.startColor = color;
         }
 
 
