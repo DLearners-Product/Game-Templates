@@ -85,11 +85,12 @@ G_nextButtonWeb.SetActive(false);
 
     public void BUT_replayWeb() // mobile or web gl
     {
+        ActivityDataManager.Instance.SaveAllActivitiesJSON();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void BUT_replayMob() // mobile or web gl
     {
-       // StartCoroutine(VAKT_controller.instance.EN_loadBundle());
+        // StartCoroutine(VAKT_controller.instance.EN_loadBundle());
     }
 
 
@@ -98,8 +99,8 @@ G_nextButtonWeb.SetActive(false);
     {
         // VAKT_controller.instance.GA_pages[5].SetActive(true);
         Screen.orientation = ScreenOrientation.Portrait;
-      //  VAKT_controller.instance.BUT_gameLWSintroBack();
-      //  Destroy(VAKT_controller.instance.G_currentActivity);
+        //  VAKT_controller.instance.BUT_gameLWSintroBack();
+        //  Destroy(VAKT_controller.instance.G_currentActivity);
     }
 
 

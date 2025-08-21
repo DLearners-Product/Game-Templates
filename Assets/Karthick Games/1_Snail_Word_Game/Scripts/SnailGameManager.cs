@@ -11,6 +11,10 @@ using UnityEngine.SceneManagement;
 
 public class SnailGameManager : MonoBehaviour
 {
+
+    public string activityName;
+
+
     [Header("==========Integration variables==========")]
 
     #region ---------------------------------------integration---------------------------------------
@@ -192,6 +196,11 @@ public class SnailGameManager : MonoBehaviour
 
     #endregion
 
+
+
+    private string _question = "Form words by clicking on the letters";
+    private string _answer;
+    private int _attempts = 1;
 
 
 
@@ -465,7 +474,8 @@ public class SnailGameManager : MonoBehaviour
         UpdateFormedWord();
     }
 
-    public void RemoveLetter()
+    public void RemoveLetter() => StartCoroutine(IENUM_RemoveLetter());
+    IEnumerator IENUM_RemoveLetter()
     {
         // Disable interactivity for the last clicked letter
         if (lastClickedLetter != null)
@@ -482,6 +492,7 @@ public class SnailGameManager : MonoBehaviour
         {
             lastClickedLetter = wordStack[wordStack.Count - 1];
             lastClickedLetter.GetComponentInChildren<Button>().interactable = true;
+            yield return new WaitForSeconds(0.2f); // Small delay to ensure UI updates
         }
         else
         {
@@ -560,6 +571,11 @@ public class SnailGameManager : MonoBehaviour
         //*success
         if (wordList.Contains(SB_WordFormed.ToString()))
         {
+            //?scoring
+            OnOptionClick(activityName, _question, SB_WordFormed.ToString(), true, _attempts);
+            _attempts = 1;
+
+
             Invoke(nameof(UpdateScore), 3.3f);
 
             PS_TotalGridParticleEffect.Play();
@@ -604,6 +620,10 @@ public class SnailGameManager : MonoBehaviour
                 //word is not in the list
                 ANIM_ToastMessages[1].SetTrigger("active");
                 // Invoke(nameof(UpdateScore), 2.5f);
+
+                //?scoring
+                OnOptionClick(activityName, _question, SB_WordFormed.ToString(), false, _attempts);
+                _attempts++;
             }
 
             SnailWordGame.AudioManager.Instance.PlayWrong();
@@ -1209,5 +1229,20 @@ public class SnailGameManager : MonoBehaviour
 
 
     #endregion
+
+
+    public void OnOptionClick(string activityName, string questionText, string selectedOption, bool isCorrect, int attempts)
+    {
+        ActivityDataManager.Instance.RecordAnswer(activityName, questionText, selectedOption, isCorrect, attempts);
+        Debug.Log(
+            "activity name : " + activityName + "\n" +
+            "question : " + questionText + "\n" +
+            "answer : " + selectedOption + "\n" +
+            "is correct : " + isCorrect + "\n" +
+            "attempts : " + attempts
+        );
+
+        ActivityDataManager.Instance.SaveToLocalWebStorage();
+    }
 
 }

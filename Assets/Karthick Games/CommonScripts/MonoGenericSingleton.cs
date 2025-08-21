@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
+public class MonoGenericSingleton<T> : MonoBehaviour where T : MonoGenericSingleton<T>
 {
     private static T instance;
 

@@ -82,12 +82,12 @@ public class MainController : MonoBehaviour
 
 
             // testing
-            STR_childID = "336";
-            mode = "live";
-            // mode = "preview";
+            // STR_childID = "336";
+            // mode = "live";
+            mode = "preview";
 
             // Live ID's
-            STR_GameID = "1155"; //snail word game
+            // STR_GameID = "1155"; //snail word game
             // STR_GameID = "1151"; //caterpillar sorting
             // STR_GameID = "537"; //train sorting
             //  STR_GameID = "619"; //fish sorting

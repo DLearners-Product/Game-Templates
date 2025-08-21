@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CaterpillarSortingGame
 {
 
-    public class AudioManager : GenericSingleton<AudioManager>
+    public class AudioManager : MonoGenericSingleton<AudioManager>
     {
 
         [SerializeField] private AudioSource AS_SFX;
