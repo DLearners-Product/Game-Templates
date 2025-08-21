@@ -68,24 +68,69 @@ namespace CaterpillarSortingGame
 
         private void PrepareQuestions()
         {
-            //fetching questions and options and assigning them to local list for easy q and a manipulation
+            // //fetching questions and options and assigning them to local list for easy q and a manipulation
+            // for (int i = REF_CaterpillarGameManager.I_FirstIndex; i <= REF_CaterpillarGameManager.I_LastIndex; i++)
+            // {
+            //     GA_Questions.Add(REF_CaterpillarGameManager.STRL_options[i]);
+            //     GA_SortedQuestions.Add(REF_CaterpillarGameManager.STRL_options[i]);
+            // }
+
+            // // Print the original list
+            // Debug.Log("Original Questions: " + string.Join(", ", GA_Questions));
+
+            // //sorting options based on the mdoe
+            // if (REF_CaterpillarGameManager.STR_Mode == "asc")
+            // {
+            //     //ascending order
+            //     GA_SortedQuestions.Sort();
+            // }
+            // else if (REF_CaterpillarGameManager.STR_Mode == "desc")
+            // {
+            //     //descending order
+            //     GA_SortedQuestions.Sort((a, b) => b.CompareTo(a));
+            // }
+
+            // // Print the sorted list
+            // Debug.Log("Sorted Questions: " + string.Join(", ", GA_SortedQuestions));
+
+
+
+
+
+
+
+
+
+
+
+            // Clear the lists before adding new elements
+            GA_Questions.Clear();
+            GA_SortedQuestions.Clear();
+
+            // Fetching questions and options and assigning them to local list for easy q and a manipulation
             for (int i = REF_CaterpillarGameManager.I_FirstIndex; i <= REF_CaterpillarGameManager.I_LastIndex; i++)
             {
                 GA_Questions.Add(REF_CaterpillarGameManager.STRL_options[i]);
                 GA_SortedQuestions.Add(REF_CaterpillarGameManager.STRL_options[i]);
             }
 
-            //sorting options based on the mdoe
+            // Print the original list
+            // Debug.Log("Original Questions: " + string.Join(", ", GA_Questions));
+
+            // Sorting options based on the mode
             if (REF_CaterpillarGameManager.STR_Mode == "asc")
             {
-                //ascending order
-                GA_SortedQuestions.Sort();
+                // Ascending order
+                GA_SortedQuestions.Sort((a, b) => int.Parse(a).CompareTo(int.Parse(b)));
             }
             else if (REF_CaterpillarGameManager.STR_Mode == "desc")
             {
-                //descending order
-                GA_SortedQuestions.Sort((a, b) => b.CompareTo(a));
+                // Descending order
+                GA_SortedQuestions.Sort((a, b) => int.Parse(b).CompareTo(int.Parse(a)));
             }
+
+            // Print the sorted list
+            // Debug.Log("Sorted Questions: " + string.Join(", ", GA_SortedQuestions));
         }
 
 
@@ -94,6 +139,7 @@ namespace CaterpillarSortingGame
             for (int i = 0; i < GA_Slots.Length; i++)
             {
                 GA_Slots[i].name = GA_SortedQuestions[i].ToString();
+                Debug.Log(GA_SortedQuestions[i].ToString());
             }
         }
 
@@ -104,6 +150,7 @@ namespace CaterpillarSortingGame
             {
                 GA_Draggables[i].name = GA_Questions[i].ToString();
                 GA_Draggables[i].transform.GetChild(0).GetComponent<Text>().text = GA_Questions[i].ToString();
+                GA_Draggables[i].GetComponent<MouseClickAudio>().clip = REF_CaterpillarGameManager.ACA_optionClips[REF_CaterpillarGameManager.I_AudioClipIndex++];
             }
         }
 

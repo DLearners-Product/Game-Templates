@@ -113,6 +113,7 @@ namespace CaterpillarSortingGame
 
         public List<string> STRL_Passagedetails = new List<string>();
         public string STR_Mode;
+        public int I_AudioClipIndex;
 
         private void Awake()
         {
@@ -699,6 +700,7 @@ namespace CaterpillarSortingGame
             #endregion
 
             I_CurrentIndex = -1;
+            I_AudioClipIndex = 0;
         }
 
 

@@ -123,13 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< Updated upstream
 --- !u!1001 &2120459382
+=======
+--- !u!1001 &1182265314
+>>>>>>> Stashed changes
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+<<<<<<< Updated upstream
     - target: {fileID: 8375503545734049213, guid: 30991e6c75bdeec42bf819792425993a, type: 3}
       propertyPath: m_Name
       value: Snail_WordGame_Test
@@ -175,8 +180,59 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8375503545734049214, guid: 30991e6c75bdeec42bf819792425993a, type: 3}
+=======
+    - target: {fileID: 3043464004007941569, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_Name
+      value: Caterpillar_SortingGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3043464004007941570, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+>>>>>>> Stashed changes
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+<<<<<<< Updated upstream
   m_SourcePrefab: {fileID: 100100000, guid: 30991e6c75bdeec42bf819792425993a, type: 3}
+=======
+  m_SourcePrefab: {fileID: 100100000, guid: 0d62b88c1f3dfcc4bba863234c612a32, type: 3}
+>>>>>>> Stashed changes

@@ -24,6 +24,18 @@ namespace CaterpillarSortingGame
         [SerializeField] private AudioClip AC_CoinCollect;
 
 
+        public void PlayVoice(AudioClip clip)
+        {
+            AS_Voice.PlayOneShot(clip);
+        }
+
+
+        public void StopVoice()
+        {
+            AS_Voice.Stop();
+        }
+
+
         public void PlayIntroMusic()
         {
             AS_Music.PlayOneShot(AC_IntroMusic);

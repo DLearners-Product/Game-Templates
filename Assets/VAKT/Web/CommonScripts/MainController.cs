@@ -87,8 +87,14 @@ public class MainController : MonoBehaviour
             mode = "preview";
 
             // Live ID's
+<<<<<<< Updated upstream
             // STR_GameID = "1155"; //snail word game
             // STR_GameID = "1151"; //caterpillar sorting
+=======
+            // STR_GameID = "915"; //product sorting
+            // STR_GameID = "1155"; //snail word game
+            // STR_GameID = "1161"; //caterpillar sorting
+>>>>>>> Stashed changes
             // STR_GameID = "537"; //train sorting
             //  STR_GameID = "619"; //fish sorting
             //  STR_GameID = "404"; //fruit ninja
