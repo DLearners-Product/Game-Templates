@@ -78,7 +78,7 @@ TextureImporter:
       213: 2631608148536176932
     second: desert-car-assets_26
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -95,10 +95,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -137,6 +139,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -148,6 +152,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -160,6 +165,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -172,6 +178,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -184,6 +191,20 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -703,9 +724,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      desert-car-assets_0: -4441464504170706814
+      desert-car-assets_1: 6942176346995862301
+      desert-car-assets_10: -920455278778152683
+      desert-car-assets_11: -1610977312081290273
+      desert-car-assets_12: 740702314858705605
+      desert-car-assets_13: 5563014179979422853
+      desert-car-assets_14: 7849583506881662630
+      desert-car-assets_16: 622065033765180427
+      desert-car-assets_17: 6145202386551718712
+      desert-car-assets_18: -685285961636215717
+      desert-car-assets_19: 609008902066347620
+      desert-car-assets_2: -8908866847357991820
+      desert-car-assets_20: 8303703441326180470
+      desert-car-assets_21: -8160769861537218939
+      desert-car-assets_22: 2514740521333366308
+      desert-car-assets_23: 5996705337681096037
+      desert-car-assets_24: -3479326502775161069
+      desert-car-assets_25: 8247033940831844402
+      desert-car-assets_26: 2631608148536176932
+      desert-car-assets_3: -7083157977935610952
+      desert-car-assets_4: -4032354164802009301
+      desert-car-assets_5: -4919451173822495611
+      desert-car-assets_6: -6630295935952293156
+      desert-car-assets_8: 8622971563573264886
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

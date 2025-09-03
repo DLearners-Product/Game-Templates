@@ -75,7 +75,7 @@ TextureImporter:
       213: 2386817858278645152
     second: POP_character-anim_1_23
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -92,10 +92,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -134,6 +136,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -145,6 +149,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -157,6 +162,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -169,6 +175,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -181,6 +188,20 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -700,9 +721,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      POP_character-anim_1_0: -8247484999143694647
+      POP_character-anim_1_1: -5232972300142642888
+      POP_character-anim_1_10: -261122225929359144
+      POP_character-anim_1_11: -8032059286884294255
+      POP_character-anim_1_12: -6124551413626030246
+      POP_character-anim_1_13: -7625427513699925858
+      POP_character-anim_1_14: 1512772880094605773
+      POP_character-anim_1_15: -7439373608553908661
+      POP_character-anim_1_16: -8535065800178351608
+      POP_character-anim_1_17: -3643689657669856755
+      POP_character-anim_1_18: -1955722875934998727
+      POP_character-anim_1_19: 5839644857930569025
+      POP_character-anim_1_2: 6468601059821833160
+      POP_character-anim_1_20: -6591653850153422412
+      POP_character-anim_1_21: -1349163056236150178
+      POP_character-anim_1_22: 6679223401282416412
+      POP_character-anim_1_23: 2386817858278645152
+      POP_character-anim_1_3: -5252096723501977471
+      POP_character-anim_1_4: -8864404224725140457
+      POP_character-anim_1_5: 72181310680390543
+      POP_character-anim_1_6: -5337352828175511485
+      POP_character-anim_1_7: 3434757330831077154
+      POP_character-anim_1_8: 6524387942507264500
+      POP_character-anim_1_9: 1189404232931081132
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

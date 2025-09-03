@@ -243,7 +243,7 @@ TextureImporter:
       213: 5302783103083018562
     second: UIa_39
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -260,10 +260,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -302,6 +304,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -313,6 +317,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -325,6 +330,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -337,6 +343,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -349,6 +356,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -361,6 +369,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -1216,9 +1225,49 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      UIa_0: 492137425702488720
+      UIa_1: 6690839782543596811
+      UIa_10: 3309536684124553956
+      UIa_11: -3765501611677824632
+      UIa_12: -1155932569665189287
+      UIa_13: -7641258095283059502
+      UIa_14: 6569492658595999878
+      UIa_15: -1396432778023107259
+      UIa_16: -2322395522466885820
+      UIa_17: -3360828437313977172
+      UIa_18: -966933787578081959
+      UIa_19: -1099120563691676323
+      UIa_2: 8711120525009520642
+      UIa_20: -7231348696610137809
+      UIa_21: -8501262777864334643
+      UIa_22: -1247950180253968951
+      UIa_23: -8102050484181273123
+      UIa_24: 1374469368534244893
+      UIa_25: -888611482682581814
+      UIa_26: -3902378879451688573
+      UIa_27: 1877636913898085665
+      UIa_28: 3556447698229754387
+      UIa_29: 2736164325205533526
+      UIa_3: 1150499605249153449
+      UIa_30: -3488782575641971405
+      UIa_31: 3849241482555560491
+      UIa_32: 2591013545590534179
+      UIa_33: 8388798515026446208
+      UIa_34: -1872556066692968865
+      UIa_35: 4373306503130079630
+      UIa_36: -2003030963836921262
+      UIa_37: 7311939782036851659
+      UIa_38: -8257463398074355128
+      UIa_39: 5302783103083018562
+      UIa_4: -3239989621486573153
+      UIa_5: -2987570249915115694
+      UIa_6: 2267962053762362000
+      UIa_7: 6648325126414957364
+      UIa_8: 8230158979748190156
+      UIa_9: -7307478472964378568
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

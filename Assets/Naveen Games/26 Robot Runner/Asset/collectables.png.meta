@@ -90,7 +90,7 @@ TextureImporter:
       213: -4992968366347288491
     second: collectables_28
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -107,10 +107,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -149,6 +151,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -160,6 +164,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -172,6 +177,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -184,6 +190,7 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -196,6 +203,20 @@ TextureImporter:
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -820,9 +841,38 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      collectables_0: -6615089610050904962
+      collectables_1: 7959480486015715714
+      collectables_10: 4659060049570452798
+      collectables_11: -335578958377002208
+      collectables_12: 8128349164444170575
+      collectables_13: 8332934934437569624
+      collectables_14: -1912676261981813637
+      collectables_15: 848850305129935404
+      collectables_16: 4588764903223761189
+      collectables_17: -1434073753393971827
+      collectables_18: -4304178829583841977
+      collectables_19: 5048527106903338465
+      collectables_2: 1092457237715133839
+      collectables_20: -1286039330491345150
+      collectables_21: 1486390426108855534
+      collectables_22: 4147747757663307680
+      collectables_23: 4132638691074192522
+      collectables_24: -1573694640209967679
+      collectables_25: -752862098117146091
+      collectables_26: 998017872220216727
+      collectables_27: 6684341283188611465
+      collectables_28: -4992968366347288491
+      collectables_3: -5486405149821055287
+      collectables_4: 2425130503657854962
+      collectables_5: -6445159702379040788
+      collectables_6: 3272140356150752757
+      collectables_7: 8957925608611243989
+      collectables_8: -6413868397041396868
+      collectables_9: 3792214668977659270
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

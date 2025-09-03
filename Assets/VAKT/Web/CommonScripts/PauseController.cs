@@ -58,8 +58,9 @@ public class PauseController : MonoBehaviour
     public void BUT_dashboard()
     {
 #if UNITY_ANDROID || UNITY_IOS
-Screen.orientation = ScreenOrientation.Portrait;
-Destroy(VAKT_controller.instance.G_currentActivity);
+//Screen.orientation = ScreenOrientation.Portrait;
+        //Destroy(VAKT_controller.instance.G_currentActivity);
+        Application.Quit();
 #elif UNITY_WEBGL
         Application.ExternalEval("closeApplication()");
 #endif
