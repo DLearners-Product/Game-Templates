@@ -25,7 +25,7 @@ public class DemoController_N : MonoBehaviour
 
     private void Start()
     {
-        SetAudio();
+        //SetAudio();
 
         GetComponent<Animator>().speed = 0;
         B_CallOnce = true;

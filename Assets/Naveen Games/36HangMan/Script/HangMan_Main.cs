@@ -115,8 +115,8 @@ public class HangMan_Main : MonoBehaviour
     void Start()
     {
         B_CloseDemo = true;
-           V3_Positions = new Vector3[G_BodyParts.Length];
-        for (int i=0;i<G_BodyParts.Length;i++)
+        V3_Positions = new Vector3[G_BodyParts.Length];
+        for (int i = 0; i < G_BodyParts.Length; i++)
         {
             V3_Positions[i] = G_BodyParts[i].transform.position;
             G_BodyParts[i].GetComponent<Rigidbody2D>().gravityScale = 0f;
@@ -168,7 +168,7 @@ public class HangMan_Main : MonoBehaviour
     public void THI_Transition()
     {
         G_Transition.SetActive(true);
-        
+
         //   if(I_currentQuestionCount != -1)
         //  {
 
@@ -185,9 +185,9 @@ public class HangMan_Main : MonoBehaviour
 
     void THI_OffTransition()
     {
-       
+
         G_Transition.SetActive(false);
-       // THI_NextQuestion();
+        // THI_NextQuestion();
         /* if (I_currentQuestionCount == -1) 
          { 
              THI_NextQuestion(); 
@@ -200,7 +200,7 @@ public class HangMan_Main : MonoBehaviour
 
 
     }
-   
+
     void InvokeQaudio()
     {
         G_Speaker.GetComponent<AudioSource>().Play();
@@ -217,38 +217,46 @@ public class HangMan_Main : MonoBehaviour
             STR_currentQuestionAnswer = STRL_answers[I_currentQuestionCount];
             G_Speaker.GetComponent<AudioSource>().clip = ACA__questionClips[I_currentQuestionCount];
 
-            TEXM_instruction_2.GetComponent<AudioSource>().Play();
-            Invoke(nameof(InvokeQaudio), TEXM_instruction_2.GetComponent<AudioSource>().clip.length);
-           // Debug.Log("Ans =" + STR_currentQuestionAnswer);
+            if (I_currentQuestionCount == 0)
+            {
+                TEXM_instruction_2.GetComponent<AudioSource>().Play();
+                Invoke(nameof(InvokeQaudio), TEXM_instruction_2.GetComponent<AudioSource>().clip.length);
+            }
+            else
+            {
+                Invoke(nameof(InvokeQaudio), 1.25f);
+            }
+
+            // Debug.Log("Ans =" + STR_currentQuestionAnswer);
             string[] Answer_Char = STR_currentQuestionAnswer.Split(' ');
 
 
-            string[] New__=new string[Answer_Char.Length];
-          //  Debug.Log("Ans =" + New__[0]);
+            string[] New__ = new string[Answer_Char.Length];
+            //  Debug.Log("Ans =" + New__[0]);
 
-            for (int i=0;i<Answer_Char.Length;i++)
-           {
-                for(int k=0;k<Answer_Char[i].Length;k++)
+            for (int i = 0; i < Answer_Char.Length; i++)
+            {
+                for (int k = 0; k < Answer_Char[i].Length; k++)
                 {
                     New__[i] = New__[i] + "_";
-                    
-                   // Debug.Log("Changing =" + New__[i]);
+
+                    // Debug.Log("Changing =" + New__[i]);
                 }
-           }
+            }
 
-            
 
-           for(int i=0;i< New__.Length;i++)
-           {
+
+            for (int i = 0; i < New__.Length; i++)
+            {
                 if (i == 0) { Dummy = New__[i]; }
-               // else { Dummy =  + " " + New__[i]; }
-                
-           }
-           // Debug.Log("Final =" + Dummy);
+                // else { Dummy =  + " " + New__[i]; }
+
+            }
+            // Debug.Log("Final =" + Dummy);
 
             G_Answer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Dummy;
 
-            for(int i=0;i<G_Keys.transform.childCount;i++)
+            for (int i = 0; i < G_Keys.transform.childCount; i++)
             {
                 G_Keys.transform.GetChild(i).GetComponent<Image>().sprite = SPR_Normal;
                 G_Keys.transform.GetChild(i).GetComponent<Button>().enabled = true;
@@ -256,13 +264,14 @@ public class HangMan_Main : MonoBehaviour
                 G_Keys.transform.GetChild(i).gameObject.SetActive(true);
             }
 
-           /* for (int i = 0; i < G_BodyParts.Length; i++)
-            {
-               // G_BodyParts[i].GetComponent<Rigidbody2D>().gravityScale = 0f;
-                G_BodyParts[i].transform.position = V3_Positions[i];
-            }*/
+            /* for (int i = 0; i < G_BodyParts.Length; i++)
+             {
+                // G_BodyParts[i].GetComponent<Rigidbody2D>().gravityScale = 0f;
+                 G_BodyParts[i].transform.position = V3_Positions[i];
+             }*/
             G_Answer.GetComponent<Animator>().Play("NewState");
             G_Answer.GetComponent<Animator>().enabled = false;
+
         }
         else
         {
@@ -291,9 +300,9 @@ public class HangMan_Main : MonoBehaviour
             var V_Words = STR_currentQuestionAnswer.ToCharArray();
             var chararacter = char.Parse(G_Selected.name);
 
-            for (int i=0;i<V_Words.Length;i++)
+            for (int i = 0; i < V_Words.Length; i++)
             {
-                if(V_Words[i]== chararacter)
+                if (V_Words[i] == chararacter)
                 {
                     seperatechar[i] = chararacter;
                 }
@@ -326,23 +335,23 @@ public class HangMan_Main : MonoBehaviour
             I_Points += 2;
             THI_pointScoreFxOn(true);
 
-            if (Dummy==STR_currentQuestionAnswer)
+            if (Dummy == STR_currentQuestionAnswer)
             {
                 G_Answer.GetComponent<Animator>().enabled = true;
                 G_Answer.GetComponent<Animator>().Play("Correct_Answer");
-                for(int i=0;i<G_Keys.transform.childCount;i++)
+                for (int i = 0; i < G_Keys.transform.childCount; i++)
                 {
                     G_Keys.transform.GetChild(i).GetComponent<Button>().enabled = false;
                 }
                 I_Points += I_correctPoints;
                 THI_pointFxOn(true);
                 // G_Speaker.GetComponent<AudioSource>().Play();
-                Invoke(nameof(THI_Transition),5f);
+                Invoke(nameof(THI_Transition), 5f);
             }
 
-            
+
             TEX_points.text = I_Points.ToString();
-            
+
         }
         else
         {
@@ -376,7 +385,7 @@ public class HangMan_Main : MonoBehaviour
                 TM_pointFx.text = "+2 point";
             }
         }
-       
+
         Invoke("THI_pointFxOff", 1f);
     }
 
@@ -389,27 +398,27 @@ public class HangMan_Main : MonoBehaviour
         THI_TrackGameData("0");
         I_wrongAnsCount++;
         G_BodyParts[I_wrongAnsCount - 1].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        G_BodyParts[I_wrongAnsCount-1].GetComponent<Rigidbody2D>().gravityScale = 1f;
+        G_BodyParts[I_wrongAnsCount - 1].GetComponent<Rigidbody2D>().gravityScale = 1f;
         AS_falling.Play();
-        if (I_wrongAnsCount==7)
+        if (I_wrongAnsCount == 7)
         {
-           // Debug.Log("Out Off Live");
-           
-                if (STR_difficulty == "assistive")
+            // Debug.Log("Out Off Live");
+
+            if (STR_difficulty == "assistive")
+            {
+                G_Answer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = STR_currentQuestionAnswer;
+                for (int i = 0; i < G_Keys.transform.childCount; i++)
                 {
-                    G_Answer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =STR_currentQuestionAnswer;
-                    for(int i=0;i<G_Keys.transform.childCount;i++)
-                    {
-                        G_Keys.transform.GetChild(i).gameObject.SetActive(false);
-                       // G_Keys.transform.GetChild(i).GetComponent<Button>().enabled = false;
-                       // G_Keys.transform.GetChild(i).GetComponent<Button>().interactable = false;
-                    }
-                    Invoke("THI_Transition", 5f);
-                    //next question
+                    G_Keys.transform.GetChild(i).gameObject.SetActive(false);
+                    // G_Keys.transform.GetChild(i).GetComponent<Button>().enabled = false;
+                    // G_Keys.transform.GetChild(i).GetComponent<Button>().interactable = false;
                 }
-            
+                Invoke("THI_Transition", 5f);
+                //next question
+            }
+
         }
-       
+
         if (I_Points > I_wrongPoints)
         {
             I_Points -= I_wrongPoints;
@@ -568,7 +577,7 @@ public class HangMan_Main : MonoBehaviour
         }
         THI_assignAudioClips();
 
-       // THI_OffDemo();
+        // THI_OffDemo();
     }
 
     void THI_assignAudioClips()
@@ -586,10 +595,10 @@ public class HangMan_Main : MonoBehaviour
             TEXM_instruction_2.gameObject.AddComponent<AudioSource>();
             TEXM_instruction_2.gameObject.GetComponent<AudioSource>().playOnAwake = false;
             TEXM_instruction_2.gameObject.GetComponent<AudioSource>().clip = ACA_instructionClips[0];
-           // TEXM_instruction_2.gameObject.AddComponent<Button>();
-           // TEXM_instruction_2.gameObject.GetComponent<Button>().onClick.AddListener(THI_playAudio);
+            // TEXM_instruction_2.gameObject.AddComponent<Button>();
+            // TEXM_instruction_2.gameObject.GetComponent<Button>().onClick.AddListener(THI_playAudio);
         }
-       
+
     }
     void THI_playAudio()
     {
